@@ -1,7 +1,7 @@
 # Web Service Development for Mobile Health App
 
 ## Overview
-As part of the ongoing development of the **Mobile Health App for Skin and Medical Image Analysis**, the focus has now shifted to setting up the **backend web service** that will handle key functionalities such as **user registration**, **login**, and **image uploads** (both for skin images and medical images like MRI or CT scans). This web service is essential for handling all data exchange between the mobile frontend and the server.
+As part of the ongoing development of the **Mobile Health App for Skin and Medical Image Analysis**, the focus now is on setting up the **backend web service** that will handle key functionalities such as **user registration**, **login**, and **image uploads** (both for skin images and medical images like MRI or CT scans). This web service is essential for handling all data exchange between the mobile frontend and the server.
 
 Below is a summary of what has been accomplished in terms of building the web service, including the setup of APIs for authentication and image processing.
 
