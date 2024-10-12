@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "WIy3mrZBATr3CfLqqBjXX9CcHwE8QeZ6LSg8bJKxiww=",
+  "Source": "DND1",
+  "BasePath": "_content/DND1",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "DND1\\wwwroot",
+      "Source": "DND1",
+      "ContentRoot": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\wwwroot\\",
+      "BasePath": "_content/DND1",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

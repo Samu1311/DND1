@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\DND1.props" />
+</Project>
