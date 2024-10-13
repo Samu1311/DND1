@@ -11,7 +11,7 @@ Below is a summary of what has been accomplished in terms of building the web se
 
 ### 1. **User Authentication (Registration & Login)**
 
-To allow users to securely interact with the app and its features, I have implemented user authentication functionalities using **ASP.NET Core Web API**. These include:
+To allow users to securely interact with the app and its features, we have implemented user authentication functionalities using **ASP.NET Core Web API**. These include:
 
 - **User Registration API**:
   - Users can register by providing their email, full name, and password.
@@ -70,7 +70,7 @@ For now, the system stores the uploaded images and metadata in the server’s fi
 
 ### Next Steps
 - **Implementing the Image Analysis Functionality**:
-  - I will be working on integrating image processing libraries that can analyze the uploaded images and detect changes in moles, lesions, or areas of interest in MRI or CT scans.
+  - We will be working on integrating image processing libraries that can analyze the uploaded images and detect changes in moles, lesions, or areas of interest in MRI or CT scans.
   
 - **Data Privacy and Security**:
   - Focus will be on enhancing the security of the image upload process, including encryption of the image files and ensuring secure transmission of sensitive data.
