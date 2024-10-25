@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2E7cdEsmmjo=",
+  "dgSpecHash": "bwy8xpiGm/Y=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\DND1.csproj",
+  "projectFilePath": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\WebServiceAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Samuele Biondi\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.10\\microsoft.aspnetcore.authentication.jwtbearer.8.0.10.nupkg.sha512",
     "C:\\Users\\Samuele Biondi\\.nuget\\packages\\microsoft.bcl.timeprovider\\8.0.1\\microsoft.bcl.timeprovider.8.0.1.nupkg.sha512",

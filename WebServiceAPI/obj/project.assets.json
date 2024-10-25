@@ -788,11 +788,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\DND1.csproj",
-      "projectName": "DND1",
-      "projectPath": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\DND1.csproj",
+      "projectUniqueName": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\WebServiceAPI.csproj",
+      "projectName": "WebServiceAPI",
+      "projectPath": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\WebServiceAPI.csproj",
       "packagesPath": "C:\\Users\\Samuele Biondi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\obj\\",
+      "outputPath": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Samuele Biondi\\AppData\\Roaming\\NuGet\\NuGet.Config"
