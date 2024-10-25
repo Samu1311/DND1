@@ -8,6 +8,5 @@ VIA University College - DND1 Course Project
 - **Ana Vieira** - [@anavieira26](https://github.com/anavieira26)
 
 ## Project Blog Entries
-- [Project Formulation & Requirements](./Project_Formulation_and_Requirements.md)
-- [Web Service API - Initial development](./
-
+- [Project Formulation & Requirements](./HandIns/Project_Formulation_and_Requirements.md)
+- [Web Service API - Initial development](./HandIns/Web_service.md)
