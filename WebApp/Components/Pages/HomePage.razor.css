@@ -1,0 +1,18 @@
+h1 {
+    text-align: center;
+    color: #0044cc;
+}
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+}
+
+.feature {
+    text-align: center;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 30%;
+}

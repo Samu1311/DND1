@@ -1,0 +1,18 @@
+h1[b-3t6snr9bk7] {
+    text-align: center;
+    color: #0044cc;
+}
+
+.features[b-3t6snr9bk7] {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+}
+
+.feature[b-3t6snr9bk7] {
+    text-align: center;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 30%;
+}

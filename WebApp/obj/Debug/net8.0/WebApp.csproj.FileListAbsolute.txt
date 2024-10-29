@@ -28,3 +28,4 @@ C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\WebApp.pdb
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\WebApp.genruntimeconfig.cache
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\ref\WebApp.dll
+C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\scopedcss\Components\Pages\HomePage.razor.rz.scp.css

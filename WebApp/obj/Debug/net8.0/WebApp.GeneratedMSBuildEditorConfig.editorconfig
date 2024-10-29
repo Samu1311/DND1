@@ -30,10 +30,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/Home.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/Weather.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXZWF0aGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -53,3 +49,7 @@ build_metadata.AdditionalFiles.CssScope = b-pui3qmsk44
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-cfr3pjxbop
+
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/HomePage.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lUGFnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-3t6snr9bk7
