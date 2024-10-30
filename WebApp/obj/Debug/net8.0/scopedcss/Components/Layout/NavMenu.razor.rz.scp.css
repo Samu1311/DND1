@@ -2,10 +2,6 @@
     background-color: #00408500 !important;
 }
 
-.navbar[b-cfr3pjxbop] {
-    bo
-}
-
 .navbar-toggler[b-cfr3pjxbop] {
     background-color: rgba(255, 255, 255, 0.1);
     border: none;
@@ -26,7 +22,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
     width: 100%;
-    transition: 0.3s ease;
+    transition: all 1.5s ease-in-out;
 }
 
 .nav-item[b-cfr3pjxbop]  a {
@@ -62,30 +58,23 @@
     }
 }
 
-/* Mobile View */
+/* Mobile-specific styling */
 @media (max-width: 767px) {
     .nav-scrollable[b-cfr3pjxbop] {
         height: 100vh;
+        max-height: 100vh;
         position: fixed;
         width: 80%;
         max-width: 300px;
         left: 0;
         top: 0;
         padding-top: 3rem;
-        background-color: #00406b;
         transform: translateX(-100%);
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease-out, max-height 0.4s ease-out;
     }
 
     .nav-scrollable.show[b-cfr3pjxbop] {
         transform: translateX(0);
-    }
-
-    .nav-link[b-cfr3pjxbop] {
-        padding: 1rem;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        font-size: 1.2rem;
+        max-height: 100vh;
     }
 }
