@@ -1,6 +1,7 @@
 h1[b-3t6snr9bk7] {
     text-align: center;
     color: #0044cc;
+    font-weight: bold;
 }
 
 .features[b-3t6snr9bk7] {
@@ -15,4 +16,10 @@ h1[b-3t6snr9bk7] {
     border: 1px solid #ddd;
     border-radius: 8px;
     width: 30%;
+}
+
+p[b-3t6snr9bk7] {
+    font-size: 22px;
+    margin-top: 2%;
+    color: #333;
 }
