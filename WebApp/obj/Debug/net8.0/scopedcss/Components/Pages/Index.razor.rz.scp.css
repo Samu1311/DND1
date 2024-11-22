@@ -1,0 +1,143 @@
+/* General Reset */
+*[b-btq1sgozkw] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Top Navigation Bar */
+.app-title[b-btq1sgozkw] {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Search Bar */
+.search-bar[b-btq1sgozkw] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 16px;
+    background-color: #f0f0f0;
+    margin-top: 10px;
+}
+
+.search-bar input[type="text"][b-btq1sgozkw] {
+    width: 85%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 1rem;
+}
+
+/* Feature Icons Grid */
+.custom-grid[b-btq1sgozkw] {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); /* 8 equal-width columns */
+    grid-template-rows: repeat(8, 1fr); /* 8 equal-height rows */
+    gap: 10px;
+    width: 400px;
+    height: 400px;
+    margin: 20px auto; /* Center the grid */
+}
+
+/* Grid Item Styling */
+.grid-item[b-btq1sgozkw] {
+    display: flex; /* Enable Flexbox */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    text-align: center; /* Ensure text or inline elements are centered */
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    height: 100%;
+    position: relative; /* For proper layout */
+    img {
+        object-fit: contain; /* Ensure the image retains its aspect ratio */
+        margin: auto; /* Reset margins to ensure no offset */
+        width: 60%; /* 50% of the grid item width */
+    }
+}
+
+/* Hover Effect */
+.grid-item:hover[b-btq1sgozkw] {
+    transform: scale(1.05); /* Slightly enlarge the grid item on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+}
+
+/* Individual Item Sizes and Colors */
+.blue[b-btq1sgozkw] {
+    background-color: #e0f7fa;
+    grid-column: 1 / span 4; /* Span 4 columns */
+    grid-row: 1 / span 4; /* Span 4 rows */
+}
+
+.yellow[b-btq1sgozkw] {
+    background-color: #f7ea5d;
+    grid-column: 5 / span 4; /* Span 4 columns */
+    grid-row: 1 / span 3; /* Span 3 rows */
+}
+
+.green[b-btq1sgozkw] {
+    background-color: #e8f5e9;
+    grid-column: 5 / span 4; /* Span 4 columns */
+    grid-row: 4 / span 3; /* Span 3 rows */
+}
+
+.red[b-btq1sgozkw] {
+    background-color: #ff5252;
+    grid-column: 1 / span 4; /* Span 4 columns */
+    grid-row: 5 / span 2; /* Span 2 rows */
+    img {
+        width: 30%;
+    }
+}
+
+/* Optional: Image Hover Effect */
+.grid-item:hover .custom-img[b-btq1sgozkw] {
+    transform: scale(1.08); /* Slightly enlarge the image */
+}
+
+/* Emergency Call Button */
+.emergency-call[b-btq1sgozkw] {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.emergency-button[b-btq1sgozkw] {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 14px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav[b-btq1sgozkw] {
+    display: flex;
+    justify-content: space-around;
+    background-color: #004085;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-button[b-btq1sgozkw] {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}

@@ -1,0 +1,58 @@
+@page "/health-overview"
+@inject IJSRuntime JSRuntime
+
+<div class="health-overview-page">
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>Health Overview</h1>
+        <p>Track and monitor your essential health data</p>
+    </header>
+
+    <!-- Health Metrics Section -->
+    <section class="health-metrics">
+        <div class="metric-card heart-rate">
+            <h3>Heart Rate</h3>
+            <p class="metric-value">72 bpm</p>
+            <p class="metric-desc">Normal</p>
+        </div>
+        <div class="metric-card blood-pressure">
+            <h3>Blood Pressure</h3>
+            <p class="metric-value">120/80</p>
+            <p class="metric-desc">Normal</p>
+        </div>
+        <div class="metric-card weight">
+            <h3>Weight</h3>
+            <p class="metric-value">70 kg</p>
+            <p class="metric-desc">Healthy</p>
+        </div>
+        <div class="metric-card blood-type">
+            <h3>Blood Type</h3>
+            <p class="metric-value">O+</p>
+            <p class="metric-desc">Universal Donor</p>
+        </div>
+    </section>
+
+    <!-- Graphs Section -->
+    <section class="health-graphs">
+        <div class="graph-card">
+            <h3>Heart Rate Trend</h3>
+            <canvas id="heartRateChart"></canvas>
+        </div>
+        <div class="graph-card">
+            <h3>Weight Progress</h3>
+            <canvas id="weightChart"></canvas>
+        </div>
+    </section>
+</div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("renderHeartRateChart", "heartRateChart");
+            await JSRuntime.InvokeVoidAsync("renderWeightChart", "weightChart");
+        }
+    }
+}
+

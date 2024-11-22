@@ -1,10 +1,21 @@
 using WebApp.Components;
+using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// Configure Blazorise
+builder.Services.AddBlazorise(options =>
+{
+    options.Immediate = true; // Immediate rendering of components
+})
+.AddBootstrapProviders() // Use Bootstrap as the CSS framework
+.AddFontAwesomeIcons();  // Enable FontAwesome icons
 
 var app = builder.Build();
 
@@ -17,7 +28,6 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
 app.UseAntiforgery();
 

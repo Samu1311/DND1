@@ -5,8 +5,12 @@
       "PackagePath": "staticwebassets\\WebApp.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\app.css",
-      "PackagePath": "staticwebassets\\app.css"
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\CSS\\app.css",
+      "PackagePath": "staticwebassets\\CSS\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\Js\\health-overview.js",
+      "PackagePath": "staticwebassets\\Js\\health-overview.js"
     },
     {
       "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\bootstrap\\bootstrap.min.css",
@@ -17,12 +21,20 @@
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\favicon.png",
-      "PackagePath": "staticwebassets\\favicon.png"
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\emergency-call-icon.png",
+      "PackagePath": "staticwebassets\\images\\emergency-call-icon.png"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\favicon.png",
+      "PackagePath": "staticwebassets\\images\\favicon.png"
     },
     {
       "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\health-alert-icon.png",
       "PackagePath": "staticwebassets\\images\\health-alert-icon.png"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\health-graph-icon.png",
+      "PackagePath": "staticwebassets\\images\\health-graph-icon.png"
     },
     {
       "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\medical-image-icon.png",

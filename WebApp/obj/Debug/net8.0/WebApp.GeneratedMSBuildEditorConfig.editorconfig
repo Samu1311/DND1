@@ -22,8 +22,20 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/Alerts.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBbGVydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/Error.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/ImageAnalysis.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbWFnZUFuYWx5c2lzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/MoleTracking.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNb2xlVHJhY2tpbmcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Routes.razor]
@@ -42,6 +54,14 @@ build_metadata.AdditionalFiles.CssScope = b-pui3qmsk44
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-cfr3pjxbop
 
-[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/HomePage.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lUGFnZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = b-3t6snr9bk7
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/HealthOverview.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIZWFsdGhPdmVydmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-p8minxtp4l
+
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbmRleC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-btq1sgozkw
+
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xfSG9zdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

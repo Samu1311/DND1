@@ -1,0 +1,111 @@
+/* General Reset */
+*[b-p8minxtp4l] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Health Overview Page Styling */
+.health-overview-page[b-p8minxtp4l] {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Page Header */
+.page-header[b-p8minxtp4l] {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.page-header h1[b-p8minxtp4l] {
+    font-size: 2rem;
+    color: #004085;
+}
+
+.page-header p[b-p8minxtp4l] {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Health Metrics Section */
+.health-metrics[b-p8minxtp4l] {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.metric-card[b-p8minxtp4l] {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metric-card:hover[b-p8minxtp4l] {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.metric-card h3[b-p8minxtp4l] {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.metric-card .metric-value[b-p8minxtp4l] {
+    font-size: 1.8rem;
+    color: #004085;
+    font-weight: bold;
+}
+
+.metric-card .metric-desc[b-p8minxtp4l] {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* Health Graphs Section */
+.health-graphs[b-p8minxtp4l] {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.graph-card[b-p8minxtp4l] {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.graph-card h3[b-p8minxtp4l] {
+    font-size: 1.2rem;
+    color: #004085;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+canvas[b-p8minxtp4l] {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-header h1[b-p8minxtp4l] {
+        font-size: 1.5rem;
+    }
+
+    .page-header p[b-p8minxtp4l] {
+        font-size: 0.9rem;
+    }
+
+    .metric-card .metric-value[b-p8minxtp4l] {
+        font-size: 1.5rem;
+    }
+}

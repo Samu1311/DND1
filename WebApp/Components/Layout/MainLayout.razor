@@ -1,26 +1,22 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <header class="navbar">
-        <NavMenu />
-    </header>
-    
+<PageTitle>Mobile Health App</PageTitle>
+
+<div class="app-container">
+    <!-- Navbar -->
+    <NavMenu />
+
+    <!-- Main Content -->
     <main>
-        <article class="content px-4">
-            @Body
-        </article>
+        @Body
     </main>
+
+    <!-- Footer -->
+    <footer class="footer bg-light text-center py-3">
+        <p>&copy; 2024 Mobile Health App</p>
+    </footer>
 </div>
 
-<div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
-</div>
-
-<script>
-    document.querySelector('.navbar-toggler').addEventListener('click', function () {
-        const sidebar = document.querySelector('#navbarContent');
-        sidebar.classList.toggle('show');
-    });
-</script>
+@code {
+    // Add any layout-specific logic here
+}

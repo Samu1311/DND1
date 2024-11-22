@@ -6,4 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Blazorise" Version="1.7.0" />
+    <PackageReference Include="Blazorise.Bootstrap" Version="1.7.0" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.7.0" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,21 @@
+@page "/mole-tracking"
+
+<h2>Mole Tracking</h2>
+<p>Upload images of your moles or lesions and track their changes over time.</p>
+
+<InputFile OnChange="HandleFileSelected" />
+@if (imagePath != null)
+{
+    <img src="@imagePath" alt="Uploaded Mole" style="max-width: 100%; margin-top: 1rem;" />
+}
+
+@code {
+    private string? imagePath;
+
+    private void HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        imagePath = $"data:image/png;base64,{Convert.ToBase64String(new byte[file.Size])}";
+        // Replace with file upload logic
+    }
+}

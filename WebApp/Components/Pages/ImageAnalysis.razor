@@ -1,0 +1,23 @@
+@page "/image-analysis"
+
+<h2>Medical Image Analysis</h2>
+<p>Upload MRI or CT scans to get AI-powered insights.</p>
+
+<InputFile OnChange="HandleMedicalImage" />
+@if (analysisResult != null)
+{
+    <h3>Analysis Result</h3>
+    <pre>@analysisResult</pre>
+}
+
+@code {
+    private string? analysisResult;
+
+    private async Task HandleMedicalImage(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        // Simulate an AI analysis call
+        await Task.Delay(1000);
+        analysisResult = "Highlighted regions detected in the scan.";
+    }
+}

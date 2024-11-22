@@ -1,0 +1,60 @@
+﻿@page "/"
+@using Blazorise
+
+<!-- Search Bar -->
+<Field Class="search-bar">
+    <FieldBody>
+        <Control Expanded>
+            <Input Placeholder="What are you looking for?" />
+        </Control>
+        <Control>
+            <Button Color="Color.Primary" Icon="IconName.Search" />
+        </Control>
+    </FieldBody>
+</Field>
+
+<!-- Feature Icons Grid -->
+<div class="custom-grid">
+    <div class="grid-item blue">
+        <Link To="/health-overview">
+            <Image Src="images/health-graph-icon.png" Alt="Health Overview" />
+        </Link>
+    </div>
+    <div class="grid-item yellow">
+        <Link To="/mole-tracking">
+            <Image Src="images/mole-icon.png" Alt="Mole Tracking" Class="custom-img" />
+        </Link>
+    </div>
+    <div class="grid-item green">
+        <Link To="/image-analysis">
+            <Image Src="images/medical-image-icon.png" Alt="Image Analysis" Class="custom-img" />
+        </Link>
+    </div>
+    <div class="grid-item red">
+        <Link To="/alerts">
+            <Image Src="images/health-alert-icon.png" Alt="Alerts" Class="custom-img" />
+        </Link>
+    </div>
+</div>
+
+<!-- Emergency Call Button -->
+<Section Class="emergency-call">
+    <Button Color="Color.Danger" Class="emergency-button" Icon="IconName.TelephoneFill">
+        Emergency Call
+    </Button>
+</Section>
+
+<!-- Bottom Navigation Bar -->
+<Bar Background="Background.Light" Class="bottom-nav">
+    <BarItems>
+        <BarItem>
+            <Button Class="nav-button" Color="Color.Light" Icon="IconName.PlusSquare" />
+        </BarItem>
+        <BarItem>
+            <Button Class="nav-button" Color="Color.Light" Icon="IconName.House" />
+        </BarItem>
+        <BarItem>
+            <Button Class="nav-button" Color="Color.Light" Icon="IconName.Person" />
+        </BarItem>
+    </BarItems>
+</Bar>
