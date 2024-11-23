@@ -48,6 +48,27 @@
           "buildMultiTargeting/Blazorise.Bootstrap.props": {}
         }
       },
+      "Blazorise.Bootstrap5/1.7.0": {
+        "type": "package",
+        "dependencies": {
+          "Blazorise": "1.7.0",
+          "Microsoft.AspNetCore.Components": "8.0.11",
+          "Microsoft.AspNetCore.Components.Web": "8.0.11",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.2"
+        },
+        "compile": {
+          "lib/net8.0/Blazorise.Bootstrap5.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/Blazorise.Bootstrap5.dll": {}
+        },
+        "build": {
+          "buildTransitive/Blazorise.Bootstrap5.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Blazorise.Bootstrap5.props": {}
+        }
+      },
       "Blazorise.Icons.FontAwesome/1.7.0": {
         "type": "package",
         "dependencies": {
@@ -377,6 +398,32 @@
         "lib/net9.0/Blazorise.Bootstrap.dll",
         "staticwebassets/blazorise.bootstrap.css",
         "staticwebassets/blazorise.bootstrap.min.css",
+        "staticwebassets/modal.js",
+        "staticwebassets/tooltip.js"
+      ]
+    },
+    "Blazorise.Bootstrap5/1.7.0": {
+      "sha512": "g3X66fpDSzO4/3Ms5LYrJuRrUm0lTsSpHN6h2LcKyiiBnQnBhRtV78kGTUEM50Ed7kzJmeqZtdNINBULSx3Vug==",
+      "type": "package",
+      "path": "blazorise.bootstrap5/1.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Blazorise.png",
+        "LICENSE.md",
+        "blazorise.bootstrap5.1.7.0.nupkg.sha512",
+        "blazorise.bootstrap5.nuspec",
+        "build/Blazorise.Bootstrap5.props",
+        "build/Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "buildMultiTargeting/Blazorise.Bootstrap5.props",
+        "buildTransitive/Blazorise.Bootstrap5.props",
+        "lib/net6.0/Blazorise.Bootstrap5.dll",
+        "lib/net7.0/Blazorise.Bootstrap5.dll",
+        "lib/net8.0/Blazorise.Bootstrap5.dll",
+        "lib/net9.0/Blazorise.Bootstrap5.dll",
+        "staticwebassets/blazorise.bootstrap5.css",
+        "staticwebassets/blazorise.bootstrap5.min.css",
         "staticwebassets/modal.js",
         "staticwebassets/tooltip.js"
       ]
@@ -809,6 +856,7 @@
     "net8.0": [
       "Blazorise >= 1.7.0",
       "Blazorise.Bootstrap >= 1.7.0",
+      "Blazorise.Bootstrap5 >= 1.7.0",
       "Blazorise.Icons.FontAwesome >= 1.7.0"
     ]
   },
@@ -859,6 +907,10 @@
             "version": "[1.7.0, )"
           },
           "Blazorise.Bootstrap": {
+            "target": "Package",
+            "version": "[1.7.0, )"
+          },
+          "Blazorise.Bootstrap5": {
             "target": "Package",
             "version": "[1.7.0, )"
           },

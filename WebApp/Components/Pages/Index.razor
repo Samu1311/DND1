@@ -1,60 +1,96 @@
 ﻿@page "/"
-@using Blazorise
 
 <!-- Search Bar -->
-<Field Class="search-bar">
-    <FieldBody>
-        <Control Expanded>
-            <Input Placeholder="What are you looking for?" />
-        </Control>
-        <Control>
-            <Button Color="Color.Primary" Icon="IconName.Search" />
-        </Control>
-    </FieldBody>
-</Field>
+<div class="search-bar">
+    <!-- Search Input -->
+    <input 
+        @bind-value="SearchQuery" 
+        class="search-input" 
+        placeholder="What are you looking for?" 
+    />
+    <!-- Search Button -->
+    <button 
+        class="btn btn-primary" 
+        @onclick="OnSearch"
+    >
+        <i class="fas fa-search"></i> Search
+    </button>
+    <!-- Clear Button -->
+    <button 
+        class="btn btn-secondary" 
+        @onclick="OnClear"
+    >
+        <i class="fas fa-times"></i> Clear
+    </button>
+</div>
+
 
 <!-- Feature Icons Grid -->
 <div class="custom-grid">
     <div class="grid-item blue">
-        <Link To="/health-overview">
-            <Image Src="images/health-graph-icon.png" Alt="Health Overview" />
-        </Link>
+        <a href="/health-overview">
+            <img src="images/health-graph-icon.png" alt="Health Overview" />
+        </a>
     </div>
     <div class="grid-item yellow">
-        <Link To="/mole-tracking">
-            <Image Src="images/mole-icon.png" Alt="Mole Tracking" Class="custom-img" />
-        </Link>
+        <a href="/mole-tracking">
+            <img src="images/mole-icon.png" alt="Mole Tracking" class="custom-img" />
+        </a>
     </div>
     <div class="grid-item green">
-        <Link To="/image-analysis">
-            <Image Src="images/medical-image-icon.png" Alt="Image Analysis" Class="custom-img" />
-        </Link>
+        <a href="/image-analysis">
+            <img src="images/medical-image-icon.png" alt="Image Analysis" class="custom-img" />
+        </a>
     </div>
     <div class="grid-item red">
-        <Link To="/alerts">
-            <Image Src="images/health-alert-icon.png" Alt="Alerts" Class="custom-img" />
-        </Link>
+        <a href="/alerts">
+            <img src="images/health-alert-icon.png" alt="Alerts" class="custom-img" />
+        </a>
     </div>
 </div>
 
 <!-- Emergency Call Button -->
-<Section Class="emergency-call">
-    <Button Color="Color.Danger" Class="emergency-button" Icon="IconName.TelephoneFill">
-        Emergency Call
-    </Button>
-</Section>
+<div class="emergency-call">
+    <button 
+        class="btn btn-danger emergency-button" 
+        @onclick="OnEmergencyClick"
+    >
+        Emergency Call <i class="fas fa-phone"></i> 
+    </button>
+</div>
 
 <!-- Bottom Navigation Bar -->
-<Bar Background="Background.Light" Class="bottom-nav">
-    <BarItems>
-        <BarItem>
-            <Button Class="nav-button" Color="Color.Light" Icon="IconName.PlusSquare" />
-        </BarItem>
-        <BarItem>
-            <Button Class="nav-button" Color="Color.Light" Icon="IconName.House" />
-        </BarItem>
-        <BarItem>
-            <Button Class="nav-button" Color="Color.Light" Icon="IconName.Person" />
-        </BarItem>
-    </BarItems>
-</Bar>
+<div class="bottom-nav">
+    <button class="nav-button">
+        <i class="fas fa-plus-square"></i>
+    </button>
+    <button class="nav-button">
+        <i class="fas fa-home"></i>
+    </button>
+    <button class="nav-button">
+        <i class="fas fa-user"></i>
+    </button>
+</div>
+
+@code {
+    private string SearchQuery { get; set; } = string.Empty;
+
+    private void OnSearch()
+    {
+        Console.WriteLine($"Searching for: {SearchQuery}");
+        // Add additional search logic if needed
+    }
+
+    private void OnClear()
+    {       
+        SearchQuery = string.Empty;
+        Console.WriteLine("Clear button clicked!");
+    }
+    
+
+    private void OnEmergencyClick()
+    {
+        Console.WriteLine("Emergency button clicked!");
+        // Add redirection or emergency logic here
+    }
+}

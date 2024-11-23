@@ -1,51 +1,31 @@
-.page {
+/* Page Container: Ensures full viewport height layout */
+.page-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh; /* Full viewport height */
 }
 
-.navbar {
-    width: 100%;
-    height: 15%;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: #004085;
-    color: white;
-    display: flex;
-    justify-content: left;
+/* Main Content Area */
+.main-content {
+    flex: 1; /* Expands to fill available space */
     padding: 1rem;
-    padding-bottom: 5rem;
+    overflow-y: auto; /* Scrollable if content exceeds height */
+    background-color: #f9f9f9; /* Light background for better readability */
 }
 
-main {
-    flex: 1;
-    overflow-y: auto;
+/* Footer Styling */
+.footer {
+    background-color: #f8f9fa; /* Light background */
+    color: #6c757d; /* Muted text color */
+    text-align: center;
     padding: 1rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #e9ecef; /* Subtle border for separation */
 }
 
-#blazor-error-ui {
-    background: lightyellow;
-    bottom: 0;
-    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
-    display: none;
-    left: 0;
-    padding: 0.6rem 1.25rem;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-}
-
-#blazor-error-ui .dismiss {
-    cursor: pointer;
-    position: absolute;
-    right: 0.75rem;
-    top: 0.5rem;
-}
-
-/* Responsive adjustments */
+/* Responsive Adjustments */
 @media (max-width: 640px) {
-    .navbar {
-        justify-content: space-between;
+    .footer {
+        font-size: 0.8rem; /* Slightly smaller footer text on smaller screens */
     }
 }

@@ -5,11 +5,44 @@
 }
 
 .navbar[b-cfr3pjxbop] {
-    margin: 0; /* Ensure no margin above the navbar */
-    padding: 0; /* Reset any padding */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Keep the shadow for aesthetic */
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Navbar shadow */
+    height: 80px; /* Increase the height */
 }
 
+/* Brand Styling */
+.navbar-brand[b-cfr3pjxbop] {
+    color: rgb(203, 247, 255);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease-in-out;
+    margin-left: 5%;
+}
+
+.navbar-brand:hover[b-cfr3pjxbop] {
+    color: #f8d569 !important; /* Change the hover color */
+}
+
+/* Navbar Links */
+[b-cfr3pjxbop] .nav-link {
+    color: #c7c7c7 !important; /* Change the color to white */
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+[b-cfr3pjxbop] .nav-link:hover {
+    color: #f8d569 !important; /* Change the hover color */
+}
+
+[b-cfr3pjxbop] .nav-link.active {
+    color: #f8d569 !important; /* Change the active link color */
+    border-bottom: 2px solid #f8d569; /* Active underline */
+}
+
+/* Navbar Toggler */
 .navbar-toggler[b-cfr3pjxbop] {
     background-color: rgba(255, 255, 255, 0.1);
     border: none;
@@ -18,53 +51,13 @@
 }
 
 .navbar-toggler-icon[b-cfr3pjxbop] {
-    filter: brightness(1.2); /* Slightly increase visibility */
+    filter: brightness(1.2); /* Increase visibility */
 }
-
-.navbar-brand[b-cfr3pjxbop] {
-    color: rgb(203, 247, 255);
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-transform: uppercase; /* Capitalize for a bold look */
-    transition: color 0.3s ease-in-out;
-}
-
-.navbar-brand:hover[b-cfr3pjxbop] {
-    color: #f8d569; /* Subtle hover color */
-}
-
-/* General Styling for Navbar Links */
-.navbar-nav .nav-link[b-cfr3pjxbop] {
-    font-size: 1rem;
-    color: #ffffff !important; /* Ensure links are white */
-    padding: 0.75rem 1rem;
-    transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-/* Hover Effect */
-.navbar-nav .nav-link:hover[b-cfr3pjxbop] {
-    color: #f8d569 !important; /* Highlight color */
-    background-color: rgba(255, 255, 255, 0.1); /* Subtle hover background */
-}
-
-/* Active NavLink Styling */
-.navbar-nav .nav-link.active[b-cfr3pjxbop] {
-    color: #f8d569 !important; /* Highlight active link */
-    border-bottom: 2px solid #f8d569; /* Add underline effect for active */
-}
-
 
 /* Collapsible Navbar Styling */
 .collapse[b-cfr3pjxbop] {
     transition: all 0.4s ease-in-out; /* Smooth open/close */
-}
-
-/* Desktop-Specific Styling */
-@media (min-width: 768px) {
-    .navbar-collapse[b-cfr3pjxbop] {
-        display: flex !important;
-        justify-content: flex-end;
-    }
+    background-color: #001f40; /* Background for expanded mobile menu */
 }
 
 /* Mobile-Specific Styling */
@@ -74,14 +67,22 @@
         flex-direction: column;
         align-items: flex-start;
         padding-left: 1rem;
-        gap: 1rem;
+        gap: 0.5rem; /* Adjust spacing */
     }
 
     .nav-item[b-cfr3pjxbop] {
-        width: 100%; /* Make items span full width on mobile */
+        width: 100%;
     }
 
     .navbar-toggler[b-cfr3pjxbop] {
         margin-right: 1rem;
+    }
+}
+
+/* Desktop-Specific Styling */
+@media (min-width: 768px) {
+    .navbar-collapse[b-cfr3pjxbop] {
+        display: flex !important;
+        justify-content: flex-end;
     }
 }

@@ -15,6 +15,7 @@
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)blazorise\1.7.0\buildTransitive\Blazorise.props" Condition="Exists('$(NuGetPackageRoot)blazorise\1.7.0\buildTransitive\Blazorise.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise.icons.fontawesome\1.7.0\buildTransitive\Blazorise.Icons.FontAwesome.props" Condition="Exists('$(NuGetPackageRoot)blazorise.icons.fontawesome\1.7.0\buildTransitive\Blazorise.Icons.FontAwesome.props')" />
+    <Import Project="$(NuGetPackageRoot)blazorise.bootstrap5\1.7.0\buildTransitive\Blazorise.Bootstrap5.props" Condition="Exists('$(NuGetPackageRoot)blazorise.bootstrap5\1.7.0\buildTransitive\Blazorise.Bootstrap5.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise.bootstrap\1.7.0\buildTransitive\Blazorise.Bootstrap.props" Condition="Exists('$(NuGetPackageRoot)blazorise.bootstrap\1.7.0\buildTransitive\Blazorise.Bootstrap.props')" />
   </ImportGroup>
 </Project>

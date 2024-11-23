@@ -1,53 +1,33 @@
 /* _content/WebApp/Components/Layout/MainLayout.razor.rz.scp.css */
-.page[b-pui3qmsk44] {
+/* Page Container: Ensures full viewport height layout */
+.page-container[b-pui3qmsk44] {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh; /* Full viewport height */
 }
 
-.navbar[b-pui3qmsk44] {
-    width: 100%;
-    height: 15%;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: #004085;
-    color: white;
-    display: flex;
-    justify-content: left;
+/* Main Content Area */
+.main-content[b-pui3qmsk44] {
+    flex: 1; /* Expands to fill available space */
     padding: 1rem;
-    padding-bottom: 5rem;
+    overflow-y: auto; /* Scrollable if content exceeds height */
+    background-color: #f9f9f9; /* Light background for better readability */
 }
 
-main[b-pui3qmsk44] {
-    flex: 1;
-    overflow-y: auto;
+/* Footer Styling */
+.footer[b-pui3qmsk44] {
+    background-color: #f8f9fa; /* Light background */
+    color: #6c757d; /* Muted text color */
+    text-align: center;
     padding: 1rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #e9ecef; /* Subtle border for separation */
 }
 
-#blazor-error-ui[b-pui3qmsk44] {
-    background: lightyellow;
-    bottom: 0;
-    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
-    display: none;
-    left: 0;
-    padding: 0.6rem 1.25rem;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-}
-
-#blazor-error-ui .dismiss[b-pui3qmsk44] {
-    cursor: pointer;
-    position: absolute;
-    right: 0.75rem;
-    top: 0.5rem;
-}
-
-/* Responsive adjustments */
+/* Responsive Adjustments */
 @media (max-width: 640px) {
-    .navbar[b-pui3qmsk44] {
-        justify-content: space-between;
+    .footer[b-pui3qmsk44] {
+        font-size: 0.8rem; /* Slightly smaller footer text on smaller screens */
     }
 }
 /* _content/WebApp/Components/Layout/NavMenu.razor.rz.scp.css */
@@ -58,11 +38,44 @@ main[b-pui3qmsk44] {
 }
 
 .navbar[b-cfr3pjxbop] {
-    margin: 0; /* Ensure no margin above the navbar */
-    padding: 0; /* Reset any padding */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Keep the shadow for aesthetic */
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Navbar shadow */
+    height: 80px; /* Increase the height */
 }
 
+/* Brand Styling */
+.navbar-brand[b-cfr3pjxbop] {
+    color: rgb(203, 247, 255);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease-in-out;
+    margin-left: 5%;
+}
+
+.navbar-brand:hover[b-cfr3pjxbop] {
+    color: #f8d569 !important; /* Change the hover color */
+}
+
+/* Navbar Links */
+[b-cfr3pjxbop] .nav-link {
+    color: #c7c7c7 !important; /* Change the color to white */
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+[b-cfr3pjxbop] .nav-link:hover {
+    color: #f8d569 !important; /* Change the hover color */
+}
+
+[b-cfr3pjxbop] .nav-link.active {
+    color: #f8d569 !important; /* Change the active link color */
+    border-bottom: 2px solid #f8d569; /* Active underline */
+}
+
+/* Navbar Toggler */
 .navbar-toggler[b-cfr3pjxbop] {
     background-color: rgba(255, 255, 255, 0.1);
     border: none;
@@ -71,53 +84,13 @@ main[b-pui3qmsk44] {
 }
 
 .navbar-toggler-icon[b-cfr3pjxbop] {
-    filter: brightness(1.2); /* Slightly increase visibility */
+    filter: brightness(1.2); /* Increase visibility */
 }
-
-.navbar-brand[b-cfr3pjxbop] {
-    color: rgb(203, 247, 255);
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-transform: uppercase; /* Capitalize for a bold look */
-    transition: color 0.3s ease-in-out;
-}
-
-.navbar-brand:hover[b-cfr3pjxbop] {
-    color: #f8d569; /* Subtle hover color */
-}
-
-/* General Styling for Navbar Links */
-.navbar-nav .nav-link[b-cfr3pjxbop] {
-    font-size: 1rem;
-    color: #ffffff !important; /* Ensure links are white */
-    padding: 0.75rem 1rem;
-    transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-/* Hover Effect */
-.navbar-nav .nav-link:hover[b-cfr3pjxbop] {
-    color: #f8d569 !important; /* Highlight color */
-    background-color: rgba(255, 255, 255, 0.1); /* Subtle hover background */
-}
-
-/* Active NavLink Styling */
-.navbar-nav .nav-link.active[b-cfr3pjxbop] {
-    color: #f8d569 !important; /* Highlight active link */
-    border-bottom: 2px solid #f8d569; /* Add underline effect for active */
-}
-
 
 /* Collapsible Navbar Styling */
 .collapse[b-cfr3pjxbop] {
     transition: all 0.4s ease-in-out; /* Smooth open/close */
-}
-
-/* Desktop-Specific Styling */
-@media (min-width: 768px) {
-    .navbar-collapse[b-cfr3pjxbop] {
-        display: flex !important;
-        justify-content: flex-end;
-    }
+    background-color: #001f40; /* Background for expanded mobile menu */
 }
 
 /* Mobile-Specific Styling */
@@ -127,15 +100,23 @@ main[b-pui3qmsk44] {
         flex-direction: column;
         align-items: flex-start;
         padding-left: 1rem;
-        gap: 1rem;
+        gap: 0.5rem; /* Adjust spacing */
     }
 
     .nav-item[b-cfr3pjxbop] {
-        width: 100%; /* Make items span full width on mobile */
+        width: 100%;
     }
 
     .navbar-toggler[b-cfr3pjxbop] {
         margin-right: 1rem;
+    }
+}
+
+/* Desktop-Specific Styling */
+@media (min-width: 768px) {
+    .navbar-collapse[b-cfr3pjxbop] {
+        display: flex !important;
+        justify-content: flex-end;
     }
 }
 /* _content/WebApp/Components/Pages/HealthOverview.razor.rz.scp.css */
@@ -259,102 +240,117 @@ canvas[b-p8minxtp4l] {
     font-family: Arial, sans-serif;
 }
 
-/* Top Navigation Bar */
-.app-title[b-btq1sgozkw] {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-/* Search Bar */
+/* Search Bar Container */
 .search-bar[b-btq1sgozkw] {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 16px;
-    background-color: #f0f0f0;
-    margin-top: 10px;
+    gap: 10px; /* Space between elements */
+    padding: 10px 20px;
+    background-color: #f8f9fa; /* Light grey background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-bottom: 20px;
 }
 
-.search-bar input[type="text"][b-btq1sgozkw] {
-    width: 85%;
-    padding: 8px 12px;
+/* Search Input */
+.search-input[b-btq1sgozkw] {
+    flex-grow: 1; /* Input takes up available space */
+    padding: 10px 15px;
     border: 1px solid #ccc;
-    border-radius: 20px;
+    border-radius: 5px;
     font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
 }
+
+.search-input:focus[b-btq1sgozkw] {
+    border-color: #007bff; /* Bootstrap Primary Blue */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Buttons */
+button[b-btq1sgozkw] {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between icon and text */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Search Button (Primary) */
+.btn-primary[b-btq1sgozkw] {
+    background-color: #219ebc; /* Bootstrap Primary Blue */
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover[b-btq1sgozkw] {
+    background-color: #005a70; /* Darker Blue */
+    transform: translateY(-2px); /* Subtle lift */
+}
+
+/* Clear Button (Secondary) */
+.btn-secondary[b-btq1sgozkw] {
+    background-color: #ffb703; /* Bootstrap Secondary Grey */
+    color: white;
+    border: none;
+}
+
+.btn-secondary:hover[b-btq1sgozkw] {
+    background-color: #8b6401; /* Darker Grey */
+    transform: translateY(-2px);
+}
+
 
 /* Feature Icons Grid */
 .custom-grid[b-btq1sgozkw] {
     display: grid;
-    grid-template-columns: repeat(8, 1fr); /* 8 equal-width columns */
-    grid-template-rows: repeat(8, 1fr); /* 8 equal-height rows */
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
     gap: 10px;
     width: 400px;
     height: 400px;
-    margin: 20px auto; /* Center the grid */
+    margin: 20px auto;
 }
 
-/* Grid Item Styling */
 .grid-item[b-btq1sgozkw] {
-    display: flex; /* Enable Flexbox */
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    text-align: center; /* Ensure text or inline elements are centered */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     border-radius: 8px;
     overflow: hidden;
     text-decoration: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     width: 100%;
     height: 100%;
-    position: relative; /* For proper layout */
-    img {
-        object-fit: contain; /* Ensure the image retains its aspect ratio */
-        margin: auto; /* Reset margins to ensure no offset */
-        width: 60%; /* 50% of the grid item width */
-    }
+    position: relative;
 }
 
-/* Hover Effect */
+.grid-item img[b-btq1sgozkw] {
+    object-fit: contain;
+    width: 60%;
+}
+
 .grid-item:hover[b-btq1sgozkw] {
-    transform: scale(1.05); /* Slightly enlarge the grid item on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Individual Item Sizes and Colors */
-.blue[b-btq1sgozkw] {
-    background-color: #e0f7fa;
-    grid-column: 1 / span 4; /* Span 4 columns */
-    grid-row: 1 / span 4; /* Span 4 rows */
+.blue[b-btq1sgozkw] { background-color: #e0f7fa; grid-column: 1 / span 4; grid-row: 1 / span 4; }
+.yellow[b-btq1sgozkw] { background-color: #f7ea5d; grid-column: 5 / span 4; grid-row: 1 / span 3; }
+.green[b-btq1sgozkw] { background-color: #e8f5e9; grid-column: 5 / span 4; grid-row: 4 / span 3; }
+.red[b-btq1sgozkw] { background-color: #ff5252; grid-column: 1 / span 4; grid-row: 5 / span 2; }
+
+.red img[b-btq1sgozkw] {
+    width: 30%;
 }
 
-.yellow[b-btq1sgozkw] {
-    background-color: #f7ea5d;
-    grid-column: 5 / span 4; /* Span 4 columns */
-    grid-row: 1 / span 3; /* Span 3 rows */
-}
-
-.green[b-btq1sgozkw] {
-    background-color: #e8f5e9;
-    grid-column: 5 / span 4; /* Span 4 columns */
-    grid-row: 4 / span 3; /* Span 3 rows */
-}
-
-.red[b-btq1sgozkw] {
-    background-color: #ff5252;
-    grid-column: 1 / span 4; /* Span 4 columns */
-    grid-row: 5 / span 2; /* Span 2 rows */
-    img {
-        width: 30%;
-    }
-}
-
-/* Optional: Image Hover Effect */
-.grid-item:hover .custom-img[b-btq1sgozkw] {
-    transform: scale(1.08); /* Slightly enlarge the image */
-}
-
-/* Emergency Call Button */
 .emergency-call[b-btq1sgozkw] {
     display: flex;
     justify-content: center;
@@ -375,22 +371,62 @@ canvas[b-p8minxtp4l] {
     width: 80%;
 }
 
-/* Bottom Navigation Bar */
 .bottom-nav[b-btq1sgozkw] {
-    display: flex;
-    justify-content: space-around;
-    background-color: #004085;
-    padding: 10px 0;
     position: fixed;
     bottom: 0;
-    width: 100%;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    left: 0;
+    width: 100%; /* Ensure full width */
+    display: flex;
+    justify-content: space-around; /* Evenly distribute buttons */
+    background-color: #001f40; /* Primary background color */
+    padding: 0.5rem 0; /* Adjust padding */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for separation */
+    z-index: 1000; /* Ensure it's above other elements */
 }
 
 .nav-button[b-btq1sgozkw] {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
+    flex: 1; /* Ensure buttons take equal space */
+    text-align: center;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    color: white; /* Icon color */
+    font-size: 1.5rem; /* Adjust icon size */
+    border: none; /* Remove default borders */
+    background: none; /* Transparent background */
+    height: 3rem; /* Consistent button height */
+    width: 100%; /* Full width within the navbar */
+}
+
+.nav-button:hover[b-btq1sgozkw] {
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
     cursor: pointer;
 }
+
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .custom-grid[b-btq1sgozkw] {
+        width: 200px;
+        height: 200px;
+    }
+
+    .grid-item img[b-btq1sgozkw] {
+        width: 50%;
+    }
+
+    .red img[b-btq1sgozkw] {
+        width: 20%;
+    }
+
+    .emergency-button[b-btq1sgozkw] {
+        width: 90%;
+    }
+}
+
+@media (max-width: 640px) {
+    .nav-button[b-btq1sgozkw] {
+        font-size: 1.2rem; /* Slightly smaller icons on small screens */
+    }
+}
+

@@ -2,21 +2,21 @@
 
 <PageTitle>Mobile Health App</PageTitle>
 
-<div class="app-container">
+<div class="page-container">
     <!-- Navbar -->
-    <NavMenu />
+        <NavMenu />
 
     <!-- Main Content -->
-    <main>
+    <main class="main-content">
         @Body
     </main>
 
     <!-- Footer -->
-    <footer class="footer bg-light text-center py-3">
-        <p>&copy; 2024 Mobile Health App</p>
+    <footer class="footer">
+        <p>&copy; @DateTime.Now.Year Mobile Health App</p>
     </footer>
 </div>
 
 @code {
-    // Add any layout-specific logic here
+    // Add layout-specific logic here if needed
 }

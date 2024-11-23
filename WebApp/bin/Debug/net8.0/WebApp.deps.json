@@ -10,6 +10,7 @@
         "dependencies": {
           "Blazorise": "1.7.0",
           "Blazorise.Bootstrap": "1.7.0",
+          "Blazorise.Bootstrap5": "1.7.0",
           "Blazorise.Icons.FontAwesome": "1.7.0"
         },
         "runtime": {
@@ -39,6 +40,20 @@
         },
         "runtime": {
           "lib/net8.0/Blazorise.Bootstrap.dll": {
+            "assemblyVersion": "1.7.0.0",
+            "fileVersion": "1.7.0.0"
+          }
+        }
+      },
+      "Blazorise.Bootstrap5/1.7.0": {
+        "dependencies": {
+          "Blazorise": "1.7.0",
+          "Microsoft.AspNetCore.Components": "8.0.11",
+          "Microsoft.AspNetCore.Components.Web": "8.0.11",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.2"
+        },
+        "runtime": {
+          "lib/net8.0/Blazorise.Bootstrap5.dll": {
             "assemblyVersion": "1.7.0.0",
             "fileVersion": "1.7.0.0"
           }
@@ -200,6 +215,13 @@
       "sha512": "sha512-YVvKz1B4ddUDubBMksiwM+A24jV2LK0dBm2m8FO6vJFjxarULyFtYKNUeJ5Yfk4BG2c6SKSP+3gLIeIv8Ozb6w==",
       "path": "blazorise.bootstrap/1.7.0",
       "hashPath": "blazorise.bootstrap.1.7.0.nupkg.sha512"
+    },
+    "Blazorise.Bootstrap5/1.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-g3X66fpDSzO4/3Ms5LYrJuRrUm0lTsSpHN6h2LcKyiiBnQnBhRtV78kGTUEM50Ed7kzJmeqZtdNINBULSx3Vug==",
+      "path": "blazorise.bootstrap5/1.7.0",
+      "hashPath": "blazorise.bootstrap5.1.7.0.nupkg.sha512"
     },
     "Blazorise.Icons.FontAwesome/1.7.0": {
       "type": "package",

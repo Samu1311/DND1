@@ -1,6 +1,7 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using WebApp.Components.Layout
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,15 +11,26 @@
     <link rel="stylesheet" href="CSS/app.css" />
     <link rel="stylesheet" href="WebApp.styles.css" />
     <link rel="icon" type="image/png" href="images/favicon.png" />
-    <!-- Scripts  -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="wwwroot/js/health-overview.js"></script>
+    <script src="js/health-overview.js"></script>
+    <script src="_framework/blazor.server.js"></script>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <HeadOutlet />
 </head>
-
 <body>
-    <Routes />
-    <script src="_framework/blazor.web.js"></script>
+    <Router AppAssembly="@typeof(Program).Assembly">
+        <Found Context="routeData">
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
 </body>
-
 </html>
