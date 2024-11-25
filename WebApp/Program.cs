@@ -6,6 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+// Register HttpClient before app build
+builder.Services.AddHttpClient("MoleTrackingAPI", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5000/api/"); // Replace with your API's base URL
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

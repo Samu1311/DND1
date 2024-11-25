@@ -1,21 +1,51 @@
 @page "/mole-tracking"
+@inject IHttpClientFactory HttpClientFactory
 
-<h2>Mole Tracking</h2>
-<p>Upload images of your moles or lesions and track their changes over time.</p>
+<h1>Mole Tracking</h1>
 
-<InputFile OnChange="HandleFileSelected" />
-@if (imagePath != null)
+<InputFile OnChange="OnImageSelected" />
+<button class="btn btn-primary" @onclick="AnalyzeImage">Analyze Image</button>
+
+@if (!string.IsNullOrEmpty(ProcessedImageUrl))
 {
-    <img src="@imagePath" alt="Uploaded Mole" style="max-width: 100%; margin-top: 1rem;" />
+    <div class="result">
+        <img src="@ProcessedImageUrl" alt="Processed Image" style="max-width: 100%;" />
+    </div>
 }
 
 @code {
-    private string? imagePath;
+    private string ProcessedImageUrl = string.Empty;
+    private IBrowserFile? SelectedImage;
 
-    private void HandleFileSelected(InputFileChangeEventArgs e)
+    private void OnImageSelected(InputFileChangeEventArgs e)
     {
-        var file = e.File;
-        imagePath = $"data:image/png;base64,{Convert.ToBase64String(new byte[file.Size])}";
-        // Replace with file upload logic
+        SelectedImage = e.File;
+    }
+
+    private async Task AnalyzeImage()
+    {
+        if (SelectedImage == null)
+        {
+            ProcessedImageUrl = string.Empty;
+            return;
+        }
+
+        var client = HttpClientFactory.CreateClient("MoleTrackingAPI");
+
+        using var content = new MultipartFormDataContent();
+        var fileContent = new StreamContent(SelectedImage.OpenReadStream());
+        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(SelectedImage.ContentType);
+        content.Add(fileContent, "image", SelectedImage.Name);
+
+        var response = await client.PostAsync("MoleTracking/analyze", content);
+        if (response.IsSuccessStatusCode)
+        {
+            var processedImageBytes = await response.Content.ReadAsByteArrayAsync();
+            ProcessedImageUrl = $"data:image/png;base64,{Convert.ToBase64String(processedImageBytes)}";
+        }
+        else
+        {
+            ProcessedImageUrl = string.Empty;
+        }
     }
 }

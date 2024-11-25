@@ -1,13 +1,54 @@
 @page "/alerts"
 
-<h2>Health Alerts & Reminders</h2>
-<p>Stay updated with reminders and health alerts for your conditions.</p>
+<h2 class="alerts-title">Health Alerts & Reminders</h2>
+<p class="alerts-description">Stay updated with real-time alerts based on your health analyses.</p>
 
-<ul>
-    <li>🔔 Check your mole changes this week.</li>
-    <li>🔔 Upload a new MRI scan for analysis.</li>
-</ul>
+<div class="alerts-container">
+    <!-- Mole Abnormality Detected -->
+    <div class="alert-card alert-danger">
+        <div class="alert-icon">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="alert-content">
+            <h3>Abnormal Mole Detected</h3>
+            <p>We detected an abnormal mole in your recent analysis. Please review the details and consider a follow-up with a healthcare professional.</p>
+            <a href="/mole-tracking" class="btn btn-danger">View Mole Details</a>
+        </div>
+    </div>
 
-@code {
-    // Add logic to fetch alerts dynamically if needed
-}
+    <!-- Tumor Detected in MRI Scan -->
+    <div class="alert-card alert-danger">
+        <div class="alert-icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <div class="alert-content">
+            <h3>Possible Tumor Detected</h3>
+            <p>A potential tumor was identified in your MRI scan. Immediate consultation with a medical professional is recommended.</p>
+            <a href="/image-analysis" class="btn btn-danger">View MRI Scan</a>
+        </div>
+    </div>
+
+    <!-- Follow-up Reminder for Mole Check -->
+    <div class="alert-card alert-warning">
+        <div class="alert-icon">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="alert-content">
+            <h3>Time for a Mole Check</h3>
+            <p>It's been a while since your last mole check. Please upload your most recent mole images for analysis.</p>
+            <a href="/mole-tracking" class="btn btn-warning">Upload New Images</a>
+        </div>
+    </div>
+
+    <!-- No Issues Detected -->
+    <div class="alert-card alert-success">
+        <div class="alert-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="alert-content">
+            <h3>All Clear</h3>
+            <p>Your recent mole checks and scans show no signs of abnormalities. Keep up the good work!</p>
+            <a href="/mole-tracking" class="btn btn-success">Great, Continue Monitoring</a>
+        </div>
+    </div>
+</div>

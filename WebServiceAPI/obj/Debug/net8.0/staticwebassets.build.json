@@ -1,19 +1,58 @@
 {
   "Version": 1,
-  "Hash": "WIy3mrZBATr3CfLqqBjXX9CcHwE8QeZ6LSg8bJKxiww=",
-  "Source": "DND1",
-  "BasePath": "_content/DND1",
+  "Hash": "L8t05FCOAZrxqy6Tb1rtD2L2yYIUFe5MfrPD8+0TWxs=",
+  "Source": "WebServiceAPI",
+  "BasePath": "_content/WebServiceAPI",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
-      "Name": "DND1\\wwwroot",
-      "Source": "DND1",
-      "ContentRoot": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\wwwroot\\",
-      "BasePath": "_content/DND1",
+      "Name": "WebServiceAPI\\wwwroot",
+      "Source": "WebServiceAPI",
+      "ContentRoot": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\wwwroot\\",
+      "BasePath": "_content/WebServiceAPI",
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\wwwroot\\uploads\\images\\_101694835_lunar2_NoticiaAmpliada.jpg",
+      "SourceId": "WebServiceAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\wwwroot\\",
+      "BasePath": "_content/WebServiceAPI",
+      "RelativePath": "uploads/images/_101694835_lunar2_NoticiaAmpliada.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\images\\_101694835_lunar2_NoticiaAmpliada.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\wwwroot\\uploads\\images\\_101694835_lunar2_NoticiaAmpliada.json",
+      "SourceId": "WebServiceAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\wwwroot\\",
+      "BasePath": "_content/WebServiceAPI",
+      "RelativePath": "uploads/images/_101694835_lunar2_NoticiaAmpliada.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\images\\_101694835_lunar2_NoticiaAmpliada.json"
+    }
+  ]
 }

@@ -22,10 +22,6 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/Alerts.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBbGVydHMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/Error.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -53,6 +49,10 @@ build_metadata.AdditionalFiles.CssScope = b-pui3qmsk44
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-cfr3pjxbop
+
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/Alerts.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBbGVydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-san0pqr48b
 
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/HealthOverview.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIZWFsdGhPdmVydmlldy5yYXpvcg==

@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\wwwroot\\uploads\\images\\_101694835_lunar2_NoticiaAmpliada.jpg",
+      "PackagePath": "staticwebassets\\uploads\\images\\_101694835_lunar2_NoticiaAmpliada.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\wwwroot\\uploads\\images\\_101694835_lunar2_NoticiaAmpliada.json",
+      "PackagePath": "staticwebassets\\uploads\\images\\_101694835_lunar2_NoticiaAmpliada.json"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.WebServiceAPI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.WebServiceAPI.props",
+      "PackagePath": "build\\WebServiceAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.WebServiceAPI.props",
+      "PackagePath": "buildMultiTargeting\\WebServiceAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.WebServiceAPI.props",
+      "PackagePath": "buildTransitive\\WebServiceAPI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
