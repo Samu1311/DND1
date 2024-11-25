@@ -1,0 +1,102 @@
+/* Login Page Container */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 80px); /* Subtract height of header/footer */
+    padding: 20px;
+    background-color: #f7f9fc;
+}
+
+/* Login Title */
+.login-title {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    color: #004085; /* Dark Blue */
+}
+
+/* Form Container */
+.form-container {
+    width: 100%;
+    max-width: 400px; /* Make form less wide */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: #219ebc; /* Match button primary color */
+    outline: none;
+    box-shadow: 0 0 5px rgba(33, 158, 188, 0.25);
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center;    /* Center buttons horizontally */
+    gap: 10px;              /* Add space between buttons */
+    margin-top: 20px;       /* Add space above the buttons */
+}
+
+/* Buttons (Retain Existing Styling) */
+button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center icon and text inside */
+    gap: 5px; /* Space between icon and text */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #219ebc; /* Bootstrap Primary Blue */
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #005a70; /* Darker Blue */
+    transform: translateY(-2px); /* Subtle lift */
+}
+
+.btn-secondary {
+    background-color: #ffb703; /* Bootstrap Secondary Yellow */
+    color: white;
+    border: none;
+    text-align: center;
+}
+
+.btn-secondary:hover {
+    background-color: #8b6401; /* Darker Yellow */
+    transform: translateY(-2px);
+}

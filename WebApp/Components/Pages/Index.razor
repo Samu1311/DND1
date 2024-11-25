@@ -51,26 +51,25 @@
 
 <!-- Emergency Call Button -->
 <div class="emergency-call">
-    <button 
-        class="btn btn-danger emergency-button" 
-        @onclick="OnEmergencyClick"
-    >
-        Emergency Call <i class="fas fa-phone"></i> 
-    </button>
+    <a href="tel:112" class="btn btn-danger emergency-button">
+        Emergency Call <i class="fas fa-phone"></i>
+    </a>
 </div>
+
 
 <!-- Bottom Navigation Bar -->
 <div class="bottom-nav">
-    <button class="nav-button">
+    <a href="/mole-tracking" class="btn btn-primary">
         <i class="fas fa-plus-square"></i>
-    </button>
-    <button class="nav-button">
+    </a>
+    <a href="/" class="btn btn-primary">
         <i class="fas fa-home"></i>
-    </button>
-    <button class="nav-button">
+    </a>
+    <a href="/profile" class="btn btn-primary">
         <i class="fas fa-user"></i>
-    </button>
+    </a>
 </div>
+
 
 @code {
     private string SearchQuery { get; set; } = string.Empty;

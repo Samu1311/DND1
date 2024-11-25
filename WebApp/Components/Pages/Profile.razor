@@ -1,0 +1,96 @@
+@page "/profile"
+@using System.ComponentModel.DataAnnotations
+
+<div class="profile-container">
+    <h1 class="profile-title">My Profile</h1>
+
+    <div class="profile-content">
+        <!-- Profile Picture Section -->
+        <div class="profile-picture">
+            <img src="images/profile-placeholder.png" alt="Profile Picture" class="profile-img" />
+            <button class="btn btn-secondary upload-btn" @onclick="UploadPicture">
+                Upload Picture
+            </button>
+        </div>
+
+        <!-- Personal Information Form -->
+        <div class="form-container">
+            <EditForm Model="@userProfile" OnValidSubmit="UpdateProfile">
+                <DataAnnotationsValidator />
+                <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <InputText id="name" class="form-control" @bind-Value="userProfile.Name" />
+                    <ValidationMessage For="@(() => userProfile.Name)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <InputText id="email" class="form-control" @bind-Value="userProfile.Email" />
+                    <ValidationMessage For="@(() => userProfile.Email)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <InputText id="phone" class="form-control" @bind-Value="userProfile.Phone" />
+                    <ValidationMessage For="@(() => userProfile.Phone)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="bio">Bio</label>
+                    <InputTextArea id="bio" class="form-control" @bind-Value="userProfile.Bio" />
+                    <ValidationMessage For="@(() => userProfile.Bio)" />
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" @onclick="CancelChanges">Cancel</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    private UserProfile userProfile = new()
+    {
+        Name = "John Doe",
+        Email = "johndoe@example.com",
+        Phone = "123-456-7890",
+        Bio = "This is your bio. Tell us something about yourself!"
+    };
+
+    private void UploadPicture()
+    {
+        Console.WriteLine("Upload picture clicked!");
+        // Implement upload logic here
+    }
+
+    private void UpdateProfile()
+    {
+        Console.WriteLine($"Profile updated for: {userProfile.Name}");
+        // Add logic to save changes
+    }
+
+    private void CancelChanges()
+    {
+        Console.WriteLine("Changes canceled");
+        // Optionally reset form or navigate away
+    }
+
+    public class UserProfile
+    {
+        [Required(ErrorMessage = "Name is required")]
+        public string Name { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        public string Email { get; set; } = string.Empty;
+
+        [Phone(ErrorMessage = "Invalid phone number")]
+        public string Phone { get; set; } = string.Empty;
+
+        public string Bio { get; set; } = string.Empty;
+    }
+}

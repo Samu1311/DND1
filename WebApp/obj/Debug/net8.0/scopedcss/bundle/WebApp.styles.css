@@ -371,37 +371,55 @@ button[b-btq1sgozkw] {
     width: 80%;
 }
 
+
+.emergency-button i[b-btq1sgozkw] {
+    margin-left: 2%;
+}
+
+/* Bottom Navigation Bar */
 .bottom-nav[b-btq1sgozkw] {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     position: fixed;
     bottom: 0;
-    left: 0;
-    width: 100%; /* Ensure full width */
+    left: 0; /* Ensure it starts from the very left of the viewport */
+    width: 100%; /* Full width of the screen */
+    background-color: #001f40; /* Dark Blue Background */
+    padding: 10px 0;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure it stays above other elements */
+    margin: 0; /* Remove any inherited margins */
+}
+
+
+/* Bottom Navigation Buttons */
+.bottom-nav .btn[b-btq1sgozkw] {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
     display: flex;
-    justify-content: space-around; /* Evenly distribute buttons */
-    background-color: #001f40; /* Primary background color */
-    padding: 0.5rem 0; /* Adjust padding */
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for separation */
-    z-index: 1000; /* Ensure it's above other elements */
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    background-color: #219ebc; /* Primary Blue */
+    border: none;
+    transition: all 0.3s ease;
+    text-decoration: none; /* Remove underline for links */
 }
 
-.nav-button[b-btq1sgozkw] {
-    flex: 1; /* Ensure buttons take equal space */
-    text-align: center;
-    display: flex; /* Use flexbox for centering */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    color: white; /* Icon color */
-    font-size: 1.5rem; /* Adjust icon size */
-    border: none; /* Remove default borders */
-    background: none; /* Transparent background */
-    height: 3rem; /* Consistent button height */
-    width: 100%; /* Full width within the navbar */
+.bottom-nav .btn:hover[b-btq1sgozkw] {
+    background-color: #005a70; /* Darker Blue */
+    transform: translateY(-2px); /* Subtle lift effect */
 }
 
-.nav-button:hover[b-btq1sgozkw] {
-    background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
-    cursor: pointer;
+.bottom-nav .btn:active[b-btq1sgozkw] {
+    transform: translateY(0); /* Reset on click */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
+
 
 
 /* Media Queries */
@@ -430,3 +448,401 @@ button[b-btq1sgozkw] {
     }
 }
 
+/* _content/WebApp/Components/Pages/Login.razor.rz.scp.css */
+/* Login Page Container */
+.login-container[b-iq1362wwd4] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 80px); /* Subtract height of header/footer */
+    padding: 20px;
+    background-color: #f7f9fc;
+}
+
+/* Login Title */
+.login-title[b-iq1362wwd4] {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    color: #004085; /* Dark Blue */
+}
+
+/* Form Container */
+.form-container[b-iq1362wwd4] {
+    width: 100%;
+    max-width: 400px; /* Make form less wide */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+/* Form Group */
+.form-group[b-iq1362wwd4] {
+    margin-bottom: 15px;
+}
+
+label[b-iq1362wwd4] {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-control[b-iq1362wwd4] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-control:focus[b-iq1362wwd4] {
+    border-color: #219ebc; /* Match button primary color */
+    outline: none;
+    box-shadow: 0 0 5px rgba(33, 158, 188, 0.25);
+}
+
+/* Button Group */
+.button-group[b-iq1362wwd4] {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center;    /* Center buttons horizontally */
+    gap: 10px;              /* Add space between buttons */
+    margin-top: 20px;       /* Add space above the buttons */
+}
+
+/* Buttons (Retain Existing Styling) */
+button[b-iq1362wwd4] {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center icon and text inside */
+    gap: 5px; /* Space between icon and text */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary[b-iq1362wwd4] {
+    background-color: #219ebc; /* Bootstrap Primary Blue */
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover[b-iq1362wwd4] {
+    background-color: #005a70; /* Darker Blue */
+    transform: translateY(-2px); /* Subtle lift */
+}
+
+.btn-secondary[b-iq1362wwd4] {
+    background-color: #ffb703; /* Bootstrap Secondary Yellow */
+    color: white;
+    border: none;
+    text-align: center;
+}
+
+.btn-secondary:hover[b-iq1362wwd4] {
+    background-color: #8b6401; /* Darker Yellow */
+    transform: translateY(-2px);
+}
+/* _content/WebApp/Components/Pages/Profile.razor.rz.scp.css */
+/* Profile Page Container */
+.profile-container[b-rcsjrqt2hw] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align content to the top */
+    padding: 20px;
+    background-color: #f7f9fc; /* Light background */
+    min-height: 100vh; /* Full screen height */
+    box-sizing: border-box; /* Include padding in height */
+}
+
+/* Profile Content */
+.profile-content[b-rcsjrqt2hw] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px; /* Adjust width for wider container */
+    margin: 0 auto; /* Center the container */
+    padding: 20px; /* Add padding for spacing */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #ffffff; /* White background */
+}
+
+/* Form Container */
+.form-container[b-rcsjrqt2hw] {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    text-align: center;
+}
+
+/* Form Group */
+.form-group[b-rcsjrqt2hw] {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Profile Title */
+.profile-title[b-rcsjrqt2hw] {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #004085; /* Dark Blue */
+    text-align: center;
+}
+
+
+/* Profile Picture Section */
+.profile-picture[b-rcsjrqt2hw] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Profile Picture Circle */
+.profile-img[b-rcsjrqt2hw] {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Circular shape */
+    border: 3px solid #219ebc; /* Blue border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    display: flex; /* Flexbox for centering */
+    align-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    color: #004085; /* Text color */
+    font-size: 1rem; /* Adjust font size */
+    font-weight: bold; /* Bold text */
+    text-align: center; /* Center the text */
+    background-color: #f7f9fc; /* Light background color */
+    line-height: 150px; /* Match the height of the circle */
+    overflow: hidden; /* Ensure no extra spacing overflows */
+}
+
+
+/* Upload Button */
+.upload-btn[b-rcsjrqt2hw] {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    background-color: #ffb703; /* Yellow color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-btn:hover[b-rcsjrqt2hw] {
+    background-color: #8b6401; /* Darker yellow */
+    transform: translateY(-2px);
+}
+
+
+/* Form Container */
+.form-container[b-rcsjrqt2hw] {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px; /* Space between sections */
+}
+
+/* Form Group */
+.form-group[b-rcsjrqt2hw] {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label[b-rcsjrqt2hw] {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-control[b-rcsjrqt2hw] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-control:focus[b-rcsjrqt2hw] {
+    border-color: #219ebc;
+    outline: none;
+    box-shadow: 0 0 5px rgba(33, 158, 188, 0.25);
+}
+
+/* Button Group */
+.button-group[b-rcsjrqt2hw] {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center buttons horizontally */
+    gap: 10px; /* Add space between buttons */
+    margin-top: 20px;
+}
+
+/* Buttons */
+button[b-rcsjrqt2hw] {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary[b-rcsjrqt2hw] {
+    background-color: #219ebc; /* Primary blue */
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover[b-rcsjrqt2hw] {
+    background-color: #005a70; /* Darker blue */
+    transform: translateY(-2px);
+}
+
+.btn-secondary[b-rcsjrqt2hw] {
+    background-color: #ffb703; /* Secondary yellow */
+    color: white;
+    border: none;
+    text-align: center;
+}
+
+.btn-secondary:hover[b-rcsjrqt2hw] {
+    background-color: #8b6401; /* Darker yellow */
+    transform: translateY(-2px);
+}
+/* _content/WebApp/Components/Pages/SignUp.razor.rz.scp.css */
+/* Sign Up Page Container */
+.signup-container[b-fk03drr86o] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 80px); /* Subtract header and footer height */
+    padding: 20px;
+    background-color: #f7f9fc;
+}
+
+/* Sign Up Title */
+.signup-title[b-fk03drr86o] {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #004085; /* Dark Blue */
+    text-align: center;
+}
+
+/* Form Container */
+.form-container[b-fk03drr86o] {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Form Group */
+.form-group[b-fk03drr86o] {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label[b-fk03drr86o] {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-control[b-fk03drr86o] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-control:focus[b-fk03drr86o] {
+    border-color: #219ebc;
+    outline: none;
+    box-shadow: 0 0 5px rgba(33, 158, 188, 0.25);
+}
+
+/* Button Group */
+.button-group[b-fk03drr86o] {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center;    /* Center buttons horizontally */
+    gap: 10px;              /* Add space between buttons */
+    margin-top: 20px;       /* Add space above the buttons */
+}
+
+/* Buttons */
+button[b-fk03drr86o] {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary[b-fk03drr86o] {
+    background-color: #219ebc;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover[b-fk03drr86o] {
+    background-color: #005a70;
+    transform: translateY(-2px);
+}
+
+.btn-secondary[b-fk03drr86o] {
+    background-color: #ffb703;
+    color: white;
+    border: none;
+    text-align: center;
+}
+
+.btn-secondary:hover[b-fk03drr86o] {
+    background-color: #8b6401;
+    transform: translateY(-2px);
+}
