@@ -151,6 +151,7 @@ button[b-btq1sgozkw] {
     bottom: 0;
     left: 0; /* Ensure it starts from the very left of the viewport */
     width: 100%; /* Full width of the screen */
+    max-height: 50px;
     background-color: #001f40; /* Dark Blue Background */
     padding: 10px 0;
     box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
@@ -161,8 +162,8 @@ button[b-btq1sgozkw] {
 
 /* Bottom Navigation Buttons */
 .bottom-nav .btn[b-btq1sgozkw] {
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -174,6 +175,10 @@ button[b-btq1sgozkw] {
     border: none;
     transition: all 0.3s ease;
     text-decoration: none; /* Remove underline for links */
+}
+
+.bottom-nav .btn i[b-btq1sgozkw] {
+    font-size: 1rem; /* Adjust the font size as needed */
 }
 
 .bottom-nav .btn:hover[b-btq1sgozkw] {

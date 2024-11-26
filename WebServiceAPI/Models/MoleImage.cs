@@ -4,10 +4,14 @@ namespace DND1.Models
 {
     public class MoleImage
     {
-        public int Id { get; set; } // Primary Key
+        public int MoleImageID { get; set; } // Primary Key
+        public int UserID { get; set; } // Foreign Key
         public string FileName { get; set; } = string.Empty;
         public string FilePath { get; set; } = string.Empty;
         public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
-        public string? AnalysisResult { get; set; } // Optional result field
+        public string? AnalysisResults { get; set; }
+
+        // Navigation Properties
+        public User? User { get; set; }
     }
 }

@@ -48,14 +48,14 @@ namespace DND1.Controllers
                     FileName = image.FileName,
                     FilePath = filePath,
                     UploadedAt = DateTime.UtcNow,
-                    AnalysisResult = "Pending" // Set default analysis result
+                    AnalysisResults = "Pending" // Set default analysis result
                 };
 
                 // Perform mole analysis (you can add your image processing here)
                 var processedImagePath = PerformMoleAnalysis(filePath);
 
                 // Update the analysis result in the MoleImage object
-                moleImage.AnalysisResult = "Mole analysis completed.";
+                moleImage.AnalysisResults = "Mole analysis completed.";
 
                 // Optionally, you can save moleImage details to a database here if needed.
 

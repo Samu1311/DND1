@@ -7,9 +7,9 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 // Register HttpClient before app build
-builder.Services.AddHttpClient("MoleTrackingAPI", client =>
+builder.Services.AddHttpClient("HealthAppAPI", client =>
 {
-    client.BaseAddress = new Uri("http://localhost:5000/api/"); // Replace with your API's base URL
+    client.BaseAddress = new Uri("http://localhost:5146/api/"); // Ensure API Base Address is correct
 });
 
 var app = builder.Build();

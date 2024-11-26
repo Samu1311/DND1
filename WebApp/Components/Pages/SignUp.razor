@@ -1,10 +1,12 @@
 @page "/signup"
 @using System.ComponentModel.DataAnnotations
+@inject NavigationManager NavigationManager
+@inject IHttpClientFactory HttpClientFactory
 
 <div class="signup-container">
     <h1 class="signup-title">Sign Up</h1>
     <div class="form-container">
-        <EditForm Model="@signUpModel" OnValidSubmit="HandleSignUp">
+        <EditForm Model="@signUpModel" OnValidSubmit="HandleSignUp" formname="SignUpForm">
             <DataAnnotationsValidator />
             <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
@@ -26,23 +28,49 @@
                 <ValidationMessage For="@(() => signUpModel.ConfirmPassword)" />
             </div>
 
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <InputText id="first-name" class="form-control" @bind-Value="signUpModel.FirstName" />
+                <ValidationMessage For="@(() => signUpModel.FirstName)" />
+            </div>
+
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <InputText id="last-name" class="form-control" @bind-Value="signUpModel.LastName" />
+                <ValidationMessage For="@(() => signUpModel.LastName)" />
+            </div>
+
+            <div class="form-group">
+                <label for="date-of-birth">Date of Birth</label>
+                <InputDate id="date-of-birth" class="form-control" @bind-Value="signUpModel.DateOfBirth" />
+                <ValidationMessage For="@(() => signUpModel.DateOfBirth)" />
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <InputSelect id="gender" class="form-control" @bind-Value="signUpModel.Gender">
+                    <option value="" disabled>Select your gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => signUpModel.Gender)" />
+            </div>
+
             <div class="button-group">
                 <button type="submit" class="btn btn-primary">Sign Up</button>
                 <a href="/login" class="btn btn-secondary">Login</a>
             </div>
         </EditForm>
+
+        @if (!string.IsNullOrEmpty(SignUpErrorMessage))
+        {
+            <div class="error-message">@SignUpErrorMessage</div>
+        }
     </div>
 </div>
 
 @code {
-    private SignUpModel signUpModel = new();
-
-    private void HandleSignUp()
-    {
-        Console.WriteLine($"Signing up as {signUpModel.Email}");
-        // Add your registration logic here (e.g., API call)
-    }
-
     public class SignUpModel
     {
         [Required(ErrorMessage = "Email is required")]
@@ -55,5 +83,31 @@
 
         [Compare("Password", ErrorMessage = "Passwords do not match")]
         public string ConfirmPassword { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "First name is required")]
+        public string FirstName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Last name is required")]
+        public string LastName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Date of Birth is required")]
+        public DateTime? DateOfBirth { get; set; }
+
+        [Required(ErrorMessage = "Gender is required")]
+        public string Gender { get; set; } = string.Empty;
     }
+    private SignUpModel signUpModel = new();
+
+    private string SignUpErrorMessage = string.Empty;
+
+    private async Task HandleSignUp()
+{
+    Console.WriteLine($"Email: {signUpModel.Email}");
+    Console.WriteLine($"Password: {signUpModel.Password}");
+    Console.WriteLine($"FirstName: {signUpModel.FirstName}");
+    Console.WriteLine($"LastName: {signUpModel.LastName}");
+    Console.WriteLine($"DateOfBirth: {signUpModel.DateOfBirth}");
+    Console.WriteLine($"Gender: {signUpModel.Gender}");
+}
+
 }

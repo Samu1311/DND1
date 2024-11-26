@@ -571,6 +571,7 @@ button[b-btq1sgozkw] {
     bottom: 0;
     left: 0; /* Ensure it starts from the very left of the viewport */
     width: 100%; /* Full width of the screen */
+    max-height: 50px;
     background-color: #001f40; /* Dark Blue Background */
     padding: 10px 0;
     box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
@@ -581,8 +582,8 @@ button[b-btq1sgozkw] {
 
 /* Bottom Navigation Buttons */
 .bottom-nav .btn[b-btq1sgozkw] {
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -594,6 +595,10 @@ button[b-btq1sgozkw] {
     border: none;
     transition: all 0.3s ease;
     text-decoration: none; /* Remove underline for links */
+}
+
+.bottom-nav .btn i[b-btq1sgozkw] {
+    font-size: 1rem; /* Adjust the font size as needed */
 }
 
 .bottom-nav .btn:hover[b-btq1sgozkw] {
@@ -926,14 +931,24 @@ button[b-rcsjrqt2hw] {
     transform: translateY(-2px);
 }
 /* _content/WebApp/Components/Pages/SignUp.razor.rz.scp.css */
+/* General Reset */
+body[b-fk03drr86o], html[b-fk03drr86o] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%; /* Ensures the full height is covered */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
 /* Sign Up Page Container */
 .signup-container[b-fk03drr86o] {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: calc(100vh - 80px); /* Subtract header and footer height */
+    justify-content: flex-start; /* Start below the NavMenu */
+    min-height: 100vh; /* Full viewport height */
     padding: 20px;
+    padding-top: 100px; /* Ensure space below NavMenu */
     background-color: #f7f9fc;
 }
 
@@ -967,33 +982,31 @@ button[b-rcsjrqt2hw] {
 
 label[b-fk03drr86o] {
     font-weight: bold;
-    display: block;
     margin-bottom: 5px;
-    color: #333;
+    display: block;
 }
 
 .form-control[b-fk03drr86o] {
     width: 100%;
     padding: 10px;
-    font-size: 1rem;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border-radius: 5px;
 }
 
 .form-control:focus[b-fk03drr86o] {
     border-color: #219ebc;
     outline: none;
-    box-shadow: 0 0 5px rgba(33, 158, 188, 0.25);
+    box-shadow: 0 0 5px rgba(33, 158, 188, 0.5);
 }
 
 /* Button Group */
 .button-group[b-fk03drr86o] {
     display: flex;
-    flex-direction: column; /* Stack buttons vertically */
-    align-items: center;    /* Center buttons horizontally */
-    gap: 10px;              /* Add space between buttons */
-    margin-top: 20px;       /* Add space above the buttons */
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 /* Buttons */

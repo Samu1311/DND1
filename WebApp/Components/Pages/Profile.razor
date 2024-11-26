@@ -1,5 +1,6 @@
 @page "/profile"
 @using System.ComponentModel.DataAnnotations
+@inject IHttpClientFactory HttpClientFactory
 
 <div class="profile-container">
     <h1 class="profile-title">My Profile</h1>
@@ -60,6 +61,20 @@
         Phone = "123-456-7890",
         Bio = "This is your bio. Tell us something about yourself!"
     };
+
+    private async Task UploadProfilePictureAsync()
+    {
+        var client = HttpClientFactory.CreateClient("MoleTrackingAPI");
+        var response = await client.PostAsync("profilepictures/1/upload-profile-picture", new MultipartFormDataContent());
+        if (response.IsSuccessStatusCode)
+        {
+            // Handle success
+        }
+        else
+        {
+            // Handle error
+        }
+    }
 
     private void UploadPicture()
     {
