@@ -101,14 +101,17 @@
 
     private string SignUpErrorMessage = string.Empty;
 
-    private async Task HandleSignUp()
+private async Task HandleSignUp()
 {
-    Console.WriteLine($"Email: {signUpModel.Email}");
-    Console.WriteLine($"Password: {signUpModel.Password}");
-    Console.WriteLine($"FirstName: {signUpModel.FirstName}");
-    Console.WriteLine($"LastName: {signUpModel.LastName}");
-    Console.WriteLine($"DateOfBirth: {signUpModel.DateOfBirth}");
-    Console.WriteLine($"Gender: {signUpModel.Gender}");
+    await Task.Run(() =>
+    {
+        Console.WriteLine($"Email: {signUpModel.Email}");
+        Console.WriteLine($"Password: {signUpModel.Password}");
+        Console.WriteLine($"FirstName: {signUpModel.FirstName}");
+        Console.WriteLine($"LastName: {signUpModel.LastName}");
+        Console.WriteLine($"DateOfBirth: {signUpModel.DateOfBirth}");
+        Console.WriteLine($"Gender: {signUpModel.Gender}");
+    });
 }
 
 }
