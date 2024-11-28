@@ -1,3 +1,53 @@
+/* _content/WebApp/Components/Layout/BottomMenu.razor.rz.scp.css */
+/* Bottom Navigation Bar */
+.bottom-nav[b-jn1vsw2c6n] {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 50px; /* Reduced height */
+    background-color: #001f40; /* Dark Blue Background */
+    padding: 5px 0; /* Adjusted padding */
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Bottom Navigation Buttons */
+.bottom-nav .btn[b-jn1vsw2c6n] {
+    width: 180px; /* Wider buttons */
+    height: 35px; /* Reduced height for buttons */
+    border-radius: 8px; /* Rounded corners */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem; /* Adjusted font size */
+    font-weight: bold;
+    color: white;
+    background-color: #003063; /* Primary Blue */
+    border: none;
+    transition: all 0.3s ease;
+    text-decoration: none; /* Remove underline for links */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    margin-top: 2px;
+}
+
+.bottom-nav .btn i[b-jn1vsw2c6n] {
+    font-size: 1.2rem;
+    margin-right: 5px; /* Space between icon and text */
+}
+
+.bottom-nav .btn:hover[b-jn1vsw2c6n] {
+    background-color: #005a70; /* Darker Blue */
+    transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.bottom-nav .btn:active[b-jn1vsw2c6n] {
+    transform: translateY(0); /* Reset on click */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
 /* _content/WebApp/Components/Layout/MainLayout.razor.rz.scp.css */
 /* Page Container: Ensures full viewport height layout */
 .page-container[b-pui3qmsk44] {
@@ -12,6 +62,7 @@
     padding: 1rem;
     overflow-y: auto; /* Scrollable if content exceeds height */
     background-color: #f9f9f9; /* Light background for better readability */
+        padding-bottom: 70px; /* Space for the bottom navigation bar */
 }
 
 /* Footer Styling */
@@ -306,52 +357,58 @@ a.btn[b-san0pqr48b] {
     }
 }
 /* _content/WebApp/Components/Pages/HealthOverview.razor.rz.scp.css */
-/* General Reset */
-*[b-p8minxtp4l] {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
-
-/* Health Overview Page Styling */
+/* General Styling */
 .health-overview-page[b-p8minxtp4l] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     padding: 20px;
+    background-color: #f7f9fc;
+    min-height: calc(100vh - 80px);
     max-width: 1200px;
     margin: auto;
 }
 
-/* Page Header */
+/* Header Styling Fix */
 .page-header[b-p8minxtp4l] {
     text-align: center;
     margin-bottom: 30px;
+    background: none; /* Ensure no background color is applied */
+    padding: 10px 0;
 }
 
 .page-header h1[b-p8minxtp4l] {
-    font-size: 2rem;
+    font-size: 3rem;
     color: #004085;
+    margin-bottom: 10px;
+    font-weight: bolder
 }
 
 .page-header p[b-p8minxtp4l] {
-    font-size: 1rem;
+    font-size: 1.3rem;
     color: #666;
+    margin: 0;
+    font-weight: bold;
 }
 
-/* Health Metrics Section */
+
+/* Health Metrics */
 .health-metrics[b-p8minxtp4l] {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    width: 100%;
     margin-bottom: 40px;
 }
 
 .metric-card[b-p8minxtp4l] {
-    background-color: #f9f9f9;
-    border-radius: 12px;
+    background-color: #ffffff;
+    border-radius: 8px;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
 }
 
 .metric-card:hover[b-p8minxtp4l] {
@@ -367,55 +424,47 @@ a.btn[b-san0pqr48b] {
 
 .metric-card .metric-value[b-p8minxtp4l] {
     font-size: 1.8rem;
-    color: #004085;
+    color: #219ebc;
     font-weight: bold;
 }
 
 .metric-card .metric-desc[b-p8minxtp4l] {
     font-size: 0.9rem;
-    color: #777;
-    margin-top: 5px;
+    color: #555;
 }
 
-/* Health Graphs Section */
-.health-graphs[b-p8minxtp4l] {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+/* Graphs Section */
+.graph-controls[b-p8minxtp4l] {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#graphSelector[b-p8minxtp4l] {
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
 .graph-card[b-p8minxtp4l] {
-    background-color: #fff;
-    border-radius: 12px;
+    background-color: #ffffff;
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.graph-card h3[b-p8minxtp4l] {
-    font-size: 1.2rem;
-    color: #004085;
-    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    max-width: 600px;
+    margin: auto;
 }
 
 canvas[b-p8minxtp4l] {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .page-header h1[b-p8minxtp4l] {
-        font-size: 1.5rem;
-    }
-
-    .page-header p[b-p8minxtp4l] {
-        font-size: 0.9rem;
-    }
-
-    .metric-card .metric-value[b-p8minxtp4l] {
-        font-size: 1.5rem;
-    }
+    width: 100%;
+    height: 300px;
+    max-width: 600px;
+    margin-top: 10px;
 }
 /* _content/WebApp/Components/Pages/Index.razor.rz.scp.css */
 /* General Reset */
@@ -611,7 +660,15 @@ button[b-btq1sgozkw] {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
-
+.footer[b-btq1sgozkw] {
+    background-color: #f8f9fa; /* Light background */
+    color: #6c757d; /* Muted text color */
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #e9ecef; /* Subtle border for separation */
+    margin-top: 1rem;
+}
 
 /* Media Queries */
 @media (max-width: 768px) {
@@ -741,6 +798,158 @@ button[b-iq1362wwd4] {
 .btn-secondary:hover[b-iq1362wwd4] {
     background-color: #8b6401; /* Darker Yellow */
     transform: translateY(-2px);
+}
+/* _content/WebApp/Components/Pages/MoleTracking.razor.rz.scp.css */
+/* General Page Styles */
+.mole-tracking-container[b-nctwqatg56] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    background-color: #f7f9fc;
+    min-height: calc(100vh - 80px); /* Adjust for header/footer height */
+}
+
+.page-title[b-nctwqatg56] {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #004085;
+    margin-bottom: 10px;
+}
+
+.instructions[b-nctwqatg56] {
+    font-size: 1rem;
+    color: #555;
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 600px;
+}
+
+/* Upload Section */
+.upload-section[b-nctwqatg56] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 40px;
+}
+
+.file-drop-box[b-nctwqatg56] {
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #219ebc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eaf6f9;
+    cursor: pointer;
+    position: relative;
+}
+
+.file-drop-box:hover[b-nctwqatg56] {
+    background-color: #d7eff7;
+}
+
+.file-input[b-nctwqatg56] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.drop-text[b-nctwqatg56] {
+    font-size: 1rem;
+    color: #219ebc;
+    text-align: center;
+    pointer-events: none;
+}
+
+.button-group[b-nctwqatg56] {
+    display: flex;
+    gap: 15px;
+}
+
+.btn[b-nctwqatg56] {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-reset[b-nctwqatg56] {
+    background-color: #ffb703;
+    color: white;
+    border: none;
+}
+
+.btn-reset:hover[b-nctwqatg56] {
+    background-color: #d79001;
+}
+
+.btn-upload[b-nctwqatg56] {
+    background-color: #219ebc;
+    color: white;
+    border: none;
+}
+
+.btn-upload:hover[b-nctwqatg56] {
+    background-color: #005a70;
+}
+
+/* Image Timeline Section */
+.images-timeline[b-nctwqatg56] {
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+}
+
+.timeline-title[b-nctwqatg56] {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #004085;
+    margin-bottom: 20px;
+}
+
+.timeline-grid[b-nctwqatg56] {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.image-card[b-nctwqatg56] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 150px;
+    height: 180px;
+}
+
+.image-card img[b-nctwqatg56] {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.image-caption[b-nctwqatg56] {
+    font-size: 0.9rem;
+    color: #555;
 }
 /* _content/WebApp/Components/Pages/Profile.razor.rz.scp.css */
 /* Profile Page Container */

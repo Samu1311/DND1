@@ -11,6 +11,7 @@
     padding: 1rem;
     overflow-y: auto; /* Scrollable if content exceeds height */
     background-color: #f9f9f9; /* Light background for better readability */
+        padding-bottom: 70px; /* Space for the bottom navigation bar */
 }
 
 /* Footer Styling */

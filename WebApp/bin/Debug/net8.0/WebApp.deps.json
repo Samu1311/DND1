@@ -11,7 +11,9 @@
           "Blazorise": "1.7.0",
           "Blazorise.Bootstrap": "1.7.0",
           "Blazorise.Bootstrap5": "1.7.0",
-          "Blazorise.Icons.FontAwesome": "1.7.0"
+          "Blazorise.Charts": "1.7.0",
+          "Blazorise.Icons.FontAwesome": "1.7.0",
+          "ChartJs.Blazor": "1.1.0"
         },
         "runtime": {
           "WebApp.dll": {}
@@ -59,6 +61,21 @@
           }
         }
       },
+      "Blazorise.Charts/1.7.0": {
+        "dependencies": {
+          "Blazorise": "1.7.0",
+          "Lambda2Js": "3.1.4",
+          "Microsoft.AspNetCore.Components": "8.0.11",
+          "Microsoft.AspNetCore.Components.Web": "8.0.11",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.2"
+        },
+        "runtime": {
+          "lib/net8.0/Blazorise.Charts.dll": {
+            "assemblyVersion": "1.7.0.0",
+            "fileVersion": "1.7.0.0"
+          }
+        }
+      },
       "Blazorise.Icons.FontAwesome/1.7.0": {
         "dependencies": {
           "Blazorise": "1.7.0",
@@ -78,6 +95,27 @@
           "lib/net8.0/Blazorise.Licensing.dll": {
             "assemblyVersion": "1.3.0.0",
             "fileVersion": "1.3.0.0"
+          }
+        }
+      },
+      "ChartJs.Blazor/1.1.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.Web": "8.0.11",
+          "Microsoft.CSharp": "4.7.0",
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.1/ChartJs.Blazor.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
+          }
+        }
+      },
+      "Lambda2Js/3.1.4": {
+        "runtime": {
+          "lib/netstandard2.0/Lambda2Js.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -142,6 +180,7 @@
           }
         }
       },
+      "Microsoft.CSharp/4.7.0": {},
       "Microsoft.Extensions.DependencyInjection/8.0.1": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
@@ -193,6 +232,14 @@
           }
         }
       },
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
+          }
+        }
+      },
       "System.IO.Pipelines/8.0.0": {}
     }
   },
@@ -223,6 +270,13 @@
       "path": "blazorise.bootstrap5/1.7.0",
       "hashPath": "blazorise.bootstrap5.1.7.0.nupkg.sha512"
     },
+    "Blazorise.Charts/1.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V7q6lNXOIyAf9rZxqBuqAO0irBVYqQwIo3SCvpxf5X700qXzc8QieTWNOLJ41u3n73JP1qHxJ73TqwgNuAK2BA==",
+      "path": "blazorise.charts/1.7.0",
+      "hashPath": "blazorise.charts.1.7.0.nupkg.sha512"
+    },
     "Blazorise.Icons.FontAwesome/1.7.0": {
       "type": "package",
       "serviceable": true,
@@ -236,6 +290,20 @@
       "sha512": "sha512-NvQlbUgd6jY/ZfkJPlhHLaMVyvfp24OMehFV8Y6mrqLHqC0CfcoE+6+YP9FZMZKNAWmcNZ85WXmYFWVl0UXGfw==",
       "path": "blazorise.licensing/1.3.0",
       "hashPath": "blazorise.licensing.1.3.0.nupkg.sha512"
+    },
+    "ChartJs.Blazor/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MUGYzS5FSx9r17sPVRlREPWU+1mFtggFaQtGKifQg30I48tx3OEDH3JZd07r+jKwtpN/h89HVUYy3IT2FS8ZEw==",
+      "path": "chartjs.blazor/1.1.0",
+      "hashPath": "chartjs.blazor.1.1.0.nupkg.sha512"
+    },
+    "Lambda2Js/3.1.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yxPJ5n+jUdjTZSItFj2wx5uFGm8iN6Gt42apqnEq0Zm5R6GgueZFFl+GDSe/CEogMSaBRw8kRG3yZm8ABFWXGQ==",
+      "path": "lambda2js/3.1.4",
+      "hashPath": "lambda2js.3.1.4.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authorization/8.0.11": {
       "type": "package",
@@ -279,6 +347,13 @@
       "path": "microsoft.aspnetcore.metadata/8.0.11",
       "hashPath": "microsoft.aspnetcore.metadata.8.0.11.nupkg.sha512"
     },
+    "Microsoft.CSharp/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.DependencyInjection/8.0.1": {
       "type": "package",
       "serviceable": true,
@@ -320,6 +395,13 @@
       "sha512": "sha512-UYSbAkNGTWVUne3I04/9IRQel3Bt1Ww6Y5cjvZEZ89rWhBD1yWu7YDotvQS62V6mgSfFaXXPGrCUm1VG824QXw==",
       "path": "microsoft.jsinterop/8.0.11",
       "hashPath": "microsoft.jsinterop.8.0.11.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
     "System.IO.Pipelines/8.0.0": {
       "type": "package",

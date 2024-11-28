@@ -191,7 +191,15 @@ button[b-btq1sgozkw] {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
-
+.footer[b-btq1sgozkw] {
+    background-color: #f8f9fa; /* Light background */
+    color: #6c757d; /* Muted text color */
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #e9ecef; /* Subtle border for separation */
+    margin-top: 1rem;
+}
 
 /* Media Queries */
 @media (max-width: 768px) {

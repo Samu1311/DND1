@@ -51,3 +51,9 @@ C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\scopedcss\Components\Pages\SignUp.razor.rz.scp.css
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\scopedcss\Components\Pages\Profile.razor.rz.scp.css
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\scopedcss\Components\Pages\Alerts.razor.rz.scp.css
+C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\scopedcss\Components\Pages\MoleTracking.razor.rz.scp.css
+C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\bin\Debug\net8.0\Blazorise.Charts.dll
+C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\bin\Debug\net8.0\Lambda2Js.dll
+C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\bin\Debug\net8.0\ChartJs.Blazor.dll
+C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\scopedcss\Components\Layout\BottomMenu.razor.rz.scp.css

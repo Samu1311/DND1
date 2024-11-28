@@ -1,49 +1,55 @@
-/* General Reset */
-*[b-p8minxtp4l] {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
-
-/* Health Overview Page Styling */
+/* General Styling */
 .health-overview-page[b-p8minxtp4l] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     padding: 20px;
+    background-color: #f7f9fc;
+    min-height: calc(100vh - 80px);
     max-width: 1200px;
     margin: auto;
 }
 
-/* Page Header */
+/* Header Styling Fix */
 .page-header[b-p8minxtp4l] {
     text-align: center;
     margin-bottom: 30px;
+    background: none; /* Ensure no background color is applied */
+    padding: 10px 0;
 }
 
 .page-header h1[b-p8minxtp4l] {
-    font-size: 2rem;
+    font-size: 3rem;
     color: #004085;
+    margin-bottom: 10px;
+    font-weight: bolder
 }
 
 .page-header p[b-p8minxtp4l] {
-    font-size: 1rem;
+    font-size: 1.3rem;
     color: #666;
+    margin: 0;
+    font-weight: bold;
 }
 
-/* Health Metrics Section */
+
+/* Health Metrics */
 .health-metrics[b-p8minxtp4l] {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    width: 100%;
     margin-bottom: 40px;
 }
 
 .metric-card[b-p8minxtp4l] {
-    background-color: #f9f9f9;
-    border-radius: 12px;
+    background-color: #ffffff;
+    border-radius: 8px;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
 }
 
 .metric-card:hover[b-p8minxtp4l] {
@@ -59,53 +65,45 @@
 
 .metric-card .metric-value[b-p8minxtp4l] {
     font-size: 1.8rem;
-    color: #004085;
+    color: #219ebc;
     font-weight: bold;
 }
 
 .metric-card .metric-desc[b-p8minxtp4l] {
     font-size: 0.9rem;
-    color: #777;
-    margin-top: 5px;
+    color: #555;
 }
 
-/* Health Graphs Section */
-.health-graphs[b-p8minxtp4l] {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+/* Graphs Section */
+.graph-controls[b-p8minxtp4l] {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#graphSelector[b-p8minxtp4l] {
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
 .graph-card[b-p8minxtp4l] {
-    background-color: #fff;
-    border-radius: 12px;
+    background-color: #ffffff;
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.graph-card h3[b-p8minxtp4l] {
-    font-size: 1.2rem;
-    color: #004085;
-    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    max-width: 600px;
+    margin: auto;
 }
 
 canvas[b-p8minxtp4l] {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .page-header h1[b-p8minxtp4l] {
-        font-size: 1.5rem;
-    }
-
-    .page-header p[b-p8minxtp4l] {
-        font-size: 0.9rem;
-    }
-
-    .metric-card .metric-value[b-p8minxtp4l] {
-        font-size: 1.5rem;
-    }
+    width: 100%;
+    height: 300px;
+    max-width: 600px;
+    margin-top: 10px;
 }

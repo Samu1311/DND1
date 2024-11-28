@@ -1,51 +1,53 @@
 @page "/mole-tracking"
+@inject NavigationManager NavigationManager
 @inject IHttpClientFactory HttpClientFactory
 
-<h1>Mole Tracking</h1>
+<div class="mole-tracking-container">
+    <h1 class="page-title">Mole Tracking</h1>
+    <p class="instructions">Upload your mole images for tracking and analysis. You can visualize the progress of your health over time below.</p>
 
-<InputFile OnChange="OnImageSelected" />
-<button class="btn btn-primary" @onclick="AnalyzeImage">Analyze Image</button>
+    <div class="upload-section">
+        <div class="file-drop-box">
+            <p class="drop-text">Drag and drop your image here or click to upload</p>
+            <input type="file" class="file-input" @onchange="HandleFileSelected" />
+        </div>
 
-@if (!string.IsNullOrEmpty(ProcessedImageUrl))
-{
-    <div class="result">
-        <img src="@ProcessedImageUrl" alt="Processed Image" style="max-width: 100%;" />
+        <div class="button-group">
+            <button class="btn btn-reset" @onclick="ResetFile">Reset File</button>
+            <button class="btn btn-upload" @onclick="UploadFile">Upload</button>
+        </div>
     </div>
-}
+
+    <div class="images-timeline">
+        <h2 class="timeline-title">Your Mole Images Over Time</h2>
+        <div class="timeline-grid">
+            @for (int i = 0; i < 6; i++) 
+            {
+                <div class="image-card">
+                    <img src="images/placeholder.png" alt="Mole Image Placeholder" />
+                    <p class="image-caption">Image {i + 1}</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
 
 @code {
-    private string ProcessedImageUrl = string.Empty;
-    private IBrowserFile? SelectedImage;
-
-    private void OnImageSelected(InputFileChangeEventArgs e)
+    private void HandleFileSelected(ChangeEventArgs e)
     {
-        SelectedImage = e.File;
+        Console.WriteLine("File selected!");
+        // Placeholder for file handling logic
     }
 
-    private async Task AnalyzeImage()
+    private void ResetFile()
     {
-        if (SelectedImage == null)
-        {
-            ProcessedImageUrl = string.Empty;
-            return;
-        }
+        Console.WriteLine("File reset!");
+        // Placeholder for reset logic
+    }
 
-        var client = HttpClientFactory.CreateClient("MoleTrackingAPI");
-
-        using var content = new MultipartFormDataContent();
-        var fileContent = new StreamContent(SelectedImage.OpenReadStream());
-        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(SelectedImage.ContentType);
-        content.Add(fileContent, "image", SelectedImage.Name);
-
-        var response = await client.PostAsync("MoleTracking/analyze", content);
-        if (response.IsSuccessStatusCode)
-        {
-            var processedImageBytes = await response.Content.ReadAsByteArrayAsync();
-            ProcessedImageUrl = $"data:image/png;base64,{Convert.ToBase64String(processedImageBytes)}";
-        }
-        else
-        {
-            ProcessedImageUrl = string.Empty;
-        }
+    private void UploadFile()
+    {
+        Console.WriteLine("File uploaded!");
+        // Placeholder for upload logic
     }
 }

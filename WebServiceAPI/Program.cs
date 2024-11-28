@@ -47,6 +47,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Register ImageProcessor as a singleton
+builder.Services.AddSingleton<ImageProcessor>();
 
 // Enable Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();
