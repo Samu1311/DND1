@@ -101,17 +101,46 @@
 
     private string SignUpErrorMessage = string.Empty;
 
-private async Task HandleSignUp()
-{
-    await Task.Run(() =>
+@code {
+    private async Task HandleSignUp()
     {
-        Console.WriteLine($"Email: {signUpModel.Email}");
-        Console.WriteLine($"Password: {signUpModel.Password}");
-        Console.WriteLine($"FirstName: {signUpModel.FirstName}");
-        Console.WriteLine($"LastName: {signUpModel.LastName}");
-        Console.WriteLine($"DateOfBirth: {signUpModel.DateOfBirth}");
-        Console.WriteLine($"Gender: {signUpModel.Gender}");
-    });
+        try
+        {
+            var client = HttpClientFactory.CreateClient("HealthAppAPI");
+
+            // Prepare user data payload
+            var payload = new
+            {
+                Email = signUpModel.Email,
+                PasswordHash = signUpModel.Password, // Mapped to backend's PasswordHash
+                FirstName = signUpModel.FirstName,
+                LastName = signUpModel.LastName,
+                DateOfBirth = signUpModel.DateOfBirth,
+                Gender = signUpModel.Gender
+            };
+
+            // Send POST request to the API
+            var response = await client.PostAsJsonAsync("user", payload);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("User created successfully.");
+                NavigationManager.NavigateTo("/login");
+            }
+            else
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Sign-up failed: {error}");
+                SignUpErrorMessage = "An error occurred during sign-up. Please try again.";
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception: {ex.Message}");
+            SignUpErrorMessage = "An unexpected error occurred. Please try again.";
+        }
+    }
 }
+
 
 }

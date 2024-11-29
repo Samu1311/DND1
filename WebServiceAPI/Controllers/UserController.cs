@@ -125,5 +125,22 @@ namespace DND1.Controllers
                 return StatusCode(500, "An error occurred while retrieving users.");
             }
         }
+
+        // Delete All Users
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAllUsers()
+        {
+            try
+            {
+                _context.Users.RemoveRange(_context.Users);
+                await _context.SaveChangesAsync();
+                return Ok(new { Message = "All users deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting users: {ex.Message}");
+                return StatusCode(500, "An error occurred while deleting users.");
+            }
+        }
     }
 }
