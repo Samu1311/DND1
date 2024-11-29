@@ -1,4 +1,5 @@
 ﻿@using WebApp.Components.Layout
+@using WebApp.Components
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,24 +21,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
 
     <!-- HeadOutlet to inject metadata dynamically -->
-    <HeadOutlet />
+    <HeadOutlet @rendermode="new InteractiveServerRenderMode(prerender: false)" />
 </head>
 
 <body>
-    <Router AppAssembly="@typeof(Program).Assembly">
-        <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        </Found>
-        <NotFound>
-            <LayoutView Layout="@typeof(MainLayout)">
-                <p>Sorry, there's nothing at this address.</p>
-            </LayoutView>
-        </NotFound>
-    </Router>
+
+    <!-- Routes Component -->
+    <Routes @rendermode="new InteractiveServerRenderMode(prerender: false)"></Routes>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js from CDN -->
     <script src="js/health-overview.js"></script> <!-- Custom scripts for health-overview -->
-    <script src="_framework/blazor.server.js"></script>
+    <script src="_framework/blazor.web.js"></script>
     
 </body>
 </html>
