@@ -15,26 +15,26 @@
 .page-header[b-p8minxtp4l] {
     text-align: center;
     margin-bottom: 30px;
-    background: none; /* Ensure no background color is applied */
-    padding: 10px 0;
+    padding: 0; /* Ensure no padding creates an extra box */
+    background: none; /* Remove any background color */
+    border: none; /* Remove any borders */
+    box-shadow: none; /* Remove any shadows */
 }
 
 .page-header h1[b-p8minxtp4l] {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: #004085;
     margin-bottom: 10px;
-    font-weight: bolder
-}
-
-.page-header p[b-p8minxtp4l] {
-    font-size: 1.3rem;
-    color: #666;
-    margin: 0;
     font-weight: bold;
 }
 
+.page-header p[b-p8minxtp4l] {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 0;
+}
 
-/* Health Metrics */
+/* Health Metrics Section */
 .health-metrics[b-p8minxtp4l] {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -60,7 +60,6 @@
 .metric-card h3[b-p8minxtp4l] {
     font-size: 1.2rem;
     color: #333;
-    margin-bottom: 10px;
 }
 
 .metric-card .metric-value[b-p8minxtp4l] {
@@ -75,35 +74,33 @@
 }
 
 /* Graphs Section */
-.graph-controls[b-p8minxtp4l] {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-#graphSelector[b-p8minxtp4l] {
-    padding: 5px;
-    font-size: 1rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+.health-graphs[b-p8minxtp4l] {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
 }
 
 .graph-card[b-p8minxtp4l] {
     background-color: #ffffff;
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-width: 600px;
-    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-canvas[b-p8minxtp4l] {
+.graph-card canvas[b-p8minxtp4l] {
     width: 100%;
-    height: 300px;
-    max-width: 600px;
-    margin-top: 10px;
+    max-height: 300px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .health-metrics[b-p8minxtp4l] {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .health-graphs[b-p8minxtp4l] {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
 }

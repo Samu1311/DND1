@@ -32,30 +32,27 @@
         </div>
     </section>
 
-    <!-- Dropdown and Button -->
-        <div class="graph-controls">
-            <label for="graphSelector">Select a Graph:</label>
-            <select id="graphSelector" class="form-control">
-                <option value="heartRate">Heart Rate Trend</option>
-                <option value="weight">Weight Progress</option>
-            </select>
-            <button class="btn btn-primary" @onclick="RenderSelectedGraph">Render Graph</button>
-        </div>
-
-        <!-- Canvas for Graphs -->
+    <!-- Graphs Section -->
+    <section class="health-graphs">
         <div class="graph-card">
-            <h3 id="graphTitle">Graph Title</h3>
-            <canvas id="mainGraph"></canvas>
+            <h3>Heart Rate Trend</h3>
+            <canvas id="heartRateChart"></canvas>
         </div>
-    </div>
+        <div class="graph-card">
+            <h3>Weight Progress</h3>
+            <canvas id="weightChart"></canvas>
+        </div>
+    </section>
+</div>
 
 @code {
-    private async Task RenderSelectedGraph()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // Get the selected graph type from the dropdown
-        var graphType = await JSRuntime.InvokeAsync<string>("getSelectedGraphType", "graphSelector");
-
-        // Call the corresponding JavaScript function based on the selected type
-        await JSRuntime.InvokeVoidAsync("renderSelectedGraph", "mainGraph", graphType);
+        if (firstRender)
+        {
+            // Call JavaScript methods to render the charts
+            await JSRuntime.InvokeVoidAsync("renderHeartRateChart", "heartRateChart");
+            await JSRuntime.InvokeVoidAsync("renderWeightChart", "weightChart");
+        }
     }
 }

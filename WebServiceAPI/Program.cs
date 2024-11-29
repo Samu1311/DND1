@@ -72,7 +72,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles(); // To serve files from wwwroot directory
-
 app.MapControllers();
 
 app.Run();

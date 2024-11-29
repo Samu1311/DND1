@@ -9,10 +9,6 @@
       "PackagePath": "staticwebassets\\CSS\\app.css"
     },
     {
-      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\Js\\charts.js",
-      "PackagePath": "staticwebassets\\Js\\charts.js"
-    },
-    {
       "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\Js\\health-overview.js",
       "PackagePath": "staticwebassets\\Js\\health-overview.js"
     },
