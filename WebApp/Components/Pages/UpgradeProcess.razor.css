@@ -1,0 +1,15 @@
+.upgrade-process {
+    padding: 20px;
+    text-align: center;
+}
+
+.upgrade-process ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.upgrade-process ul li {
+    margin: 10px 0;
+    font-weight: bold;
+}

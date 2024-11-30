@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DND1.Data;
-using DND1.Models;
+using RestSharp;
+using OpenCvSharp;
+using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Linq;
+using DND1.Data;
+using DND1.Models;
 
 namespace DND1.Controllers
 {
@@ -13,18 +14,10 @@ namespace DND1.Controllers
     public class MoleImageController : ControllerBase
     {
         private readonly AppDbContext _context;
-        private readonly string _imageFolderPath;
 
         public MoleImageController(AppDbContext context)
         {
             _context = context;
-            _imageFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "mole-images");
-
-            // Ensure the folder exists
-            if (!Directory.Exists(_imageFolderPath))
-            {
-                Directory.CreateDirectory(_imageFolderPath);
-            }
         }
 
         // POST: api/moleimage/upload
@@ -32,112 +25,136 @@ namespace DND1.Controllers
         public async Task<IActionResult> UploadMoleImage([FromForm] IFormFile file, [FromForm] int userId)
         {
             if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            try
             {
-                return BadRequest("File not provided or empty.");
+                using var memoryStream = new MemoryStream();
+                await file.CopyToAsync(memoryStream);
+
+                var moleImage = new MoleImage
+                {
+                    UserID = userId,
+                    FileName = file.FileName,
+                    ImageData = memoryStream.ToArray(),
+                    UploadedAt = DateTime.UtcNow
+                };
+
+                _context.MoleImages.Add(moleImage);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { Message = "Image uploaded successfully", MoleImage = moleImage });
             }
-
-            // Validate User
-            var user = await _context.Users.FindAsync(userId);
-            if (user == null)
+            catch (Exception ex)
             {
-                return NotFound("User not found.");
+                Console.WriteLine($"Error uploading image: {ex.Message}");
+                return StatusCode(500, "An error occurred while uploading the image.");
             }
-
-            // Generate unique filename and file path
-            var fileName = $"{Guid.NewGuid()}_{file.FileName}";
-            var filePath = Path.Combine(_imageFolderPath, fileName);
-
-            // Save the file to disk
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
-            // Create MoleImage record
-            var moleImage = new MoleImage
-            {
-                FileName = fileName,
-                FilePath = filePath,
-                UploadedAt = DateTime.UtcNow,
-                UserID = userId
-            };
-
-            _context.MoleImages.Add(moleImage);
-            await _context.SaveChangesAsync();
-
-            return Ok(new { Status = "File uploaded successfully.", MoleImage = moleImage });
         }
 
-        // GET: api/moleimage/{id}
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetMoleImage(int id)
-        {
-            var moleImage = await _context.MoleImages.Include(m => m.User).FirstOrDefaultAsync(m => m.MoleImageID == id);
-
-            if (moleImage == null)
-            {
-                return NotFound("Mole image not found.");
-            }
-
-            return Ok(moleImage);
-        }
-
-        // GET: api/moleimage/user/{userId}
-        [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetUserMoleImages(int userId)
-        {
-            var userExists = await _context.Users.AnyAsync(u => u.UserID == userId);
-
-            if (!userExists)
-            {
-                return NotFound("User not found.");
-            }
-
-            var moleImages = await _context.MoleImages
-                .Where(m => m.UserID == userId)
-                .ToListAsync();
-
-            return Ok(moleImages);
-        }
-
-        // DELETE: api/moleimage/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMoleImage(int id)
+        // POST: api/moleimage/analyze/{id}
+        [HttpPost("analyze/{id}")]
+        public async Task<IActionResult> AnalyzeMoleImage(int id)
         {
             var moleImage = await _context.MoleImages.FindAsync(id);
 
             if (moleImage == null)
+                return NotFound("Image not found.");
+
+            try
             {
-                return NotFound("Mole image not found.");
-            }
+                // Send the image to an external API using RestSharp
+                var externalAnalysisResult = await AnalyzeWithExternalAPI(moleImage);
 
-            // Delete file from disk
-            if (System.IO.File.Exists(moleImage.FilePath))
+                // Save the results in the database
+                moleImage.AnalysisResults = externalAnalysisResult;
+                await _context.SaveChangesAsync();
+
+                return Ok(new { Message = "Image analyzed successfully", AnalysisResults = externalAnalysisResult });
+            }
+            catch (Exception ex)
             {
-                System.IO.File.Delete(moleImage.FilePath);
+                Console.WriteLine($"Error analyzing image: {ex.Message}");
+                return StatusCode(500, "An error occurred while analyzing the image.");
             }
-
-            _context.MoleImages.Remove(moleImage);
-            await _context.SaveChangesAsync();
-
-            return Ok(new { Status = "Mole image deleted successfully." });
         }
 
-        // PUT: api/moleimage/analysis/{id}
-        [HttpPut("analysis/{id}")]
-        public async Task<IActionResult> UpdateAnalysisResults(int id, [FromBody] string analysisResults)
-        {
-            var moleImage = await _context.MoleImages.FindAsync(id);
-
-            if (moleImage == null)
+        private async Task<string> AnalyzeWithExternalAPI(MoleImage moleImage)
             {
-                return NotFound("Mole image not found.");
+                // Initialize the RestClient with the endpoint URL
+                var client = new RestClient("https://your-image-analysis-api-endpoint");
+
+                // Initialize the RestRequest and specify the HTTP method
+                var request = new RestRequest("endpoint-path", Method.Post); // Replace "endpoint-path" with the actual API path
+
+                // Add the image data as a file to the request
+                request.AddFile("file", moleImage.ImageData, moleImage.FileName, "image/png");
+
+                // Execute the request asynchronously
+                var response = await client.ExecuteAsync(request);
+
+                if (!response.IsSuccessful)
+                {
+                    throw new Exception($"External API error: {response.ErrorMessage}");
+                }
+
+                // Return the response content as the analysis result
+                return response.Content ?? "Analysis results not available.";
             }
 
-            moleImage.AnalysisResults = analysisResults;
-            await _context.SaveChangesAsync();
 
-            return Ok(new { Status = "Analysis results updated successfully.", MoleImage = moleImage });
+
+        private string AnalyzeImage(byte[] imageData)
+        {
+            // Local analysis using OpenCV (as a fallback or additional processing)
+            using var src = Mat.FromImageData(imageData, ImreadModes.Color);
+            using var gray = new Mat();
+            Cv2.CvtColor(src, gray, ColorConversionCodes.BGR2GRAY);
+
+            // Apply Gaussian Blur to reduce noise
+            Cv2.GaussianBlur(gray, gray, new Size(5, 5), 0);
+
+            // Apply thresholding to detect edges
+            Cv2.Threshold(gray, gray, 60, 255, ThresholdTypes.Binary);
+
+            // Find contours
+            Cv2.FindContours(
+                gray,
+                out Point[][] contours,
+                out _,
+                RetrievalModes.External,
+                ContourApproximationModes.ApproxSimple);
+
+            if (contours.Length == 0)
+                return "No contours found.";
+
+            // Get the largest contour (assume it's the mole)
+            var largestContour = contours[0];
+            foreach (var contour in contours)
+            {
+                if (Cv2.ContourArea(contour) > Cv2.ContourArea(largestContour))
+                {
+                    largestContour = contour;
+                }
+            }
+
+            // Draw the contour on the original image
+            using var output = src.Clone();
+            Cv2.DrawContours(output, new[] { largestContour }, -1, Scalar.Red, 2);
+
+            // Create a mask for the largest contour
+            using var mask = new Mat(src.Size(), MatType.CV_8UC1, Scalar.Black);
+            Cv2.DrawContours(mask, new[] { largestContour }, -1, Scalar.White, -1);
+
+            // Calculate the average color within the contour
+            Scalar meanColor = Cv2.Mean(src, mask);
+
+            // Save the analyzed image to a file (optional)
+            string analyzedImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "analyzed-images", $"{Guid.NewGuid()}.jpg");
+            Directory.CreateDirectory(Path.GetDirectoryName(analyzedImagePath)!);
+            output.SaveImage(analyzedImagePath);
+
+            return $"Average Color: R={meanColor.Val2}, G={meanColor.Val1}, B={meanColor.Val0}. Analyzed image saved at: {analyzedImagePath}.";
         }
     }
 }

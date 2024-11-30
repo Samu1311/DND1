@@ -1,21 +1,24 @@
 ﻿@page "/"
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject CustomAuthenticationStateProvider AuthProvider
+@inject NavigationManager NavigationManager
+@using WebApp.Components
 
 <!-- Search Bar -->
 <div class="search-bar">
-    <!-- Search Input -->
     <input 
         @bind-value="SearchQuery" 
         class="search-input" 
         placeholder="What are you looking for?" 
     />
-    <!-- Search Button -->
     <button 
         class="btn btn-primary" 
         @onclick="OnSearch"
     >
         <i class="fas fa-search"></i> Search
     </button>
-    <!-- Clear Button -->
     <button 
         class="btn btn-secondary" 
         @onclick="OnClear"
@@ -23,7 +26,6 @@
         <i class="fas fa-times"></i> Clear
     </button>
 </div>
-
 
 <!-- Feature Icons Grid -->
 <div class="custom-grid">
@@ -37,11 +39,24 @@
             <img src="images/mole-icon.png" alt="Mole Tracking" class="custom-img" />
         </a>
     </div>
-    <div class="grid-item green">
-        <a href="/image-analysis">
-            <img src="images/medical-image-icon.png" alt="Image Analysis" class="custom-img" />
-        </a>
+
+    <!-- Conditional rendering for Medical Image access -->
+    <div class="grid-item green @(userType == "Basic" ? "grayed-out" : "")">
+        @if (userType == "Premium")
+        {
+            <a href="/image-analysis">
+                <img src="images/medical-image-icon.png" alt="Image Analysis" class="custom-img" />
+            </a>
+        }
+        else if (userType == "Basic")
+        {
+            <div class="grid-item green disabled-feature" @onclick="ShowUpgradeModal">
+                <div class="ribbon">Go Premium</div>
+                <img src="images/medical-image-icon.png" alt="Medical Images" class="custom-img" />
+            </div>
+        }
     </div>
+
     <div class="grid-item red">
         <a href="/alerts">
             <img src="images/health-alert-icon.png" alt="Alerts" class="custom-img" />
@@ -56,19 +71,17 @@
     </a>
 </div>
 
-
-<!-- Bottom Navigation Bar -->
-<div class="bottom-nav">
-    <a href="/mole-tracking" class="btn btn-primary">
-        <i class="fas fa-plus-square"></i>
-    </a>
-    <a href="/" class="btn btn-primary">
-        <i class="fas fa-home"></i>
-    </a>
-    <a href="/profile" class="btn btn-primary">
-        <i class="fas fa-user"></i>
-    </a>
+<!-- Testing Buttons -->
+<div class="test-login">
+    <button class="btn btn-primary basic-user-button" @onclick='() => SimulateLogin("Basic")'>Login as Basic User</button>
+    <button class="btn btn-success premium-user-button" @onclick='() => SimulateLogin("Premium")'>Login as Premium User</button>
 </div>
+
+@if (isUpgradeModalVisible)
+{
+    <UpgradeModal OnClose="CloseUpgradeModal" OnUpgrade="UpgradeToPremium" />
+}
+
 
 <!-- Footer -->
 <footer class="footer">
@@ -77,23 +90,49 @@
 
 @code {
     private string SearchQuery { get; set; } = string.Empty;
+    private string userType = "Basic"; // Default to Basic
+    private bool isUpgradeModalVisible = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var claims = authState.User.Claims;
+
+        userType = claims.FirstOrDefault(c => c.Type == "UserType")?.Value ?? "Basic";
+
+        StateHasChanged();
+    }
+
+    private async Task SimulateLogin(string userTypeToSimulate)
+    {
+        await AuthProvider.SimulateLogin(userTypeToSimulate);
+        userType = userTypeToSimulate; // Update the user type
+        StateHasChanged(); // Refresh the UI
+    }
+
+    private void ShowUpgradeModal()
+    {
+        isUpgradeModalVisible = true;
+    }
+
+    private void CloseUpgradeModal()
+    {
+        isUpgradeModalVisible = false;
+    }
+
+    private void UpgradeToPremium()
+    {
+        NavigationManager.NavigateTo("/upgrade-process");
+    }
 
     private void OnSearch()
     {
         Console.WriteLine($"Searching for: {SearchQuery}");
-        // Add additional search logic if needed
     }
 
     private void OnClear()
-    {       
+    {
         SearchQuery = string.Empty;
         Console.WriteLine("Clear button clicked!");
-    }
-    
-
-    private void OnEmergencyClick()
-    {
-        Console.WriteLine("Emergency button clicked!");
-        // Add redirection or emergency logic here
     }
 }

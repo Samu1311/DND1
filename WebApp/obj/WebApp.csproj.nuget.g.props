@@ -23,6 +23,9 @@
     </Content>
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\9.0.0\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\9.0.0\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.codeanalysis.analyzers\3.3.4\buildTransitive\Microsoft.CodeAnalysis.Analyzers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codeanalysis.analyzers\3.3.4\buildTransitive\Microsoft.CodeAnalysis.Analyzers.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\9.0.0\build\net8.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\9.0.0\build\net8.0\Microsoft.EntityFrameworkCore.Design.props')" />
     <Import Project="$(NuGetPackageRoot)chartjs.blazor\1.1.0\buildTransitive\ChartJs.Blazor.props" Condition="Exists('$(NuGetPackageRoot)chartjs.blazor\1.1.0\buildTransitive\ChartJs.Blazor.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise\1.7.0\buildTransitive\Blazorise.props" Condition="Exists('$(NuGetPackageRoot)blazorise\1.7.0\buildTransitive\Blazorise.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise.icons.fontawesome\1.7.0\buildTransitive\Blazorise.Icons.FontAwesome.props" Condition="Exists('$(NuGetPackageRoot)blazorise.icons.fontawesome\1.7.0\buildTransitive\Blazorise.Icons.FontAwesome.props')" />
@@ -30,4 +33,7 @@
     <Import Project="$(NuGetPackageRoot)blazorise.bootstrap5\1.7.0\buildTransitive\Blazorise.Bootstrap5.props" Condition="Exists('$(NuGetPackageRoot)blazorise.bootstrap5\1.7.0\buildTransitive\Blazorise.Bootstrap5.props')" />
     <Import Project="$(NuGetPackageRoot)blazorise.bootstrap\1.7.0\buildTransitive\Blazorise.Bootstrap.props" Condition="Exists('$(NuGetPackageRoot)blazorise.bootstrap\1.7.0\buildTransitive\Blazorise.Bootstrap.props')" />
   </ImportGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\Samuele Biondi\.nuget\packages\microsoft.codeanalysis.analyzers\3.3.4</PkgMicrosoft_CodeAnalysis_Analyzers>
+  </PropertyGroup>
 </Project>

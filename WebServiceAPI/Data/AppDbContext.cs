@@ -20,32 +20,41 @@ namespace DND1.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Composite Primary Keys
-            modelBuilder.Entity<MoleImage>().HasKey(mi => new { mi.MoleImageID, mi.UserID });
-            modelBuilder.Entity<MRIImage>().HasKey(mri => new { mri.MRIImageID, mri.UserID });
-            modelBuilder.Entity<XrayImage>().HasKey(xri => new { xri.XrayImageID, xri.UserID });
+            // Define Primary Keys
+            modelBuilder.Entity<MoleImage>().HasKey(mi => mi.MoleImageID);
+            modelBuilder.Entity<MRIImage>().HasKey(mri => mri.MRIImageID);
+            modelBuilder.Entity<XrayImage>().HasKey(xri => xri.XrayImageID);
             modelBuilder.Entity<Alert>().HasKey(a => a.AlertID);
 
-            // Relationships
+            // Define Relationships
+
+            // MoleImage
             modelBuilder.Entity<MoleImage>()
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(mi => mi.UserID);
+                .HasOne(mi => mi.User)
+                .WithMany(u => u.MoleImages) // Assuming User has a collection of MoleImages
+                .HasForeignKey(mi => mi.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // MRIImage
             modelBuilder.Entity<MRIImage>()
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(mri => mri.UserID);
+                .HasOne(mri => mri.User)
+                .WithMany(u => u.MRIImages) // Assuming User has a collection of MRIImages
+                .HasForeignKey(mri => mri.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // XrayImage
             modelBuilder.Entity<XrayImage>()
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(xri => xri.UserID);
+                .HasOne(xri => xri.User)
+                .WithMany(u => u.XrayImages) // Assuming User has a collection of XrayImages
+                .HasForeignKey(xri => xri.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // Alerts
             modelBuilder.Entity<Alert>()
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(a => a.UserID);
+                .HasOne(a => a.User)
+                .WithMany(u => u.Alerts) // Assuming User has a collection of Alerts
+                .HasForeignKey(a => a.UserID)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

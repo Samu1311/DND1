@@ -1,11 +1,19 @@
 is_global = true
 build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WebApp
 build_property.RootNamespace = WebApp
@@ -32,6 +40,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Routes.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Shared/UpgradeModal.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcVXBncmFkZU1vZGFsLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/_Imports.razor]
@@ -77,3 +89,7 @@ build_metadata.AdditionalFiles.CssScope = b-rcsjrqt2hw
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/SignUp.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTaWduVXAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-fk03drr86o
+
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/UpgradeProcess.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVcGdyYWRlUHJvY2Vzcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-h1vju6sv5k

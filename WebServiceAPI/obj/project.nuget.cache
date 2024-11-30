@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "IHE+/M7SBho=",
+  "dgSpecHash": "Zum5ykCKx/8=",
   "success": true,
   "projectFilePath": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\WebServiceAPI.csproj",
   "expectedPackageFiles": [
@@ -47,6 +47,7 @@
     "C:\\Users\\Samuele Biondi\\.nuget\\packages\\opencvsharp4\\4.10.0.20241108\\opencvsharp4.4.10.0.20241108.nupkg.sha512",
     "C:\\Users\\Samuele Biondi\\.nuget\\packages\\opencvsharp4.runtime.win\\4.10.0.20241108\\opencvsharp4.runtime.win.4.10.0.20241108.nupkg.sha512",
     "C:\\Users\\Samuele Biondi\\.nuget\\packages\\opencvsharp4.windows\\4.10.0.20241108\\opencvsharp4.windows.4.10.0.20241108.nupkg.sha512",
+    "C:\\Users\\Samuele Biondi\\.nuget\\packages\\restsharp\\112.1.0\\restsharp.112.1.0.nupkg.sha512",
     "C:\\Users\\Samuele Biondi\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.10\\sqlitepclraw.bundle_e_sqlite3.2.1.10.nupkg.sha512",
     "C:\\Users\\Samuele Biondi\\.nuget\\packages\\sqlitepclraw.core\\2.1.10\\sqlitepclraw.core.2.1.10.nupkg.sha512",
     "C:\\Users\\Samuele Biondi\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.10\\sqlitepclraw.lib.e_sqlite3.2.1.10.nupkg.sha512",

@@ -29,19 +29,7 @@ namespace WebServiceAPI.Migrations
                     b.Property<int?>("MRIImageID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("MRIImageID1")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("MRIImageUserID")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("MoleImageID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("MoleImageID1")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("MoleImageUserID")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("RelatedItemType")
@@ -50,29 +38,18 @@ namespace WebServiceAPI.Migrations
                     b.Property<int>("UserID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserID1")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("XrayImageID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("XrayImageID1")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("XrayImageUserID")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("AlertID");
 
+                    b.HasIndex("MRIImageID");
+
+                    b.HasIndex("MoleImageID");
+
                     b.HasIndex("UserID");
 
-                    b.HasIndex("UserID1");
-
-                    b.HasIndex("MRIImageID1", "MRIImageUserID");
-
-                    b.HasIndex("MoleImageID1", "MoleImageUserID");
-
-                    b.HasIndex("XrayImageID1", "XrayImageUserID");
+                    b.HasIndex("XrayImageID");
 
                     b.ToTable("Alerts");
                 });
@@ -80,9 +57,7 @@ namespace WebServiceAPI.Migrations
             modelBuilder.Entity("DND1.Models.MRIImage", b =>
                 {
                     b.Property<int>("MRIImageID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("AnalysisResults")
@@ -99,14 +74,12 @@ namespace WebServiceAPI.Migrations
                     b.Property<DateTime>("UploadedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserID1")
+                    b.Property<int>("UserID")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("MRIImageID", "UserID");
+                    b.HasKey("MRIImageID");
 
                     b.HasIndex("UserID");
-
-                    b.HasIndex("UserID1");
 
                     b.ToTable("MRIImages");
                 });
@@ -139,9 +112,7 @@ namespace WebServiceAPI.Migrations
             modelBuilder.Entity("DND1.Models.MoleImage", b =>
                 {
                     b.Property<int>("MoleImageID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("AnalysisResults")
@@ -151,21 +122,19 @@ namespace WebServiceAPI.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FilePath")
+                    b.Property<byte[]>("ImageData")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("BLOB");
 
                     b.Property<DateTime>("UploadedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserID1")
+                    b.Property<int>("UserID")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("MoleImageID", "UserID");
+                    b.HasKey("MoleImageID");
 
                     b.HasIndex("UserID");
-
-                    b.HasIndex("UserID1");
 
                     b.ToTable("MoleImages");
                 });
@@ -233,9 +202,7 @@ namespace WebServiceAPI.Migrations
             modelBuilder.Entity("DND1.Models.XrayImage", b =>
                 {
                     b.Property<int>("XrayImageID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("AnalysisResults")
@@ -252,41 +219,35 @@ namespace WebServiceAPI.Migrations
                     b.Property<DateTime>("UploadedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserID1")
+                    b.Property<int>("UserID")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("XrayImageID", "UserID");
+                    b.HasKey("XrayImageID");
 
                     b.HasIndex("UserID");
-
-                    b.HasIndex("UserID1");
 
                     b.ToTable("XrayImages");
                 });
 
             modelBuilder.Entity("DND1.Models.Alert", b =>
                 {
-                    b.HasOne("DND1.Models.User", null)
+                    b.HasOne("DND1.Models.MRIImage", "MRIImage")
                         .WithMany()
+                        .HasForeignKey("MRIImageID");
+
+                    b.HasOne("DND1.Models.MoleImage", "MoleImage")
+                        .WithMany()
+                        .HasForeignKey("MoleImageID");
+
+                    b.HasOne("DND1.Models.User", "User")
+                        .WithMany("Alerts")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DND1.Models.User", "User")
-                        .WithMany("Alerts")
-                        .HasForeignKey("UserID1");
-
-                    b.HasOne("DND1.Models.MRIImage", "MRIImage")
-                        .WithMany()
-                        .HasForeignKey("MRIImageID1", "MRIImageUserID");
-
-                    b.HasOne("DND1.Models.MoleImage", "MoleImage")
-                        .WithMany()
-                        .HasForeignKey("MoleImageID1", "MoleImageUserID");
-
                     b.HasOne("DND1.Models.XrayImage", "XrayImage")
                         .WithMany()
-                        .HasForeignKey("XrayImageID1", "XrayImageUserID");
+                        .HasForeignKey("XrayImageID");
 
                     b.Navigation("MRIImage");
 
@@ -299,15 +260,11 @@ namespace WebServiceAPI.Migrations
 
             modelBuilder.Entity("DND1.Models.MRIImage", b =>
                 {
-                    b.HasOne("DND1.Models.User", null)
-                        .WithMany()
+                    b.HasOne("DND1.Models.User", "User")
+                        .WithMany("MRIImages")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("DND1.Models.User", "User")
-                        .WithMany("MRIImages")
-                        .HasForeignKey("UserID1");
 
                     b.Navigation("User");
                 });
@@ -325,15 +282,11 @@ namespace WebServiceAPI.Migrations
 
             modelBuilder.Entity("DND1.Models.MoleImage", b =>
                 {
-                    b.HasOne("DND1.Models.User", null)
-                        .WithMany()
+                    b.HasOne("DND1.Models.User", "User")
+                        .WithMany("MoleImages")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("DND1.Models.User", "User")
-                        .WithMany("MoleImages")
-                        .HasForeignKey("UserID1");
 
                     b.Navigation("User");
                 });
@@ -351,15 +304,11 @@ namespace WebServiceAPI.Migrations
 
             modelBuilder.Entity("DND1.Models.XrayImage", b =>
                 {
-                    b.HasOne("DND1.Models.User", null)
-                        .WithMany()
+                    b.HasOne("DND1.Models.User", "User")
+                        .WithMany("XrayImages")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("DND1.Models.User", "User")
-                        .WithMany("XrayImages")
-                        .HasForeignKey("UserID1");
 
                     b.Navigation("User");
                 });

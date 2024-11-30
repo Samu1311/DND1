@@ -7,12 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
     <PackageReference Include="Blazorise" Version="1.7.0" />
     <PackageReference Include="Blazorise.Bootstrap" Version="1.7.0" />
     <PackageReference Include="Blazorise.Bootstrap5" Version="1.7.0" />
     <PackageReference Include="Blazorise.Charts" Version="1.7.0" />
     <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.7.0" />
     <PackageReference Include="ChartJs.Blazor" Version="1.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.1" />
   </ItemGroup>
 
 </Project>

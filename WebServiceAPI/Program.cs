@@ -10,8 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddControllers();
 
-// Configure secret key for JWT authentication
-var key = Encoding.UTF8.GetBytes("a_super_secret_key_which_is_longer_than_32_characters");
+// Configure JWT settings
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -21,11 +23,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "yourapp.com", // Replace with your actual issuer
-            ValidAudience = "yourapp.com", // Replace with your actual audience
+            ValidIssuer = jwtSettings["Issuer"],
+            ValidAudience = jwtSettings["Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(key)
         };
     });
+
+builder.Services.AddAuthorization();
 
 // Allow larger file uploads (optional, for image uploads)
 builder.Services.Configure<FormOptions>(options =>
@@ -46,6 +50,12 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 104857600; // 100 MB
+});
+
 
 // Register ImageProcessor as a singleton
 builder.Services.AddSingleton<ImageProcessor>();

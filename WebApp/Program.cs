@@ -1,4 +1,6 @@
 using WebApp.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Blazored.LocalStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,11 +8,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// Register HttpClient before app build
+// Add HttpClient for API calls
 builder.Services.AddHttpClient("HealthAppAPI", client =>
 {
     client.BaseAddress = new Uri("http://localhost:5146/api/"); // Ensure API Base Address is correct
 });
+
+// Add Authentication and Authorization
+builder.Services.AddAuthorizationCore(); // Required for Blazor
+builder.Services.AddScoped<CustomAuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider>(provider => provider.GetRequiredService<CustomAuthenticationStateProvider>());
+builder.Services.AddBlazoredLocalStorage();
 
 var app = builder.Build();
 
@@ -18,7 +26,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
