@@ -27,6 +27,14 @@
     </button>
 </div>
 
+<!-- Welcome Message -->
+@if (!string.IsNullOrEmpty(userFirstName))
+{
+    <div class="welcome-message">
+        <h2>Welcome, @userFirstName!</h2>
+    </div>
+}
+
 <!-- Feature Icons Grid -->
 <div class="custom-grid">
     <div class="grid-item blue">
@@ -73,11 +81,11 @@
 
 <!-- Testing Buttons -->
 <div class="test-login">
-    <button class="btn btn-primary basic-user-button" @onclick='() => SimulateLogin("Basic")'>Login as Basic User</button>
-    <button class="btn btn-success premium-user-button" @onclick='() => SimulateLogin("Premium")'>Login as Premium User</button>
-<!-- go-to-testing-page-button  -->
-    <a href="/testing" class="btn btn-secondary">Go to Testing Page</a>
+    <button class="btn test-button basic-user-button" @onclick='() => SimulateLogin("Basic")'>Login as Basic User</button>
+    <button class="btn test-button premium-user-button" @onclick='() => SimulateLogin("Premium")'>Login as Premium User</button>
+    <button class="btn test-button go-to-testing-page-button" @onclick="GoToTestingPage">Go to Testing Page</button>
 </div>
+
 
 @if (isUpgradeModalVisible)
 {
@@ -97,6 +105,7 @@
     private string SearchQuery { get; set; } = string.Empty;
     private string userType = "Basic"; // Default to Basic
     private bool isUpgradeModalVisible = false;
+    private string userFirstName = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -104,6 +113,7 @@
         var claims = authState.User.Claims;
 
         userType = claims.FirstOrDefault(c => c.Type == "UserType")?.Value ?? "Basic";
+        userFirstName = claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value ?? "User";
 
         StateHasChanged();
     }
@@ -139,5 +149,9 @@
     {
         SearchQuery = string.Empty;
         Console.WriteLine("Clear button clicked!");
+    }
+    private void GoToTestingPage()
+    {
+        NavigationManager.NavigateTo("/testing");
     }
 }

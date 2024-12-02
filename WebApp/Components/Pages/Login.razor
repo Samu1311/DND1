@@ -1,6 +1,6 @@
 @page "/login"
 @using System.ComponentModel.DataAnnotations
-@inject HttpClient Http
+@inject IHttpClientFactory HttpClientFactory
 @inject CustomAuthenticationStateProvider AuthProvider
 @inject NavigationManager Navigation
 
@@ -36,7 +36,8 @@
 
     private async Task HandleLogin()
     {
-        var response = await Http.PostAsJsonAsync("login", loginModel);
+        var client = HttpClientFactory.CreateClient("HealthAppAPI");
+        var response = await client.PostAsJsonAsync("login/login", loginModel);
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadFromJsonAsync<LoginResult>();
@@ -51,7 +52,10 @@
 
     public class LoginModel
     {
+        [Required]
         public string Email { get; set; }
+
+        [Required]
         public string Password { get; set; }
     }
 

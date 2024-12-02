@@ -3,30 +3,34 @@ using System.IO;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ImageAnalysisController : ControllerBase
+public class FileUploadController : ControllerBase
 {
-    private readonly ImageProcessor _imageProcessor;
-
-    public ImageAnalysisController(ImageProcessor imageProcessor)
-    {
-        _imageProcessor = imageProcessor;
-    }
-
-    [HttpPost("analyze")]
-    public IActionResult AnalyzeMoleImage([FromForm] IFormFile file)
+    [HttpPost]
+    [Route("upload")]
+    public async Task<IActionResult> UploadFile(IFormFile file)
     {
         if (file == null || file.Length == 0)
-            return BadRequest("No file uploaded");
-
-        var fileName = Path.GetFileName(file.FileName);
-
-        using (var memoryStream = new MemoryStream())
         {
-            file.CopyTo(memoryStream);
-            var processedFilePath = _imageProcessor.AnalyzeAndTraceMole(fileName, memoryStream.ToArray());
-            var processedFileUrl = Url.Content($"~/processed/{fileName}");
-
-            return Ok(new { ProcessedFilePath = processedFilePath, ProcessedFileUrl = processedFileUrl });
+            return BadRequest("No file uploaded.");
         }
-    }
+
+        // Save the file in the wwwroot/UploadedFiles directory
+        var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "FileUpload");
+
+        if (!Directory.Exists(uploadPath))
+        {
+            Directory.CreateDirectory(uploadPath);
+        }
+
+        var filePath = Path.Combine(uploadPath, file.FileName);
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.CopyToAsync(stream);
+        }
+
+        // Return the relative file path for use in the app
+        var relativePath = $"/FileUpload/{file.FileName}";
+        return Ok(new { FileName = file.FileName, FilePath = relativePath });
+    }
 }

@@ -40,6 +40,7 @@ public class LoginController : ControllerBase
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+            new Claim(ClaimTypes.GivenName, user.FirstName),
             new Claim("Role", "User")
         };
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));

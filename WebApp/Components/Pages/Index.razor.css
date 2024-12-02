@@ -199,16 +199,18 @@ button {
 }
 
 
-/* Testing Buttons */
+/* Testing Buttons Container */
 .test-login {
     display: flex;
     justify-content: space-between;
-    width: 40%;
-    margin: auto;
+    align-items: center;
+    width: 60%; /* Slightly wider for spacing */
+    margin: 20px auto;
+    gap: 10px; /* Add spacing between buttons */
 }
 
-.basic-user-button {
-    background-color: #92acc0;
+/* Base Button Styling */
+.test-button {
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -216,24 +218,44 @@ button {
     font-weight: bold;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 5px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    border: none;
+    transition: transform 0.2s, background-color 0.3s ease;
+}
+
+/* Hover Effect */
+.test-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Modifier Classes for Button Colors */
+.basic-user-button {
+    background-color: #92acc0;
+}
+
+.basic-user-button:hover {
+    background-color: #7390a8;
 }
 
 .premium-user-button {
     background-color: #f9c74f;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
+
+.premium-user-button:hover {
+    background-color: #d9a840;
+}
+
+.go-to-testing-page-button {
+    background-color: #6a994e;
+}
+
+.go-to-testing-page-button:hover {
+    background-color: #5b8142;
+}
+
 
 /* Footer */	
 .footer {
@@ -244,108 +266,6 @@ button {
     font-size: 0.9rem;
     border-top: 1px solid #e9ecef; /* Subtle border for separation */
     margin-top: 1rem;
-}
-
-/* Modal Overlay */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    z-index: 999; /* Ensure it appears above other content */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Modal Content */
-.modal {
-    background-color: white;
-    width: 90%;
-    max-width: 500px;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
-    z-index: 1000; /* Ensure it's above the overlay */
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-/* Modal Header */
-.modal h2 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-/* Modal Description */
-.modal p {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-/* Modal Table */
-.modal table {
-    width: 100%;
-    margin: 20px 0;
-    border-collapse: collapse;
-}
-
-.modal table th,
-.modal table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-.modal table th {
-    background-color: #f8f9fa;
-    font-weight: bold;
-}
-
-.modal table td {
-    font-size: 0.9rem;
-    color: #555;
-}
-
-/* Modal Buttons */
-.modal-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.modal-buttons .btn {
-    flex: 1;
-    padding: 10px 15px;
-    font-size: 1rem;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-}
-
-.modal-buttons .btn-primary {
-    background-color: #219ebc; /* Blue */
-    color: white;
-    border: none;
-}
-
-.modal-buttons .btn-primary:hover {
-    background-color: #005a70;
-    transform: translateY(-2px);
-}
-
-.modal-buttons .btn-secondary {
-    background-color: #ccc; /* Gray */
-    color: black;
-    border: none;
-}
-
-.modal-buttons .btn-secondary:hover {
-    background-color: #aaa;
-    transform: translateY(-2px);
 }
 
 /* Modal Fade-In Animation */
@@ -385,4 +305,59 @@ button {
         font-size: 1.2rem; /* Slightly smaller icons on small screens */
     }
 }
+
+/* Welcome Message Styling */
+.welcome-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    padding: 15px 30px;
+    max-width: 600px;
+    background: linear-gradient(90deg, #219ebc, #023047);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    color: #ffffff;
+    animation: slideInFromLeft 1s ease-out, glowPulse 3s infinite;
+    text-align: center;
+}
+
+/* Typography for the Welcome Text */
+.welcome-message h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    margin: 0;
+}
+
+/* Animations */
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(33, 158, 188, 0.5);
+    }
+    50% {
+        box-shadow: 0 4px 25px rgba(33, 158, 188, 0.8);
+    }
+}
+
+/* Hover Interaction for Fun */
+.welcome-message:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(33, 158, 188, 0.8);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+
 
