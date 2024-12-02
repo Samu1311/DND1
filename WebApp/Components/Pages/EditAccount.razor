@@ -1,0 +1,90 @@
+@page "/edit-account"
+<div class="edit-account-container">
+    <h1 class="page-title">Edit Account Information</h1>
+
+    <!-- Public Information Section -->
+    <div class="info-box public-box">
+        <h2 class="section-title">Personal Information</h2>
+        <EditForm Model="@publicInfoModel" OnValidSubmit="@SavePublicInfo">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <InputText id="firstName" class="form-control" @bind-Value="publicInfoModel.FirstName" />
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <InputText id="lastName" class="form-control" @bind-Value="publicInfoModel.LastName" />
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <InputText id="phoneNumber" class="form-control" @bind-Value="publicInfoModel.PhoneNumber" />
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <InputDate id="dob" class="form-control" @bind-Value="publicInfoModel.DateOfBirth" />
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <InputText id="gender" class="form-control" @bind-Value="publicInfoModel.Gender" />
+            </div>
+            <button type="submit" class="btn btn-primary save-btn">Save Changes</button>
+        </EditForm>
+    </div>
+
+    <!-- Private Information Section -->
+    <div class="info-box private-box">
+        <h2 class="section-title private-title">Account Security</h2>
+        <EditForm Model="@privateInfoModel" OnValidSubmit="@SavePrivateInfo">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <label for="email">Change Email</label>
+                <InputText id="email" class="form-control" @bind-Value="privateInfoModel.Email" />
+            </div>
+            <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <InputText id="currentPassword" class="form-control" type="password" @bind-Value="privateInfoModel.CurrentPassword" />
+            </div>
+            <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <InputText id="newPassword" class="form-control" type="password" @bind-Value="privateInfoModel.NewPassword" />
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm New Password</label>
+                <InputText id="confirmPassword" class="form-control" type="password" @bind-Value="privateInfoModel.ConfirmPassword" />
+            </div>
+            <button type="submit" class="btn btn-secondary save-btn">Update Security</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private PublicInfoModel publicInfoModel = new() { FirstName = "John", LastName = "Doe", PhoneNumber = "123-456-7890", DateOfBirth = DateTime.Parse("1990-01-01"), Gender = "Male" };
+    private PrivateInfoModel privateInfoModel = new() { Email = "johndoe@example.com" };
+
+    private void SavePublicInfo()
+    {
+        Console.WriteLine("Public info saved!");
+    }
+
+    private void SavePrivateInfo()
+    {
+        Console.WriteLine("Private info updated!");
+    }
+
+    public class PublicInfoModel
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public string Gender { get; set; }
+    }
+
+    public class PrivateInfoModel
+    {
+        public string Email { get; set; }
+        public string CurrentPassword { get; set; }
+        public string NewPassword { get; set; }
+        public string ConfirmPassword { get; set; }
+    }
+}

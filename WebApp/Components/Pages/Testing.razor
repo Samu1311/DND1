@@ -1,0 +1,17 @@
+@page "/testing"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+<h3>Protected Page</h3>
+
+<p>This page is only accessible to authenticated users.</p>
+
+<style>
+    h3 {
+        color: #333;
+    }
+
+    p {
+        color: #666;
+    }
+</style>

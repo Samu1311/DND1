@@ -12,6 +12,18 @@
             <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 
             <div class="form-group">
+                <label for="firstName">First Name</label>
+                <InputText id="firstName" class="form-control" @bind-Value="signUpModel.FirstName" />
+                <ValidationMessage For="@(() => signUpModel.FirstName)" />
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <InputText id="lastName" class="form-control" @bind-Value="signUpModel.LastName" />
+                <ValidationMessage For="@(() => signUpModel.LastName)" />
+            </div>
+
+            <div class="form-group">
                 <label for="email">Email</label>
                 <InputText id="email" class="form-control" @bind-Value="signUpModel.Email" />
                 <ValidationMessage For="@(() => signUpModel.Email)" />
@@ -24,123 +36,60 @@
             </div>
 
             <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <InputText id="confirm-password" type="password" class="form-control" @bind-Value="signUpModel.ConfirmPassword" />
-                <ValidationMessage For="@(() => signUpModel.ConfirmPassword)" />
-            </div>
-
-            <div class="form-group">
-                <label for="first-name">First Name</label>
-                <InputText id="first-name" class="form-control" @bind-Value="signUpModel.FirstName" />
-                <ValidationMessage For="@(() => signUpModel.FirstName)" />
-            </div>
-
-            <div class="form-group">
-                <label for="last-name">Last Name</label>
-                <InputText id="last-name" class="form-control" @bind-Value="signUpModel.LastName" />
-                <ValidationMessage For="@(() => signUpModel.LastName)" />
-            </div>
-
-            <div class="form-group">
-                <label for="date-of-birth">Date of Birth</label>
-                <InputDate id="date-of-birth" class="form-control" @bind-Value="signUpModel.DateOfBirth" />
+                <label for="dateOfBirth">Date of Birth</label>
+                <InputDate id="dateOfBirth" class="form-control" @bind-Value="signUpModel.DateOfBirth" />
                 <ValidationMessage For="@(() => signUpModel.DateOfBirth)" />
             </div>
 
             <div class="form-group">
                 <label for="gender">Gender</label>
-                <InputSelect id="gender" class="form-control" @bind-Value="signUpModel.Gender">
-                    <option value="" disabled>Select your gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </InputSelect>
+                <InputText id="gender" class="form-control" @bind-Value="signUpModel.Gender" />
                 <ValidationMessage For="@(() => signUpModel.Gender)" />
             </div>
 
             <div class="button-group">
                 <button type="submit" class="btn btn-primary">Sign Up</button>
-                <a href="/login" class="btn btn-secondary">Login</a>
             </div>
         </EditForm>
-
-        @if (!string.IsNullOrEmpty(SignUpErrorMessage))
-        {
-            <div class="error-message">@SignUpErrorMessage</div>
-        }
     </div>
 </div>
 
 @code {
-    public class SignUpModel
-    {
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string Email { get; set; } = string.Empty;
+    private SignUpModel signUpModel = new SignUpModel();
 
-        [Required(ErrorMessage = "Password is required")]
-        [MinLength(6, ErrorMessage = "Password must be at least 6 characters long")]
-        public string Password { get; set; } = string.Empty;
-
-        [Compare("Password", ErrorMessage = "Passwords do not match")]
-        public string ConfirmPassword { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "First name is required")]
-        public string FirstName { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "Last name is required")]
-        public string LastName { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "Date of Birth is required")]
-        public DateTime? DateOfBirth { get; set; }
-
-        [Required(ErrorMessage = "Gender is required")]
-        public string Gender { get; set; } = string.Empty;
-    }
-    private SignUpModel signUpModel = new();
-
-    private string SignUpErrorMessage = string.Empty;
-
-@code {
     private async Task HandleSignUp()
     {
-        try
+        var client = HttpClientFactory.CreateClient("HealthAppAPI");
+        var response = await client.PostAsJsonAsync("user/register", signUpModel);
+
+        if (response.IsSuccessStatusCode)
         {
-            var client = HttpClientFactory.CreateClient("HealthAppAPI");
-
-            // Prepare user data payload
-            var payload = new
-            {
-                Email = signUpModel.Email,
-                PasswordHash = signUpModel.Password, // Mapped to backend's PasswordHash
-                FirstName = signUpModel.FirstName,
-                LastName = signUpModel.LastName,
-                DateOfBirth = signUpModel.DateOfBirth,
-                Gender = signUpModel.Gender
-            };
-
-            // Send POST request to the API
-            var response = await client.PostAsJsonAsync("user", payload);
-
-            if (response.IsSuccessStatusCode)
-            {
-                Console.WriteLine("User created successfully.");
-                NavigationManager.NavigateTo("/login");
-            }
-            else
-            {
-                var error = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Sign-up failed: {error}");
-                SignUpErrorMessage = "An error occurred during sign-up. Please try again.";
-            }
+            NavigationManager.NavigateTo("/login");
         }
-        catch (Exception ex)
+        else
         {
-            Console.WriteLine($"Exception: {ex.Message}");
-            SignUpErrorMessage = "An unexpected error occurred. Please try again.";
+            // Handle registration failure
         }
     }
-}
 
+    public class SignUpModel
+    {
+        [Required]
+        public string FirstName { get; set; } = string.Empty;
 
+        [Required]
+        public string LastName { get; set; } = string.Empty;
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        [MinLength(6)]
+        public string Password { get; set; } = string.Empty;
+
+        public DateTime? DateOfBirth { get; set; }
+
+        public string? Gender { get; set; }
+    }
 }

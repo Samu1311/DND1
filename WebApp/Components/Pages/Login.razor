@@ -1,5 +1,8 @@
 @page "/login"
 @using System.ComponentModel.DataAnnotations
+@inject HttpClient Http
+@inject CustomAuthenticationStateProvider AuthProvider
+@inject NavigationManager Navigation
 
 <div class="login-container">
     <h1 class="login-title">Login</h1>
@@ -29,21 +32,31 @@
 </div>
 
 @code {
-    private LoginModel loginModel = new();
+    private LoginModel loginModel = new LoginModel();
 
-    private void HandleLogin()
+    private async Task HandleLogin()
     {
-        Console.WriteLine($"Logging in as {loginModel.Email}");
-        // Add your login logic here (e.g., API call)
+        var response = await Http.PostAsJsonAsync("login", loginModel);
+        if (response.IsSuccessStatusCode)
+        {
+            var result = await response.Content.ReadFromJsonAsync<LoginResult>();
+            await AuthProvider.SetTokenAsync(result.Token);
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            // Handle login failure
+        }
     }
 
     public class LoginModel
     {
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string Email { get; set; } = string.Empty;
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
 
-        [Required(ErrorMessage = "Password is required")]
-        public string Password { get; set; } = string.Empty;
+    public class LoginResult
+    {
+        public string Token { get; set; }
     }
 }

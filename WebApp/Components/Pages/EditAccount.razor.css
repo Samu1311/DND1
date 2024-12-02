@@ -1,0 +1,102 @@
+.edit-account-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: left;
+    background-color: #f7f9fc;
+    border-radius: 8px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #004085;
+}
+
+.info-box {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    position: relative;
+}
+
+.public-box {
+    border: 1px solid #219ebc;
+}
+
+.private-box {
+    border: 1px dashed #bf0000; /* More delicate, dashed border */
+    background-color: #ffefef; /* Light red to indicate sensitivity */
+    box-shadow: 0 4px 8px rgba(191, 0, 0, 0.2); /* Slightly stronger shadow */
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #219ebc; /* Modern underline effect */
+    color: #004085;
+}
+
+.private-title {
+    border-bottom: 3px solid #bf0000; /* Red underline for sensitivity */
+    color: #bf0000;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: #219ebc;
+    outline: none;
+    box-shadow: 0 0 5px rgba(33, 158, 188, 0.25);
+}
+
+.save-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #219ebc;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #bf0000;
+    color: white;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    transition: 0.3s;
+}

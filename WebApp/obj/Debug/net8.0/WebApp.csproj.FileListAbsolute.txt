@@ -160,3 +160,4 @@ C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\bin\Debug\net8.0
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\scopedcss\Components\Pages\UpgradeProcess.razor.rz.scp.css
+C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\scopedcss\Components\Pages\EditAccount.razor.rz.scp.css

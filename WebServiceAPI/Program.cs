@@ -77,11 +77,21 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
+
 // Middleware pipeline
+app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseStaticFiles(); // To serve files from wwwroot directory
+
 app.MapControllers();
 
 app.Run();

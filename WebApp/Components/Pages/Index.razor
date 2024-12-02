@@ -75,11 +75,16 @@
 <div class="test-login">
     <button class="btn btn-primary basic-user-button" @onclick='() => SimulateLogin("Basic")'>Login as Basic User</button>
     <button class="btn btn-success premium-user-button" @onclick='() => SimulateLogin("Premium")'>Login as Premium User</button>
+<!-- go-to-testing-page-button  -->
+    <a href="/testing" class="btn btn-secondary">Go to Testing Page</a>
 </div>
 
 @if (isUpgradeModalVisible)
 {
-    <UpgradeModal OnClose="CloseUpgradeModal" OnUpgrade="UpgradeToPremium" />
+    <UpgradeModal 
+        OnClose="CloseUpgradeModal" 
+        OnUpgrade="UpgradeToPremium" 
+    />
 }
 
 

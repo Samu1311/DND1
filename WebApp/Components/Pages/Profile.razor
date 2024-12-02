@@ -1,111 +1,71 @@
 @page "/profile"
-@using System.ComponentModel.DataAnnotations
 @inject IHttpClientFactory HttpClientFactory
+@inject NavigationManager NavigationManager
 
-<div class="profile-container">
-    <h1 class="profile-title">My Profile</h1>
+<div class="profile-page">
+    <!-- Header Section -->
+    <div class="profile-header">
+        <div class="profile-header-bg">
+            <div class="profile-pic-container">
+                <img src="images/profile-placeholder.png" alt="Profile Picture" class="profile-pic" />
+                <button class="btn edit-pic-btn" @onclick="UploadPicture">
+                    <i class="fas fa-camera"></i>
+                </button>
+            </div>
+        </div>
+        <h1 class="profile-name">@userProfile.Name</h1>
+        <p class="profile-bio">@userProfile.Bio</p>
+    </div>
 
-    <div class="profile-content">
-        <!-- Profile Picture Section -->
-        <div class="profile-picture">
-            <img src="images/profile-placeholder.png" alt="Profile Picture" class="profile-img" />
-            <button class="btn btn-secondary upload-btn" @onclick="UploadPicture">
-                Upload Picture
+    <!-- Card Section -->
+    <div class="profile-cards">
+        <div class="profile-card">
+            <h2>Personal Information</h2>
+            <p><strong>Email:</strong> @userProfile.Email</p>
+            <p><strong>Phone:</strong> @userProfile.Phone</p>
+            <button class="btn btn-primary" @onclick="EditPersonalInfo">
+                Edit Info
             </button>
         </div>
-
-        <!-- Personal Information Form -->
-        <div class="form-container">
-            <EditForm Model="@userProfile" OnValidSubmit="UpdateProfile">
-                <DataAnnotationsValidator />
-                <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
-
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <InputText id="name" class="form-control" @bind-Value="userProfile.Name" />
-                    <ValidationMessage For="@(() => userProfile.Name)" />
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <InputText id="email" class="form-control" @bind-Value="userProfile.Email" />
-                    <ValidationMessage For="@(() => userProfile.Email)" />
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <InputText id="phone" class="form-control" @bind-Value="userProfile.Phone" />
-                    <ValidationMessage For="@(() => userProfile.Phone)" />
-                </div>
-
-                <div class="form-group">
-                    <label for="bio">Bio</label>
-                    <InputTextArea id="bio" class="form-control" @bind-Value="userProfile.Bio" />
-                    <ValidationMessage For="@(() => userProfile.Bio)" />
-                </div>
-
-                <div class="button-group">
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                    <button type="button" class="btn btn-secondary" @onclick="CancelChanges">Cancel</button>
-                </div>
-            </EditForm>
+        <div class="profile-card">
+            <h2>Subscription</h2>
+            <p><strong>Plan:</strong> Premium</p>
+            <p><strong>Renewal Date:</strong> 15th Dec 2024</p>
+            <button class="btn btn-secondary">Manage Subscription</button>
+        </div>
+        <div class="profile-card">
+            <h2>Account Settings</h2>
+            <button class="btn btn-danger">Deactivate Account</button>
+            <button class="btn btn-warning">Change Password</button>
         </div>
     </div>
 </div>
 
 @code {
+
+    public class UserProfile
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Bio { get; set; }
+    }
     private UserProfile userProfile = new()
     {
         Name = "John Doe",
         Email = "johndoe@example.com",
         Phone = "123-456-7890",
-        Bio = "This is your bio. Tell us something about yourself!"
+        Bio = "A passionate user of the Health App, here to track and improve my well-being!"
     };
-
-    private async Task UploadProfilePictureAsync()
-    {
-        var client = HttpClientFactory.CreateClient("MoleTrackingAPI");
-        var response = await client.PostAsync("profilepictures/1/upload-profile-picture", new MultipartFormDataContent());
-        if (response.IsSuccessStatusCode)
-        {
-            // Handle success
-        }
-        else
-        {
-            // Handle error
-        }
-    }
 
     private void UploadPicture()
     {
         Console.WriteLine("Upload picture clicked!");
-        // Implement upload logic here
     }
 
-    private void UpdateProfile()
+    private void EditPersonalInfo()
     {
-        Console.WriteLine($"Profile updated for: {userProfile.Name}");
-        // Add logic to save changes
-    }
-
-    private void CancelChanges()
-    {
-        Console.WriteLine("Changes canceled");
-        // Optionally reset form or navigate away
-    }
-
-    public class UserProfile
-    {
-        [Required(ErrorMessage = "Name is required")]
-        public string Name { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string Email { get; set; } = string.Empty;
-
-        [Phone(ErrorMessage = "Invalid phone number")]
-        public string Phone { get; set; } = string.Empty;
-
-        public string Bio { get; set; } = string.Empty;
+        Console.WriteLine("Edit personal info clicked!");
+        NavigationManager.NavigateTo("/edit-account");
     }
 }
