@@ -4,8 +4,9 @@
 
 <div class="mole-tracking-container">
     <h1 class="page-title">Mole Tracking</h1>
-    <p class="instructions">Upload your mole images for tracking and analysis. You can visualize the progress of your health over time below.</p>
+    <p class="instructions">Navigate through different months to view or update your mole images.</p>
 
+    <!-- Sección de subir imágenes -->
     <div class="upload-section">
         <div class="file-drop-box">
             <p class="drop-text">Drag and drop your image here or click to upload</p>
@@ -18,36 +19,170 @@
         </div>
     </div>
 
-    <div class="images-timeline">
-        <h2 class="timeline-title">Your Mole Images Over Time</h2>
-        <div class="timeline-grid">
-            @for (int i = 0; i < 6; i++) 
+<!-- Mole Selection Dropdown -->
+<div class="location-selection">
+    <h3>Select Mole Location</h3>
+    <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" @onclick="ToggleDropdown">
+            @selectedLocation
+        </button>
+        <ul class="dropdown-menu @(isDropdownOpen ? "show" : "")">
+            @foreach (var location in moleLocations)
             {
-                <div class="image-card">
-                    <img src="images/placeholder.png" alt="Mole Image Placeholder" />
-                    <p class="image-caption">Image {i + 1}</p>
-                </div>
+                <li class="dropdown-item" @onclick="() => SelectLocation(location)">@location</li>
+            }
+        </ul>
+    </div>
+</div>
+
+    <!-- Month Carousel -->
+    <div class="month-carousel">
+        <button class="btn btn-carousel" @onclick="PreviousMonth">←</button>
+        <h3 class="month-title">@currentMonth.ToString("MMMM yyyy")</h3>
+        <button class="btn btn-carousel" @onclick="NextMonth">→</button>
+    </div>
+
+    <!-- Calendar -->
+    <div class="calendar-section">
+        <h3>View or Update Mole Condition by Date</h3>
+        <div class="calendar-header">
+            <div class="calendar-day">Sun</div>
+            <div class="calendar-day">Mon</div>
+            <div class="calendar-day">Tue</div>
+            <div class="calendar-day">Wed</div>
+            <div class="calendar-day">Thu</div>
+            <div class="calendar-day">Fri</div>
+            <div class="calendar-day">Sat</div>
+        </div>
+        <div class="calendar">
+            @for (int week = 0; week < weeksInMonth; week++)
+            {
+                @for (int day = 0; day < 7; day++)
+                {
+                    int date = GetDateForCell(week, day);
+                    <div class="calendar-cell @(HasImageForDate(date) ? "has-image" : "")" 
+                        @onclick="() => OnDateClick(date)">
+                        @if (date > 0)
+                        {
+                            <span>@date</span>
+                            @if (HasImageForDate(date))
+                            {
+                                <img src="images/thumbnail_placeholder.png" alt="Thumbnail" class="calendar-thumbnail" />
+                            }
+                        }
+                    </div>
+                }
             }
         </div>
     </div>
 </div>
 
 @code {
+    // Manejo de archivos
     private void HandleFileSelected(ChangeEventArgs e)
     {
         Console.WriteLine("File selected!");
-        // Placeholder for file handling logic
+        // Placeholder para la lógica de carga de archivos
     }
 
     private void ResetFile()
     {
         Console.WriteLine("File reset!");
-        // Placeholder for reset logic
+        // Placeholder para lógica de reinicio
     }
 
     private void UploadFile()
     {
         Console.WriteLine("File uploaded!");
-        // Placeholder for upload logic
+        // Placeholder para la lógica de subida
+    }
+
+    // Dropdown Menu
+    private bool isDropdownOpen = false;
+    private string selectedLocation = "Select Location";
+    private List<string> moleLocations = new List<string> { "Arm", "Back", "Leg", "Face" };
+
+    private void ToggleDropdown()
+    {
+        isDropdownOpen = !isDropdownOpen;
+    }
+
+    private void SelectLocation(string location)
+    {
+        selectedLocation = location;
+        isDropdownOpen = false;
+        Console.WriteLine($"Selected location: {location}");
+    }
+
+    // Lógica del calendario
+    private DateTime currentMonth = DateTime.Now;
+    private int daysInMonth;
+    private int firstDayOfWeek;
+    private int weeksInMonth = 6; // Máximo de semanas para el calendario
+    private List<DateTime> imageDatesForSelectedMole = new List<DateTime>();
+
+    protected override void OnInitialized()
+    {
+        LoadMonthData();
+    }
+
+    private void LoadMonthData()
+    {
+        daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
+        firstDayOfWeek = (int)new DateTime(currentMonth.Year, currentMonth.Month, 1).DayOfWeek;
+
+        // Fechas con imágenes (puedes reemplazar esto con datos de tu base de datos)
+        imageDatesForSelectedMole = GetImagesForMonth(currentMonth.Year, currentMonth.Month);
+    }
+
+    private void PreviousMonth()
+    {
+        currentMonth = currentMonth.AddMonths(-1);
+        LoadMonthData();
+    }
+
+    private void NextMonth()
+    {
+        currentMonth = currentMonth.AddMonths(1);
+        LoadMonthData();
+    }
+
+    private int GetDateForCell(int week, int day)
+    {
+        int cellIndex = (week * 7) + day;
+        int date = cellIndex - firstDayOfWeek + 1;
+        return date > 0 && date <= daysInMonth ? date : 0;
+    }
+
+    private bool HasImageForDate(int date)
+    {
+        return imageDatesForSelectedMole.Any(d => d.Day == date);
+    }
+
+    private void OnDateClick(int date)
+    {
+        if (date > 0)
+        {
+            var selectedDate = new DateTime(currentMonth.Year, currentMonth.Month, date);
+            if (HasImageForDate(date))
+            {
+                Console.WriteLine($"Image found for: {selectedDate:yyyy-MM-dd}");
+                // Lógica para mostrar detalles de la imagen
+            }
+            else
+            {
+                Console.WriteLine($"No image for: {selectedDate:yyyy-MM-dd}");
+            }
+        }
+    }
+    private List<DateTime> GetImagesForMonth(int year, int month)
+    {
+        // Simulación de datos: Reemplaza esto con datos de tu base de datos
+        return new List<DateTime>
+        {
+            new DateTime(year, month, 3),
+            new DateTime(year, month, 15),
+            new DateTime(year, month, 28)
+        };
     }
 }

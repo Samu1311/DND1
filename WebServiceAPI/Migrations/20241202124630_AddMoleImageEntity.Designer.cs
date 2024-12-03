@@ -3,6 +3,7 @@ using System;
 using DND1.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebServiceAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241202124630_AddMoleImageEntity")]
+    partial class AddMoleImageEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -193,12 +196,6 @@ namespace WebServiceAPI.Migrations
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<string>("UserType")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValue("Basic");
 
                     b.HasKey("UserID");
 

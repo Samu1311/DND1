@@ -1,4 +1,9 @@
-﻿<nav class="navbar navbar-expand-lg bg-primary">
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inject CustomAuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+@inject CustomAuthenticationStateProvider CustomAuthProvider
+
+<nav class="navbar navbar-expand-lg bg-primary">
     <div class="container-fluid">
         <!-- Brand -->
         <a class="navbar-brand" href="/">HealthTracking App</a>
@@ -7,32 +12,98 @@
         <button
             class="navbar-toggler"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
+            @onclick="ToggleNavbar"
             aria-controls="navbarNav"
-            aria-expanded="false"
+            aria-expanded="@isNavbarExpanded.ToString().ToLower()"
             aria-label="Toggle navigation"
-        >   
-        <span class="navbar-toggler-icon"></span>
+        >
+            <span class="navbar-toggler-icon"></span>
         </button>
 
-
         <!-- Navbar Links -->
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse @(isNavbarExpanded ? "show" : "")" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Home</NavLink>
+                    <NavLink class="nav-link" href="/about" Match="NavLinkMatch.All">About</NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="/login">Login</NavLink>
+                    <NavLink class="nav-link" href="/services">Services</NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="/image-analysis">Upload Image</NavLink>
+                    <NavLink class="nav-link" href="/faq">FAQ</NavLink>
                 </li>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="/images">View Images</NavLink>
-                </li>
+                @if (isUserLoggedIn)
+                {
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="/" @onclick="LogOut">LogOut</NavLink>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="/login">LogIn</NavLink>
+                    </li>
+                }
             </ul>
         </div>
     </div>
 </nav>
+
+@code {
+    private bool isNavbarExpanded = false;
+    private bool isUserLoggedIn = false;
+
+    private void ToggleNavbar()
+    {
+        isNavbarExpanded = !isNavbarExpanded;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Subscribe to authentication state changes
+        AuthenticationStateProvider.AuthenticationStateChanged += OnAuthenticationStateChanged;
+
+        // Initial check of the user's logged-in status
+        await CheckUserLoggedInAsync();
+    }
+
+    private async Task CheckUserLoggedInAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        // Check if the user is authenticated
+        isUserLoggedIn = user.Identity != null && user.Identity.IsAuthenticated;
+
+        // Since we're changing state asynchronously, call StateHasChanged
+        StateHasChanged();
+    }
+
+    private async void OnAuthenticationStateChanged(Task<AuthenticationState> task)
+    {
+        var authState = await task;
+        var user = authState.User;
+
+        isUserLoggedIn = user.Identity != null && user.Identity.IsAuthenticated;
+
+        // Invoke StateHasChanged on the UI thread
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task LogOut()
+    {
+        await CustomAuthProvider.LogoutAsync(); // Custom logic for logout
+
+        // Redirect to the home page after logout
+        NavigationManager.NavigateTo("/");
+
+        // Optionally, collapse the navbar
+        isNavbarExpanded = false;
+    }
+
+    // Dispose method to unsubscribe from events
+    public void Dispose()
+    {
+        AuthenticationStateProvider.AuthenticationStateChanged -= OnAuthenticationStateChanged;
+    }
+}

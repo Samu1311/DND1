@@ -12,6 +12,7 @@ namespace DND1.Models
         public string PasswordHash { get; set; } = string.Empty;
         public DateTime? DateOfBirth { get; set; }
         public string? Gender { get; set; }
+        public string UserType { get; set; } = "Basic"; // Default to "Basic"
 
         // Navigation Properties
         public ICollection<MedicalData>? MedicalData { get; set; }

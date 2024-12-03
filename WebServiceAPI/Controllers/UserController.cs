@@ -7,6 +7,9 @@ using System.Security.Cryptography;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace DND1.Controllers
 {
@@ -14,11 +17,13 @@ namespace DND1.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
         private readonly AppDbContext _context;
 
-        public UserController(AppDbContext context)
+        public UserController(IConfiguration configuration, AppDbContext context)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         // Register a new user
@@ -37,7 +42,8 @@ namespace DND1.Controllers
                 Email = model.Email,
                 PasswordHash = HashPassword(model.Password),
                 DateOfBirth = model.DateOfBirth,
-                Gender = model.Gender
+                Gender = model.Gender,
+                UserType = model.UserType ?? "Basic" // Default to "Basic"
             };
 
             _context.Users.Add(user);
@@ -116,6 +122,50 @@ namespace DND1.Controllers
             return Ok(new { Message = "User deleted successfully" });
         }
 
+        //Update UserType
+        [HttpPost("upgrade")]
+        public async Task<IActionResult> UpgradeUser([FromBody] UpgradeUserRequest request)
+        {
+            var user = await _context.Users.FindAsync(request.UserID);
+            if (user == null) return NotFound("User not found");
+
+            user.UserType = request.UserType;
+            await _context.SaveChangesAsync();
+
+            // Generate a new token with updated UserType
+            var token = GenerateJwtToken(user);
+            return Ok(new { Token = token });
+        }
+
+        private string GenerateJwtToken(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()),
+                new Claim(ClaimTypes.GivenName, user.FirstName),
+                new Claim("UserType", user.UserType)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddHours(1),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+            public class UpgradeUserRequest
+            {
+                public int UserID { get; set; } // Add this property
+                public string UserType { get; set; } // Ensure this matches the incoming request structure
+            }
+
         private string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
@@ -145,6 +195,7 @@ namespace DND1.Controllers
         public DateTime? DateOfBirth { get; set; }
     
         public string? Gender { get; set; }
+        public string UserType { get; set; } = "Basic"; // Default to "Basic"
     }
 
     public class UserUpdateModel
@@ -156,5 +207,6 @@ namespace DND1.Controllers
         public string? Password { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string? Gender { get; set; }
+        public string? UserType { get; set; }
     }
 }

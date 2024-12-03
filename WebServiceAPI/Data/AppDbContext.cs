@@ -55,6 +55,11 @@ namespace DND1.Data
                 .WithMany(u => u.Alerts) // Assuming User has a collection of Alerts
                 .HasForeignKey(a => a.UserID)
                 .OnDelete(DeleteBehavior.Cascade);
+
+                // Add default constraints for UserType
+            modelBuilder.Entity<User>()
+                .Property(u => u.UserType)
+                .HasDefaultValue("Basic");
         }
     }
 }

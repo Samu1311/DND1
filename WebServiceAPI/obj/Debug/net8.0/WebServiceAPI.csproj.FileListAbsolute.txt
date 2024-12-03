@@ -7,7 +7,6 @@ C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebServiceAPI\bin\Debug
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebServiceAPI\bin\Debug\net8.0\WebServiceAPI.dll
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebServiceAPI\bin\Debug\net8.0\WebServiceAPI.pdb
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebServiceAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebServiceAPI\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebServiceAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebServiceAPI\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebServiceAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll

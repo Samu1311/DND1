@@ -15,12 +15,19 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider
         _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
     }
 
+    /// <summary>
+    /// Sets the authentication token and updates the authentication state.
+    /// </summary>
     public async Task SetTokenAsync(string token)
     {
         await _localStorage.SetItemAsync("authToken", token);
+        _currentUser = CreateClaimsPrincipalFromToken(token); // Update current user based on token
         NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
     }
 
+    /// <summary>
+    /// Logs out the user by clearing the token and resetting the authentication state.
+    /// </summary>
     public async Task LogoutAsync()
     {
         await _localStorage.RemoveItemAsync("authToken");
@@ -28,23 +35,27 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider
         NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
     }
 
+    /// <summary>
+    /// Retrieves the current authentication state.
+    /// </summary>
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
         var token = await _localStorage.GetItemAsync<string>("authToken");
+
         if (string.IsNullOrEmpty(token))
         {
+            // If no token is found, return an anonymous user
+            _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
             return new AuthenticationState(_currentUser);
         }
 
-        var handler = new JwtSecurityTokenHandler();
-        var jwtToken = handler.ReadJwtToken(token);
-        var identity = new ClaimsIdentity(jwtToken.Claims, "jwt");
-        _currentUser = new ClaimsPrincipal(identity);
-
+        _currentUser = CreateClaimsPrincipalFromToken(token);
         return new AuthenticationState(_currentUser);
     }
 
-    //Testing Section
+    /// <summary>
+    /// Simulates a login for testing purposes with a given user type.
+    /// </summary>
     public Task SimulateLogin(string userType)
     {
         var identity = new ClaimsIdentity(new[]
@@ -59,14 +70,16 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider
         return Task.CompletedTask;
     }
 
-/*     public override Task<AuthenticationState> GetAuthenticationStateAsync()
+    /// <summary>
+    /// Helper method to create a ClaimsPrincipal from a JWT token.
+    /// </summary>
+    private ClaimsPrincipal CreateClaimsPrincipalFromToken(string token)
     {
-        if (_currentUser != null)
-        {
-            return Task.FromResult(new AuthenticationState(_currentUser));
-        }
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
 
-        var anonymous = new ClaimsPrincipal(new ClaimsIdentity());
-        return Task.FromResult(new AuthenticationState(anonymous));
-    } */
+        // Extract claims from the token
+        var identity = new ClaimsIdentity(jwtToken.Claims, "jwt");
+        return new ClaimsPrincipal(identity);
+    }
 }

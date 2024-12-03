@@ -1,57 +1,123 @@
 @page "/upgrade-process"
+@inject CustomAuthenticationStateProvider AuthenticationStateProvider
+@inject IHttpClientFactory HttpClientFactory
+@inject NavigationManager NavigationManager
+@using System.Security.Claims
+@using System.Text.Json
 
 <div class="upgrade-container">
     <div class="upgrade-card">
         <h1>Upgrade to Premium</h1>
         <p>Enjoy full access to all features, including Medical Image Analysis and more.</p>
         
+        <!-- Plan Options -->
         <div class="plan-options">
-            <div class="plan">
+            <div class="plan @(selectedPlan == "Monthly" ? "selected" : "")" @onclick='() => SelectPlan("Monthly")'>
                 <h2>Monthly Plan</h2>
                 <p><strong>$5</strong>/month</p>
-                <button class="btn btn-secondary" @onclick='() => SelectPlan("Monthly")'>Choose Plan</button>
+                <button class="btn btn-secondary">Choose Plan</button>
             </div>
-            <div class="plan popular">
+            <div class="plan popular @(selectedPlan == "Yearly" ? "selected" : "")" @onclick='() => SelectPlan("Yearly")'>
                 <h2>Yearly Plan</h2>
                 <p><strong>$50</strong>/year</p>
                 <div class="ribbon">Best Value</div>
-                <button class="btn btn-primary" @onclick='() => SelectPlan("Yearly")'>Choose Plan</button>
+                <button class="btn btn-primary">Choose Plan</button>
             </div>
         </div>
 
+        <!-- Payment Method -->
         <div class="payment-method">
             <h3>Payment Method</h3>
             <p>Choose your preferred payment method to proceed.</p>
             <div class="payment-icons">
-                <img src="images/visa.png" alt="Visa">
-                <img src="images/mastercard.png" alt="MasterCard">
-                <img src="images/paypal.png" alt="PayPal">
+                <img src="images/visa.png" alt="Visa" @onclick='() => SelectPaymentMethod("Visa")' class="@(selectedPaymentMethod == "Visa" ? "active" : "")">
+                <img src="images/mastercard.png" alt="MasterCard" @onclick='() => SelectPaymentMethod("Mastercard")' class="@(selectedPaymentMethod == "Mastercard" ? "active" : "")">
+                <img src="images/paypal.png" alt="PayPal" @onclick='() => SelectPaymentMethod("PayPal")' class="@(selectedPaymentMethod == "PayPal" ? "active" : "")">
             </div>
         </div>
 
-        <button class="btn btn-success proceed-btn" @onclick="ProceedToPayment">Proceed to Payment</button>
+        <button class="btn btn-success proceed-btn @(string.IsNullOrEmpty(selectedPlan) ? "disabled" : "")" 
+                @onclick="ProceedToPayment"
+                disabled="@string.IsNullOrEmpty(selectedPlan)">
+            Proceed to Payment
+        </button>
     </div>
 </div>
 
 @code {
     private string selectedPlan = "";
+    private string selectedPaymentMethod = "";
+    private int currentUserId = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var userIdClaim = authState.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+        if (int.TryParse(userIdClaim, out int userId))
+        {
+            currentUserId = userId;
+        }
+    }
 
     private void SelectPlan(string plan)
     {
         selectedPlan = plan;
-        Console.WriteLine($"Selected plan: {plan}");
+        Console.WriteLine($"Selected Plan: {selectedPlan}");
     }
 
-    private void ProceedToPayment()
+    private void SelectPaymentMethod(string method)
     {
-        if (string.IsNullOrEmpty(selectedPlan))
+        selectedPaymentMethod = method;
+        Console.WriteLine($"Selected Payment Method: {selectedPaymentMethod}");
+    }
+
+    private async Task ProceedToPayment()
+{
+    if (string.IsNullOrEmpty(selectedPlan))
+    {
+        Console.WriteLine("Please select a plan first.");
+        return;
+    }
+
+    if (string.IsNullOrEmpty(selectedPaymentMethod))
+    {
+        Console.WriteLine("Please select a payment method first.");
+        return;
+    }
+
+    var userType = selectedPlan == "Monthly" ? "Basic" : "Premium";
+
+    var requestBody = new
+    {
+        UserID = currentUserId, // Pass the logged-in user's ID
+        UserType = userType
+    };
+
+    try
+    {
+        var client = HttpClientFactory.CreateClient("HealthAppAPI");
+        var response = await client.PostAsJsonAsync("user/upgrade", requestBody);
+
+        if (response.IsSuccessStatusCode)
         {
-            Console.WriteLine("Please select a plan first.");
+            var json = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<JsonElement>(json);
+            var token = result.GetProperty("token").GetString(); // Ensure "Token" matches the server's response key
+            await AuthenticationStateProvider.SetTokenAsync(token);
+
+            Console.WriteLine($"User type updated to {userType} successfully.");
+            NavigationManager.NavigateTo("/");
         }
         else
         {
-            Console.WriteLine($"Proceeding to payment for {selectedPlan} plan.");
-            // Navigate to payment gateway or handle logic
+            Console.WriteLine($"Error during payment process: {response.ReasonPhrase}");
         }
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error during payment process: {ex.Message}");
+    }
+}
+
 }

@@ -11,17 +11,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; /* Space between elements */
+    gap: 10px;
     padding: 10px 20px;
-    background-color: #f8f9fa; /* Light grey background */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
 
 /* Search Input */
 .search-input {
-    flex-grow: 1; /* Input takes up available space */
+    flex-grow: 1;
     padding: 10px 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -31,9 +31,57 @@
 }
 
 .search-input:focus {
-    border-color: #007bff; /* Bootstrap Primary Blue */
+    border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
+
+/* Search Results */
+.search-results {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-top: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.search-results ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.search-results li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-results li:hover {
+    background-color: #f1f1f1;
+}
+
+.search-results li strong {
+    display: block;
+    font-size: 1.2rem;
+}
+
+.search-results li p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 5px 0 0;
+}
+
+.no-results {
+    margin-top: 10px;
+    color: #888;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
 
 /* Buttons */
 button {
@@ -280,32 +328,6 @@ button {
     }
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
-    .custom-grid {
-        width: 200px;
-        height: 200px;
-    }
-
-    .grid-item img {
-        width: 50%;
-    }
-
-    .red img {
-        width: 20%;
-    }
-
-    .emergency-button {
-        width: 90%;
-    }
-}
-
-@media (max-width: 640px) {
-    .nav-button {
-        font-size: 1.2rem; /* Slightly smaller icons on small screens */
-    }
-}
-
 /* Welcome Message Styling */
 .welcome-message {
     display: flex;
@@ -358,6 +380,91 @@ button {
     box-shadow: 0 6px 20px rgba(33, 158, 188, 0.8);
     transition: transform 0.3s, box-shadow 0.3s;
 }
+
+@media (max-width: 768px) {
+    /* Adjust search bar for smaller screens */
+    .search-bar {
+        padding: 5px;
+        gap: 5px; /* Reduce spacing */
+        width: 90%; /* Narrower width */
+        margin: 5px auto; /* Adjust margin for smaller layout */
+    }
+
+    .search-input {
+        width: 100%; /* Full width for smaller screens */
+        font-size: 0.9rem; /* Adjust font size */
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 60%; /* Buttons span full width */
+        padding: 8px;
+        font-size: 0.9rem; /* Adjust font size */
+    }
+
+    /* Adjust grid size for mobile */
+    .custom-grid {
+        gap: 3px; /* Smaller gap */
+        width: 3000px; /* Smaller grid width */
+        height: 300px; /* Smaller grid height */
+        margin: 20px auto;
+    }
+
+    .grid-item img {
+        width: 50%; /* Adjust image size */
+    }
+
+    /* Center and scale the "Go Premium" ribbon */
+    .disabled-feature .ribbon {
+        font-size: 0.8rem; /* Smaller font */
+        padding: 4px 4px; /* Adjust padding */
+        transform: translate(-50%, -50%); /* Properly center */
+    }
+
+    /* Adjust welcome banner */
+    .welcome-message {
+        padding: 10px 20px; /* Reduce padding */
+        max-width: 90%; /* Adjust max width */
+        font-size: 1.2rem; /* Smaller font size */
+    }
+
+    .welcome-message h2 {
+        font-size: 1.4rem; /* Adjust headline font */
+    }
+
+    /* Emergency button adjustment */
+    .emergency-button {
+        width: 100%; /* Full width for smaller screens */
+        font-size: 1rem; /* Adjust font size */
+        padding: 12px; /* Adjust padding */
+    }
+}
+
+@media (max-width: 640px) {
+    /* Further adjustments for very small screens */
+    .custom-grid {
+        width: 200px;
+        height: 200px;
+    }
+
+    .grid-item img {
+        width: 45%; /* Scale down images further */
+    }
+
+    .search-bar {
+        gap: 3px; /* Reduce gap */
+    }
+
+    .welcome-message {
+        font-size: 1rem; /* Smaller font */
+        padding: 8px 16px; /* Adjust padding */
+    }
+
+    .welcome-message h2 {
+        font-size: 1.2rem; /* Smaller text */
+    }
+}
+
 
 
 

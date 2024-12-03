@@ -72,17 +72,18 @@
 }
 
 .popular {
-    background-color: #e8f5e9;
-    border: 2px solid #4caf50;
+    background-color: #fff5dd;
+    border: 2px solid #ffb703;
 }
 
 .ribbon {
     position: absolute;
+    border-radius: 5px;
     top: 0;
     right: 0;
     background: linear-gradient(45deg, #ff9800, #ff5722);
     color: white;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     padding: 5px 10px;
     text-transform: uppercase;
     border-bottom-left-radius: 8px;
@@ -129,3 +130,51 @@
     font-weight: bold;
     border-radius: 6px;
 }
+
+/* Highlight Selected Plan */
+.plan.selected {
+    border: 3px solid #4caf50; /* Green border for selection */
+    transform: translateY(-5px) scale(1.05); /* Slight lift and scaling effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+    background-color: #e8f5e9; /* Light green for visual feedback */
+}
+
+/* Hover Effect (Unselected Plans Only) */
+.plan:hover:not(.selected) {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Proceed Button */
+.proceed-btn.disabled {
+    background-color: #dcdcdc; /* Light gray for disabled state */
+    color: #888; /* Muted text color */
+    cursor: not-allowed; /* Indicate disabled state */
+    pointer-events: none; /* Prevent interaction */
+}
+
+.proceed-btn:not(.disabled) {
+    background-color: #28a745; /* Active green */
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.proceed-btn:not(.disabled):hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.02); /* Slight scale effect */
+}
+
+/* Payment Method Icons */
+.payment-icons img {
+    opacity: 0.5; /* Default state */
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.payment-icons img.active {
+    opacity: 1; /* Fully visible */
+    transform: scale(1.1); /* Slight scale effect for active icon */
+    filter: none; /* Remove grayscale */
+}
+
+

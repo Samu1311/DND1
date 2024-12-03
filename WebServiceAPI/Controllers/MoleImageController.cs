@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
-using OpenCvSharp;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -22,10 +21,13 @@ namespace DND1.Controllers
 
         // POST: api/moleimage/upload
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadMoleImage([FromForm] IFormFile file, [FromForm] int userId)
+        public async Task<IActionResult> UploadMoleImage([FromForm] IFormFile file)
         {
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
+
+            // Hardcode userId as 1 for testing
+            int userId = 1;
 
             try
             {
@@ -80,81 +82,48 @@ namespace DND1.Controllers
         }
 
         private async Task<string> AnalyzeWithExternalAPI(MoleImage moleImage)
-            {
-                // Initialize the RestClient with the endpoint URL
-                var client = new RestClient("https://your-image-analysis-api-endpoint");
-
-                // Initialize the RestRequest and specify the HTTP method
-                var request = new RestRequest("endpoint-path", Method.Post); // Replace "endpoint-path" with the actual API path
-
-                // Add the image data as a file to the request
-                request.AddFile("file", moleImage.ImageData, moleImage.FileName, "image/png");
-
-                // Execute the request asynchronously
-                var response = await client.ExecuteAsync(request);
-
-                if (!response.IsSuccessful)
-                {
-                    throw new Exception($"External API error: {response.ErrorMessage}");
-                }
-
-                // Return the response content as the analysis result
-                return response.Content ?? "Analysis results not available.";
-            }
-
-
-
-        private string AnalyzeImage(byte[] imageData)
         {
-            // Local analysis using OpenCV (as a fallback or additional processing)
-            using var src = Mat.FromImageData(imageData, ImreadModes.Color);
-            using var gray = new Mat();
-            Cv2.CvtColor(src, gray, ColorConversionCodes.BGR2GRAY);
+            // Initialize the RestClient with the endpoint URL
+            var client = new RestClient("https://your-image-analysis-api-endpoint");
 
-            // Apply Gaussian Blur to reduce noise
-            Cv2.GaussianBlur(gray, gray, new Size(5, 5), 0);
+            // Initialize the RestRequest and specify the HTTP method
+            var request = new RestRequest("endpoint-path", Method.Post); // Replace "endpoint-path" with the actual API path
 
-            // Apply thresholding to detect edges
-            Cv2.Threshold(gray, gray, 60, 255, ThresholdTypes.Binary);
+            // Add the image data as a file to the request
+            request.AddFile("file", moleImage.ImageData, moleImage.FileName, "image/png");
 
-            // Find contours
-            Cv2.FindContours(
-                gray,
-                out Point[][] contours,
-                out _,
-                RetrievalModes.External,
-                ContourApproximationModes.ApproxSimple);
+            // Execute the request asynchronously
+            var response = await client.ExecuteAsync(request);
 
-            if (contours.Length == 0)
-                return "No contours found.";
-
-            // Get the largest contour (assume it's the mole)
-            var largestContour = contours[0];
-            foreach (var contour in contours)
+            if (!response.IsSuccessful)
             {
-                if (Cv2.ContourArea(contour) > Cv2.ContourArea(largestContour))
-                {
-                    largestContour = contour;
-                }
+                throw new Exception($"External API error: {response.ErrorMessage}");
             }
 
-            // Draw the contour on the original image
-            using var output = src.Clone();
-            Cv2.DrawContours(output, new[] { largestContour }, -1, Scalar.Red, 2);
+            // Return the response content as the analysis result
+            return response.Content ?? "Analysis results not available.";
+        }
 
-            // Create a mask for the largest contour
-            using var mask = new Mat(src.Size(), MatType.CV_8UC1, Scalar.Black);
-            Cv2.DrawContours(mask, new[] { largestContour }, -1, Scalar.White, -1);
+        // GET: api/moleimage/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetMoleImage(int id)
+        {
+            var moleImage = await _context.MoleImages.FindAsync(id);
+            if (moleImage == null)
+                return NotFound("Image not found.");
 
-            // Calculate the average color within the contour
-            Scalar meanColor = Cv2.Mean(src, mask);
+            return File(moleImage.ImageData, "image/png", moleImage.FileName);
+        }
 
-            // Save the analyzed image to a file (optional)
-            string analyzedImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "analyzed-images", $"{Guid.NewGuid()}.jpg");
-            Directory.CreateDirectory(Path.GetDirectoryName(analyzedImagePath)!);
-            output.SaveImage(analyzedImagePath);
+        // GET: api/moleimage/metadata/{id}
+        [HttpGet("metadata/{id}")]
+        public async Task<IActionResult> GetMoleImageMetadata(int id)
+        {
+            var moleImage = await _context.MoleImages.FindAsync(id);
+            if (moleImage == null)
+                return NotFound("Metadata not found for this image.");
 
-            return $"Average Color: R={meanColor.Val2}, G={meanColor.Val1}, B={meanColor.Val0}. Analyzed image saved at: {analyzedImagePath}.";
+            return Ok(moleImage);
         }
     }
 }

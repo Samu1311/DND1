@@ -10,6 +10,11 @@
         <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
             <DataAnnotationsValidator />
             <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
+            
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger">@errorMessage</div>
+            }
 
             <div class="form-group">
                 <label for="email">Email</label>
@@ -33,7 +38,7 @@
 
 @code {
     private LoginModel loginModel = new LoginModel();
-
+    private string errorMessage;
     private async Task HandleLogin()
     {
         var client = HttpClientFactory.CreateClient("HealthAppAPI");
@@ -46,7 +51,7 @@
         }
         else
         {
-            // Handle login failure
+            errorMessage = await response.Content.ReadAsStringAsync();
         }
     }
 

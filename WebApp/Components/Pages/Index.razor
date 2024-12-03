@@ -12,6 +12,7 @@
         @bind-value="SearchQuery" 
         class="search-input" 
         placeholder="What are you looking for?" 
+        @oninput="PerformSearch"
     />
     <button 
         class="btn btn-primary" 
@@ -27,8 +28,29 @@
     </button>
 </div>
 
+<!-- Search Results -->
+@if (searchResults.Any())
+{
+    <div class="search-results">
+        <ul>
+            @foreach (var result in searchResults)
+            {
+                <li @onclick="() => NavigateTo(result.NavigationPath)">
+                    <strong>@result.Title</strong>
+                    <p>@result.Description</p>
+                </li>
+            }
+        </ul>
+    </div>
+}
+else if (!string.IsNullOrWhiteSpace(SearchQuery))
+{
+    <p class="no-results">No results found for "@SearchQuery"</p>
+}
+
+
 <!-- Welcome Message -->
-@if (!string.IsNullOrEmpty(userFirstName))
+@if (isUserLoggedIn)
 {
     <div class="welcome-message">
         <h2>Welcome, @userFirstName!</h2>
@@ -56,7 +78,7 @@
                 <img src="images/medical-image-icon.png" alt="Image Analysis" class="custom-img" />
             </a>
         }
-        else if (userType == "Basic")
+        else if (userType == "Basic" && isUserLoggedIn)
         {
             <div class="grid-item green disabled-feature" @onclick="ShowUpgradeModal">
                 <div class="ribbon">Go Premium</div>
@@ -79,14 +101,6 @@
     </a>
 </div>
 
-<!-- Testing Buttons -->
-<div class="test-login">
-    <button class="btn test-button basic-user-button" @onclick='() => SimulateLogin("Basic")'>Login as Basic User</button>
-    <button class="btn test-button premium-user-button" @onclick='() => SimulateLogin("Premium")'>Login as Premium User</button>
-    <button class="btn test-button go-to-testing-page-button" @onclick="GoToTestingPage">Go to Testing Page</button>
-</div>
-
-
 @if (isUpgradeModalVisible)
 {
     <UpgradeModal 
@@ -94,7 +108,6 @@
         OnUpgrade="UpgradeToPremium" 
     />
 }
-
 
 <!-- Footer -->
 <footer class="footer">
@@ -106,23 +119,47 @@
     private string userType = "Basic"; // Default to Basic
     private bool isUpgradeModalVisible = false;
     private string userFirstName = string.Empty;
+    private bool isUserLoggedIn = false;
+    private List<SearchableItem> searchableItems = new();
+    private List<SearchableItem> searchResults = new();
 
     protected override async Task OnInitializedAsync()
     {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var claims = authState.User.Claims;
+        AuthenticationStateProvider.AuthenticationStateChanged += OnAuthenticationStateChanged;
 
-        userType = claims.FirstOrDefault(c => c.Type == "UserType")?.Value ?? "Basic";
-        userFirstName = claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value ?? "User";
-
-        StateHasChanged();
+        // Initial authentication check
+        await UpdateAuthenticationStateAsync();
     }
 
-    private async Task SimulateLogin(string userTypeToSimulate)
+        protected override void OnInitialized()
     {
-        await AuthProvider.SimulateLogin(userTypeToSimulate);
-        userType = userTypeToSimulate; // Update the user type
-        StateHasChanged(); // Refresh the UI
+        PopulateSearchableItems();
+    }
+
+    private async Task UpdateAuthenticationStateAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity != null && user.Identity.IsAuthenticated)
+        {
+            isUserLoggedIn = true;
+            userType = user.FindFirst(c => c.Type == "UserType")?.Value ?? "Basic";
+            userFirstName = user.FindFirst(c => c.Type == ClaimTypes.GivenName)?.Value ?? "User";
+        }
+        else
+        {
+            isUserLoggedIn = false;
+            userFirstName = string.Empty; // Clear user name
+            userType = "Basic"; // Reset user type
+        }
+
+        StateHasChanged(); // Refresh UI
+    }
+
+    private async void OnAuthenticationStateChanged(Task<AuthenticationState> task)
+    {
+        await UpdateAuthenticationStateAsync();
     }
 
     private void ShowUpgradeModal()
@@ -140,18 +177,88 @@
         NavigationManager.NavigateTo("/upgrade-process");
     }
 
+    private void PopulateSearchableItems()
+{
+    // Static items (Features, Knowledge Base)
+    searchableItems = new List<SearchableItem>
+    {
+        new SearchableItem 
+        { 
+            Category = "Feature", 
+            Title = "Health Overview", 
+            Description = "Health overview including graphs, blood type, height, and weight.", 
+            NavigationPath = "/health-overview" 
+        },
+        new SearchableItem 
+        { 
+            Category = "Feature", 
+            Title = "Mole Tracking", 
+            Description = "Mole tracking with images, calendar, time-based tracking, upload functionality, and analysis of color, shape, and size.", 
+            NavigationPath = "/mole-tracking" 
+        },
+        new SearchableItem 
+        { 
+            Category = "Feature", 
+            Title = "Image Analysis", 
+            Description = "Image analysis for X-rays, MRIs, tumor detection, anomalies, scans, and highlighting specific zones.", 
+            NavigationPath = "/image-analysis" 
+        },
+        new SearchableItem 
+        { 
+            Category = "Feature", 
+            Title = "Alerts", 
+            Description = "Alerts, notifications, and reminders to keep you updated on your health activities.", 
+            NavigationPath = "/alerts" 
+        }
+    };
+
+    // Optionally, add user-specific data here dynamically later (e.g., health records)
+}
+
+
+    // SearchableItem class for global search data structure
+    public class SearchableItem
+    {
+        public string Category { get; set; } // e.g., "Feature", "Tip"
+        public string Title { get; set; }    // Display title
+        public string Description { get; set; } // Brief description
+        public string NavigationPath { get; set; } // Navigation path
+    }
+
+    private void PerformSearch()
+    {
+        if (!string.IsNullOrWhiteSpace(SearchQuery))
+        {
+            searchResults = searchableItems
+                .Where(item => item.Title.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) || 
+                            item.Description.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+        else
+        {
+            searchResults.Clear();
+        }
+    }
+
     private void OnSearch()
     {
-        Console.WriteLine($"Searching for: {SearchQuery}");
+        PerformSearch();
     }
+
 
     private void OnClear()
     {
         SearchQuery = string.Empty;
+        searchResults.Clear();
         Console.WriteLine("Clear button clicked!");
     }
-    private void GoToTestingPage()
+    private void NavigateTo(string path)
     {
-        NavigationManager.NavigateTo("/testing");
+        NavigationManager.NavigateTo(path);
+    }
+
+    public void Dispose()
+    {
+        AuthenticationStateProvider.AuthenticationStateChanged -= OnAuthenticationStateChanged;
     }
 }

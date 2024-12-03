@@ -5,15 +5,10 @@ using System.Security.Claims;
 using System.Text;
 using DND1.Data;
 using DND1.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 using System.Threading.Tasks;
-
-
+using System.ComponentModel.DataAnnotations;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -34,14 +29,16 @@ public class LoginController : ControllerBase
         var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == login.Email);
         if (user == null || user.PasswordHash != HashPassword(login.Password))
         {
-            return Unauthorized();
+            return Unauthorized("Invalid email or password.");
         }
 
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+            new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()),
             new Claim(ClaimTypes.GivenName, user.FirstName),
-            new Claim("Role", "User")
+            new Claim(ClaimTypes.Email, user.Email),
+             new Claim("UserType", user.UserType) // Include UserType
         };
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -65,7 +62,10 @@ public class LoginController : ControllerBase
 
     public class LoginModel
     {
+        [Required]
         public string Email { get; set; }
+
+        [Required]
         public string Password { get; set; }
     }
 }
