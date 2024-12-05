@@ -1,178 +1,164 @@
-# Database Design and Implementation for Mobile Health App
+# Database Design and Implementation for HealthTrack+
 
 ## Overview
 
-The database for the Mobile Health App for Skin and Medical Image Analysis is implemented using SQLite with Entity Framework Core as the ORM. The schema efficiently handles user profiles, medical data, image storage, and alerts, ensuring seamless interaction between the app's backend and frontend. 
+The database for **HealthTrack+** is designed to efficiently manage user profiles, medical data, image storage, and health alerts, ensuring seamless integration between the app's frontend and backend. It leverages **SQLite** for its lightweight and file-based database capabilities, combined with **Entity Framework Core (EF Core)** as the ORM for flexible schema definition and data operations.
 
-The Entity Framework (EF) Core implementation provides a flexible and scalable way to define relationships and handle database operations programmatically, while SQLite serves as the lightweight and file-based database engine ideal for the app's requirements.
+The implementation ensures scalability, flexibility, and security, accommodating the app's current and future needs.
 
 ---
 
 ## Database Tables
 
-### 1. *Users*
-Stores user information such as name, email, password, and demographic details.
+### 1. **Users**
+Stores user details such as personal information, authentication data, and demographic attributes.
 
-- *Primary Key*: UserID
-- *Columns*:
-  - UserID (INTEGER, NOT NULL)
-  - FirstName (TEXT, NOT NULL)
-  - LastName (TEXT, NOT NULL)
-  - Email (TEXT, NOT NULL)
-  - PasswordHash (TEXT, NOT NULL)
-  - DateOfBirth (TEXT, NULLABLE)
-  - Gender (TEXT, NULLABLE)
-
----
-
-### 2. *MedicalData*
-Stores medical information for users.
-
-- *Primary Key*: MedicalDataID
-- *Columns*:
-  - MedicalDataID (INTEGER, NOT NULL)
-  - UserID (INTEGER, NOT NULL)
-  - BloodType (TEXT, NULLABLE)
-  - Height (REAL, NULLABLE)
-  - Weight (REAL, NULLABLE)
+- **Primary Key**: `UserID`
+- **Columns**:
+  - `UserID` (INTEGER, NOT NULL)
+  - `FirstName` (TEXT, NOT NULL)
+  - `LastName` (TEXT, NOT NULL)
+  - `Email` (TEXT, UNIQUE, NOT NULL)
+  - `PasswordHash` (TEXT, NOT NULL)
+  - `DateOfBirth` (TEXT, NULLABLE)
+  - `Gender` (TEXT, NULLABLE)
+  - `PhoneNumber` (TEXT, NULLABLE)
+  - `EmergencyContact` (TEXT, NULLABLE)
+  - `UserType` (TEXT, DEFAULT "Basic")
+  - `Bio` (TEXT, NULLABLE)
 
 ---
 
-### 3. *ProfilePictures*
-Stores profile pictures uploaded by users.
+### 2. **MedicalData**
+Tracks health metrics for users, such as height, weight, and blood type.
 
-- *Primary Key*: ProfilePictureID
-- *Columns*:
-  - ProfilePictureID (INTEGER, NOT NULL)
-  - UserID (INTEGER, NOT NULL)
-  - FileName (TEXT, NOT NULL)
-  - FilePath (TEXT, NOT NULL)
-  - UploadedAt (TEXT, NOT NULL)
-
----
-
-### 4. *MoleImages*
-Stores images of skin moles uploaded by users.
-
-- *Primary Key*: MoleImageID
-- *Columns*:
-  - MoleImageID (INTEGER, NOT NULL)
-  - UserID (INTEGER, NOT NULL)
-  - FileName (TEXT, NOT NULL)
-  - ImageData (BLOB, NOT NULL)
-  - UploadedAt (TEXT, NOT NULL)
-  - AnalysisResults (TEXT, NULLABLE)
+- **Primary Key**: `MedicalDataID`
+- **Columns**:
+  - `MedicalDataID` (INTEGER, NOT NULL)
+  - `UserID` (INTEGER, NOT NULL)
+  - `BloodType` (TEXT, NULLABLE)
+  - `Height` (REAL, NULLABLE)
+  - `Weight` (REAL, NULLABLE)
 
 ---
 
-### 5. *MRIImages*
-Stores MRI scan images uploaded by users.
+### 3. **ProfilePictures**
+Manages the storage of user-uploaded profile pictures.
 
-- *Primary Key*: MRIImageID
-- *Columns*:
-  - MRIImageID (INTEGER, NOT NULL)
-  - UserID (INTEGER, NOT NULL)
-  - FileName (TEXT, NOT NULL)
-  - FilePath (TEXT, NOT NULL)
-  - UploadedAt (TEXT, NOT NULL)
-  - AnalysisResults (TEXT, NULLABLE)
-
----
-
-### 6. *XrayImages*
-Stores X-ray images uploaded by users.
-
-- *Primary Key*: XrayImageID
-- *Columns*:
-  - XrayImageID (INTEGER, NOT NULL)
-  - UserID (INTEGER, NOT NULL)
-  - FileName (TEXT, NOT NULL)
-  - FilePath (TEXT, NOT NULL)
-  - UploadedAt (TEXT, NOT NULL)
-  - AnalysisResults (TEXT, NULLABLE)
+- **Primary Key**: `ProfilePictureID`
+- **Columns**:
+  - `ProfilePictureID` (INTEGER, NOT NULL)
+  - `UserID` (INTEGER, NOT NULL)
+  - `FileName` (TEXT, NOT NULL)
+  - `FilePath` (TEXT, NOT NULL)
+  - `ThumbnailPath` (TEXT, NULLABLE)
+  - `UploadedAt` (TEXT, NOT NULL)
 
 ---
 
-### 7. *Alerts*
-Manages health-related alerts linked to images or other user data.
+### 4. **MoleImages**
+Tracks user-uploaded mole images for skin analysis.
 
-- *Primary Key*: AlertID
-- *Columns*:
-  - AlertID (INTEGER, NOT NULL)
-  - UserID (INTEGER, NOT NULL)
-  - IsRead (INTEGER, NOT NULL, DEFAULT 0)
-  - RelatedItemType (TEXT, NULLABLE)
-  - MoleImageID (INTEGER, NULLABLE)
-  - MRIImageID (INTEGER, NULLABLE)
-  - XrayImageID (INTEGER, NULLABLE)
+- **Primary Key**: `MoleImageID`
+- **Columns**:
+  - `MoleImageID` (INTEGER, NOT NULL)
+  - `UserID` (INTEGER, NOT NULL)
+  - `FileName` (TEXT, NOT NULL)
+  - `FilePath` (TEXT, NOT NULL)
+  - `ThumbnailPath` (TEXT, NULLABLE)
+  - `UploadedAt` (TEXT, NOT NULL)
+  - `AnalysisResults` (TEXT, NULLABLE)
+
+---
+
+### 5. **MRIImages**
+Stores MRI scan data uploaded by users.
+
+- **Primary Key**: `MRIImageID`
+- **Columns**:
+  - `MRIImageID` (INTEGER, NOT NULL)
+  - `UserID` (INTEGER, NOT NULL)
+  - `FileName` (TEXT, NOT NULL)
+  - `FilePath` (TEXT, NOT NULL)
+  - `ThumbnailPath` (TEXT, NULLABLE)
+  - `UploadedAt` (TEXT, NOT NULL)
+  - `AnalysisResults` (TEXT, NULLABLE)
+
+---
+
+### 6. **XrayImages**
+Handles storage of X-ray images uploaded by users.
+
+- **Primary Key**: `XrayImageID`
+- **Columns**:
+  - `XrayImageID` (INTEGER, NOT NULL)
+  - `UserID` (INTEGER, NOT NULL)
+  - `FileName` (TEXT, NOT NULL)
+  - `FilePath` (TEXT, NOT NULL)
+  - `ThumbnailPath` (TEXT, NULLABLE)
+  - `UploadedAt` (TEXT, NOT NULL)
+  - `AnalysisResults` (TEXT, NULLABLE)
+
+---
+
+### 7. **Alerts**
+Manages health-related notifications triggered by app functionalities.
+
+- **Primary Key**: `AlertID`
+- **Columns**:
+  - `AlertID` (INTEGER, NOT NULL)
+  - `UserID` (INTEGER, NOT NULL)
+  - `IsRead` (INTEGER, NOT NULL, DEFAULT 0)
+  - `RelatedItemType` (TEXT, NULLABLE)
+  - `MoleImageID` (INTEGER, NULLABLE)
+  - `MRIImageID` (INTEGER, NULLABLE)
+  - `XrayImageID` (INTEGER, NULLABLE)
 
 ---
 
 ## AppDbContext Class
 
-The AppDbContext class is the cornerstone of the Entity Framework Core implementation, serving as the bridge between the database and the application logic. It defines the database schema, manages relationships, and facilitates database operations.
+The **AppDbContext** is central to the Entity Framework Core implementation, acting as the link between the database and application logic.
 
-### Key Features of AppDbContext:
+### Key Features:
 
-1. *DbSet Properties*:
-   - Each DbSet corresponds to a database table, making it easy to query and manipulate data.
+1. **DbSet Properties**:
+   - Maps database tables to C# classes, making queries and data manipulation straightforward.
    - Example:
-     csharp
+     ```csharp
      public DbSet<User>? Users { get; set; }
      public DbSet<MoleImage>? MoleImages { get; set; }
-     
+     ```
 
-2. *Entity Relationships*:
-   - Relationships are explicitly defined in the OnModelCreating method to ensure data integrity and proper foreign key constraints.
+2. **Entity Relationships**:
+   - Relationships between tables are defined in the `OnModelCreating` method.
    - Example:
-     csharp
+     ```csharp
      modelBuilder.Entity<MoleImage>()
          .HasOne(mi => mi.User)
          .WithMany(u => u.MoleImages)
          .HasForeignKey(mi => mi.UserID)
          .OnDelete(DeleteBehavior.Cascade);
-     
+     ```
 
-3. *Cascade Deletion*:
-   - When a user is deleted, their associated records (e.g., MoleImages, Alerts) are automatically removed to maintain database consistency.
+3. **Cascade Deletion**:
+   - Ensures related data (e.g., images and alerts) is automatically removed when a user is deleted.
 
-4. *Composite Keys*:
-   - Where applicable, composite keys are defined to uniquely identify records in tables like MoleImages.
-
-5. *Migration Support*:
-   - Changes to the database schema can be managed via migrations, ensuring version control and seamless updates.
+4. **Migration Support**:
+   - Allows for controlled schema evolution using EF Core migrations, ensuring compatibility and version control.
 
 ---
 
 ## Key Features of the Database Design
 
-1. *Blob Storage*:
-   - The ImageData column in the MoleImages table stores binary data for images, allowing quick retrieval without external file dependencies.
+1. **Local File Storage**:
+   - Image files are stored locally on the server, with their paths saved in the database for easy retrieval.
 
-2. *Timestamp Tracking*:
-   - Tables include an UploadedAt column to log the upload time for images and data, providing traceability.
+2. **Scalability**:
+   - The schema is designed to accommodate additional image types or data by extending existing tables or adding new ones.
 
-3. *Alert System*:
-   - The Alerts table links health alerts to specific images or user activities, ensuring timely notifications.
+3. **Alert System Integration**:
+   - Links health alerts to specific image analyses, providing users with timely updates.
 
-4. *Scalability*:
-   - The design supports potential migration to cloud-based storage for larger datasets, such as Azure Blob Storage or AWS S3.
-
-5. *Flexibility*:
-   - The schema allows easy integration of additional image types or user data by extending existing tables or adding new ones.
-
----
-
-## Challenges and Next Steps
-
-### Challenges
-- Efficiently managing large binary data (e.g., images) directly in SQLite can lead to performance bottlenecks for high data volumes.
-- Maintaining database integrity when handling multiple foreign key relationships requires careful design and testing.
-
-### Next Steps
-1. *Optimization*:
-   - Evaluate the use of external file storage for images to reduce database load.
-2. *Advanced Features*:
-   - Add stored procedures or triggers for automatic alert generation based on specific health data thresholds.
-3. *Analytics Integration*:
-   - Implement queries to derive insights from medical data and image analysis.
+4. **Timestamp Tracking**:
+   - The `UploadedAt` column in image tables
