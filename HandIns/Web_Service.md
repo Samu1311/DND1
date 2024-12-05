@@ -1,9 +1,9 @@
-# Web Service Development for Mobile Health App
+# Web Service Development for HealthTrack+
 
 ## Overview
-As part of the ongoing development of the **Mobile Health App for Skin and Medical Image Analysis**, the focus now is on setting up the **backend web service** that will handle key functionalities such as **user registration**, **login**, and **image uploads** (both for skin images and medical images like MRI or CT scans). This web service is essential for handling all data exchange between the mobile frontend and the server.
+The **HealthTrack+** project has progressed significantly with the development of its **backend web service**, designed to support critical functionalities like **user authentication**, **image uploads**, and metadata storage. This backend infrastructure forms the foundation for seamless interaction between the Blazor Server frontend and the backend API, enabling efficient and secure data handling.
 
-Below is a summary of what has been accomplished in terms of building the web service, including the setup of APIs for authentication and image processing.
+The following document highlights the progress made, the technologies leveraged, and the challenges addressed during this phase.
 
 ---
 
@@ -11,78 +11,89 @@ Below is a summary of what has been accomplished in terms of building the web se
 
 ### 1. **User Authentication (Registration & Login)**
 
-To allow users to securely interact with the app and its features, we have implemented user authentication functionalities using **ASP.NET Core Web API**. These include:
+To ensure secure access to the app’s features, robust user authentication mechanisms have been implemented using **ASP.NET Core Web API**:
 
 - **User Registration API**:
-  - Users can register by providing their email, full name, and password.
-  - The password is securely hashed using SHA256 before storing it, ensuring that sensitive information is not stored in plain text.
-  - If a user attempts to register with an already existing email, they will receive an error.
+  - Users register with basic details such as their name, email, and password.
+  - Passwords are securely hashed using **SHA256** before being stored, ensuring sensitive information is not compromised.
+  - Validation checks prevent duplicate registrations by email.
 
 - **User Login API**:
-  - Users can log in by providing their registered email and password.
-  - If the credentials are correct, the system generates a **JWT (JSON Web Token)** which the user can use for authenticated requests.
-  - The JWT is signed using the HS256 algorithm and expires after one hour, making it secure and limited in scope.
+  - Users log in with their registered email and password.
+  - Upon successful login, a **JWT (JSON Web Token)** is generated and returned to the client for authenticated access to secure endpoints.
+  - The token is signed using **HS256** and includes claims such as user ID, name, and role, expiring after a predefined duration.
 
 ### 2. **JWT Authentication for Protected Endpoints**
 
-The generated **JWT token** from the login API is used to secure certain endpoints in the application. These endpoints will only allow access to users who provide a valid token in the `Authorization` header.
+The web service uses **JWT tokens** to secure API endpoints, ensuring only authenticated users can access protected functionalities.
 
 - **Why JWT?**
-  - JWT provides a stateless, scalable way to authenticate users. Instead of storing session data on the server, the token contains all the information needed for the server to verify the user.
+  - Stateless: The server does not need to store session data, reducing overhead and scaling issues.
+  - Secure: Token expiration and HS256 signing prevent unauthorized use.
 
-### 3. **Image Upload and Metadata Storage API**
+### 3. **Image Upload and Metadata Management**
 
-One of the key functionalities of the app is allowing users to upload images for analysis—whether it’s a **skin image** (like a mole or lesion) or a **medical image** (like an MRI or CT scan). Here's what has been achieved so far:
+HealthTrack+ supports the upload of various images, including skin images for mole tracking and medical scans like MRI or X-rays.
 
 - **Image Upload API**:
-  - Users can upload images (skin images or medical images) to the server.
-  - Alongside the image, users can provide additional information, such as a **description** or **notes** about the image.
-  
-- **Metadata Storage**:
-  - For every image uploaded, a corresponding **metadata JSON file** is created. This metadata includes information such as:
-    - Description of the image.
-    - Date and time when the image was uploaded.
-    - File path to the image stored on the server.
-  - This ensures that both the image and its associated information are stored securely and can be retrieved when needed for comparison or further analysis.
+  - Users can upload images, which are validated and stored locally on the server.
+  - Along with the image, metadata (e.g., upload timestamp, description, and user ID) is captured to maintain contextual information.
 
-### 4. **File Storage for Uploaded Images**
-For now, the system stores the uploaded images and metadata in the server’s file system under a dedicated directory (e.g., `/wwwroot/uploads/images`). This allows us to keep the app lightweight and avoids the complexity of integrating a database or external file storage solution at this early stage.
+- **Metadata and File Storage**:
+  - Uploaded images are stored in a dedicated directory on the server (e.g., `/wwwroot/uploads/profile-images`).
+  - Only the **file paths** to the stored images are sent to the database, significantly reducing database storage requirements and ensuring efficient retrieval.
+  - For every image uploaded, a corresponding **metadata JSON file** is created. This metadata includes:
+    - Description of the image.
+    - Date and time of upload.
+    - File path for retrieving the image.
 
 ---
 
 ## Key Technologies and Tools
 
-- **ASP.NET Core Web API**: Used to develop the RESTful web services that handle user authentication and image upload functionalities.
-- **JWT (JSON Web Token)**: Used to secure the web service endpoints and allow stateless authentication.
-- **SHA256 Encryption**: Used to hash passwords before storing them securely.
-- **Swagger**: Integrated to help document the API endpoints and enable easy testing of each service.
+- **ASP.NET Core Web API**: Forms the backbone of the RESTful web services, handling requests for authentication, image uploads, and more.
+- **JWT (JSON Web Token)**: Provides secure, scalable, and stateless user authentication.
+- **SHA256 Encryption**: Used for securely hashing user passwords.
+- **Swagger**: Offers a user-friendly interface for testing and documenting API endpoints, improving the developer experience.
 
 ---
 
-## Challenges and Next Steps
+## Challenges and Lessons Learned
 
-### Challenges Faced
-1. **JWT Key Size Issue**:
-   - I encountered an issue with the JWT token generation where the key used for signing the token was too short. This was resolved by ensuring the signing key was at least 32 characters long (256 bits) to meet the security requirements for the **HS256** algorithm.
-  
-2. **Storing Uploaded Images**:
-   - While storing images on the server is simple and effective for now, the next steps may involve moving to a more scalable solution like **cloud storage** (e.g., AWS S3 or Azure Blob Storage) as the project grows.
+### Challenges
+1. **JWT Key Configuration**:
+   - A key size issue initially caused token generation to fail. This was resolved by using a 256-bit signing key to meet the HS256 requirements.
 
-### Next Steps
-- **Implementing the Image Analysis Functionality**:
-  - We will be working on integrating image processing libraries that can analyze the uploaded images and detect changes in moles, lesions, or areas of interest in MRI or CT scans.
-  
-- **Data Privacy and Security**:
-  - Focus will be on enhancing the security of the image upload process, including encryption of the image files and ensuring secure transmission of sensitive data.
-  
-- **Database Integration**:
-  - In future stages, the system will likely need to integrate with a database to store user data, image metadata, and other information in a more scalable way.
+2. **File Storage Complexity**:
+   - Managing locally stored files required a well-organized directory structure and strict validation processes to ensure consistency between file storage and database records.
+
+3. **Metadata Synchronization**:
+   - Ensuring metadata files and images remain in sync required a rigorous validation process during the upload flow.
+
+4. **Scaling Considerations**:
+   - While local storage is sufficient for the current phase, the system architecture has been designed with flexibility to transition to cloud-based storage (e.g., AWS S3 or Azure Blob Storage) as user demand increases.
+
+---
+
+## Next Steps
+
+### Planned Enhancements
+1. **Image Analysis**:
+   - Integration of advanced image processing tools (e.g., **OpenCV** or **Azure Cognitive Services**) to detect changes in moles and identify anomalies in medical images.
+
+2. **Data Security**:
+   - Implement encryption for uploaded images to comply with stringent privacy standards such as GDPR and HIPAA.
+
+3. **Database Integration**:
+   - Transition from file-based metadata to a relational database (**SQLite** or **EF Core**) for more efficient and scalable data management.
+
+4. **User Management**:
+   - Add features for users to manage their profiles, such as editing their data, viewing upload history, and securely sharing results with healthcare providers.
 
 ---
 
 ## Conclusion
 
-The web service layer is now in place, providing the core functionality needed to support **user authentication** and **image uploads**. This service is a crucial part of the app, ensuring that data is stored securely and can be accessed reliably for analysis.
+The web service infrastructure for **HealthTrack+** is now operational, providing core functionality for user authentication and image uploads. By storing files locally and maintaining their paths in the database, the system achieves a balance between simplicity and scalability. These developments pave the way for integrating advanced features like automated image analysis and secure data sharing, bringing us closer to making **HealthTrack+** a vital tool for proactive health monitoring.
 
-Stay tuned for the next update, where I’ll be working on image processing and analysis features to help detect skin-related health issues!
-
+Stay tuned for updates on upcoming functionalities and enhancements!
