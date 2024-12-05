@@ -34,10 +34,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/ImageAnalysis.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbWFnZUFuYWx5c2lzLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/Testing.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUZXN0aW5nLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -89,6 +85,10 @@ build_metadata.AdditionalFiles.CssScope = b-6f1o9nv13d
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/HealthOverview.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIZWFsdGhPdmVydmlldy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-p8minxtp4l
+
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/ImageAnalysis.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbWFnZUFuYWx5c2lzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-o2yp7jx1ck
 
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xJbmRleC5yYXpvcg==

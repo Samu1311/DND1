@@ -1,36 +1,53 @@
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using DND1.Data;
+using DND1.Models;
 
 [ApiController]
 [Route("api/[controller]")]
-public class FileUploadController : ControllerBase
+public class ImageAnalysisController : ControllerBase
 {
-    [HttpPost]
-    [Route("upload")]
-    public async Task<IActionResult> UploadFile(IFormFile file)
+    private readonly AppDbContext _context;
+
+    public ImageAnalysisController(AppDbContext context)
+    {
+        _context = context;
+    }
+
+    [HttpPost("upload")]
+    public async Task<IActionResult> UploadFile(IFormFile file, [FromQuery] int userId)
     {
         if (file == null || file.Length == 0)
         {
             return BadRequest("No file uploaded.");
         }
 
-        // Save the file in the wwwroot/UploadedFiles directory
-        var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "FileUpload");
+        using var memoryStream = new MemoryStream();
+        await file.CopyToAsync(memoryStream);
 
-        if (!Directory.Exists(uploadPath))
+        var mriImage = new MRIImage
         {
-            Directory.CreateDirectory(uploadPath);
+            UserID = userId,
+            FileName = file.FileName,
+            FileContent = memoryStream.ToArray(),
+            UploadedAt = DateTime.UtcNow,
+        };
+
+        _context.MRIImages.Add(mriImage);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { Message = "File uploaded successfully!", MRIImageID = mriImage.MRIImageID, FileName = mriImage.FileName });
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetFile(int id)
+    {
+        var mriImage = await _context.MRIImages.FindAsync(id);
+        if (mriImage == null)
+        {
+            return NotFound("File not found.");
         }
 
-        var filePath = Path.Combine(uploadPath, file.FileName);
-
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            await file.CopyToAsync(stream);
-        }
-
-        // Return the relative file path for use in the app
-        var relativePath = $"/FileUpload/{file.FileName}";
-        return Ok(new { FileName = file.FileName, FilePath = relativePath });
-    }
+        return File(mriImage.FileContent, "application/octet-stream", mriImage.FileName);
+    }
 }

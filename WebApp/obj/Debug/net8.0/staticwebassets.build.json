@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5fot5eKqw8CcqHn0DdFKM/tOti9s/G7cAxFk090owx4=",
+  "Hash": "XA1ns37E3vSRGE7RUpg2KpADyVR4dkPaphlDxmrsHh4=",
   "Source": "WebApp",
   "BasePath": "_content/WebApp",
   "Mode": "Default",
@@ -1934,6 +1934,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\visa.png"
+    },
+    {
+      "Identity": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\Js\\drag-and-drop.js",
+      "SourceId": "WebApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\",
+      "BasePath": "_content/WebApp",
+      "RelativePath": "Js/drag-and-drop.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Js\\drag-and-drop.js"
     },
     {
       "Identity": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\Js\\health-overview.js",

@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\CSS\\app.css"
     },
     {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\Js\\drag-and-drop.js",
+      "PackagePath": "staticwebassets\\Js\\drag-and-drop.js"
+    },
+    {
       "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\Js\\health-overview.js",
       "PackagePath": "staticwebassets\\Js\\health-overview.js"
     },

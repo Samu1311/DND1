@@ -164,3 +164,4 @@ C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\scopedcss\Components\Pages\AboutUs.razor.rz.scp.css
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\scopedcss\Components\Pages\FAQ.razor.rz.scp.css
 C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\scopedcss\Components\Pages\EditMedicalData.razor.rz.scp.css
+C:\Users\Samuele Biondi\Desktop\DND1\Course Project\DND1\WebApp\obj\Debug\net8.0\scopedcss\Components\Pages\ImageAnalysis.razor.rz.scp.css

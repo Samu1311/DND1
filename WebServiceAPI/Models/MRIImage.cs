@@ -8,6 +8,7 @@ namespace DND1.Models
         public int UserID { get; set; } // Foreign Key
         public string FileName { get; set; } = string.Empty;
         public string FilePath { get; set; } = string.Empty;
+        public byte[] FileContent { get; set; } = Array.Empty<byte>();
         public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
         public string? AnalysisResults { get; set; }
 
