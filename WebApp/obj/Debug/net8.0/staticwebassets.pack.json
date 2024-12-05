@@ -13,6 +13,42 @@
       "PackagePath": "staticwebassets\\Js\\health-overview.js"
     },
     {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\Js\\profile-updates.js",
+      "PackagePath": "staticwebassets\\Js\\profile-updates.js"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\ProfilePictures\\41827b64-fc3d-4e99-9d39-db7685ff1158_thumb_lunar-maligno.png",
+      "PackagePath": "staticwebassets\\ProfilePictures\\41827b64-fc3d-4e99-9d39-db7685ff1158_thumb_lunar-maligno.png"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\ProfilePictures\\49f45b18-3eb4-4caf-bfb2-00038ddbd138_thumb_Foto perfil formal TLF.jpg",
+      "PackagePath": "staticwebassets\\ProfilePictures\\49f45b18-3eb4-4caf-bfb2-00038ddbd138_thumb_Foto perfil formal TLF.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\ProfilePictures\\4d212631-6cde-4b0d-a15b-0ada3a4847f6_Foto perfil formal TLF.jpg",
+      "PackagePath": "staticwebassets\\ProfilePictures\\4d212631-6cde-4b0d-a15b-0ada3a4847f6_Foto perfil formal TLF.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\ProfilePictures\\4d289435-7da4-4dc7-ac0c-50fca084c5b5_doctor-facilier-profile.jpg",
+      "PackagePath": "staticwebassets\\ProfilePictures\\4d289435-7da4-4dc7-ac0c-50fca084c5b5_doctor-facilier-profile.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\ProfilePictures\\4d837627-4c34-4e79-838b-b391ca914596_thumb_ana-profile.png",
+      "PackagePath": "staticwebassets\\ProfilePictures\\4d837627-4c34-4e79-838b-b391ca914596_thumb_ana-profile.png"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\ProfilePictures\\6f0073d4-9877-40cc-a1d9-ec6855fc66ed_ana-profile.png",
+      "PackagePath": "staticwebassets\\ProfilePictures\\6f0073d4-9877-40cc-a1d9-ec6855fc66ed_ana-profile.png"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\ProfilePictures\\789271d3-54f6-4d9b-a950-09f477e8ac93_lunar-maligno.png",
+      "PackagePath": "staticwebassets\\ProfilePictures\\789271d3-54f6-4d9b-a950-09f477e8ac93_lunar-maligno.png"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\ProfilePictures\\82622ea2-9a61-4074-a82f-5911db89df23_thumb_doctor-facilier-profile.jpg",
+      "PackagePath": "staticwebassets\\ProfilePictures\\82622ea2-9a61-4074-a82f-5911db89df23_thumb_doctor-facilier-profile.jpg"
+    },
+    {
       "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
     },

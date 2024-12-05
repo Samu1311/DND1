@@ -25,9 +25,17 @@ namespace DND1.Data
             modelBuilder.Entity<MRIImage>().HasKey(mri => mri.MRIImageID);
             modelBuilder.Entity<XrayImage>().HasKey(xri => xri.XrayImageID);
             modelBuilder.Entity<Alert>().HasKey(a => a.AlertID);
+            modelBuilder.Entity<MedicalData>().HasKey(md => md.MedicalDataID);
 
             // Define Relationships
 
+            // MedicalData
+            modelBuilder.Entity<MedicalData>()
+                .HasOne(md => md.User)
+                .WithMany(u => u.MedicalData) // Assuming User has a collection of MedicalData
+                .HasForeignKey(md => md.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+                
             // MoleImage
             modelBuilder.Entity<MoleImage>()
                 .HasOne(mi => mi.User)

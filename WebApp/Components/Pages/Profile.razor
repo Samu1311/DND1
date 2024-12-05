@@ -1,71 +1,308 @@
 @page "/profile"
 @inject IHttpClientFactory HttpClientFactory
 @inject NavigationManager NavigationManager
+@inject CustomAuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JSRuntime
+@using System.Security.Claims
 
 <div class="profile-page">
     <!-- Header Section -->
-    <div class="profile-header">
-        <div class="profile-header-bg">
-            <div class="profile-pic-container">
-                <img src="images/profile-placeholder.png" alt="Profile Picture" class="profile-pic" />
-                <button class="btn edit-pic-btn" @onclick="UploadPicture">
-                    <i class="fas fa-camera"></i>
+    @if (isLoading)
+    {
+        <p>Loading profile...</p>
+    }
+    else if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p class="error-message">
+            <a href="https://www.google.com/search?q=@Uri.EscapeDataString(errorMessage)" target="_blank">
+                @errorMessage
+            </a>
+        </p>
+    }
+    else if (!isUserLoggedIn)
+    {
+        <div class="not-logged-in-message">
+            <h2>Please <a href="/login">log into your account</a> to access your profile.</h2>
+        </div>
+    }
+    else
+    {
+        <div class="profile-header">
+            <div class="profile-header-bg">
+                <div class="profile-pic-container">
+                    <img src="@profilePictureUrl" alt="Profile Picture" class="profile-pic" />
+                    <button class="btn edit-pic-btn" @onclick="OpenModal">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+            </div>
+            <h1 class="profile-name">@userProfile.Name</h1>
+            <p class="profile-bio">@userProfile.Bio</p>
+        </div>
+
+        <!-- Card Section -->
+        <div class="profile-cards">
+            <div class="profile-card">
+                <h2>Personal Information</h2>
+                <p><strong>Email:</strong> @userProfile.Email</p>
+                <p><strong>Phone:</strong> @userProfile.Phone</p>
+                <button class="btn btn-primary" @onclick="EditPersonalInfo">
+                    Edit Info
                 </button>
             </div>
-        </div>
-        <h1 class="profile-name">@userProfile.Name</h1>
-        <p class="profile-bio">@userProfile.Bio</p>
-    </div>
-
-    <!-- Card Section -->
-    <div class="profile-cards">
-        <div class="profile-card">
-            <h2>Personal Information</h2>
-            <p><strong>Email:</strong> @userProfile.Email</p>
-            <p><strong>Phone:</strong> @userProfile.Phone</p>
-            <button class="btn btn-primary" @onclick="EditPersonalInfo">
-                Edit Info
+            <div class="profile-card">
+                <h2>Subscription</h2>
+                <p><strong>Plan:</strong> @userProfile.SubscriptionPlan</p>
+                <p><strong>Renewal Date:</strong> @userProfile.SubscriptionRenewalDate</p>
+                <button class="btn btn-secondary">Manage Subscription</button>
+            </div>
+            <div class="profile-card">
+                <h2>Account Settings</h2>
+                <button class="btn btn-danger">Deactivate Account</button>
+                <button class="btn btn-warning">Change Password</button>
+            </div>
+            <div class="profile-card">
+            <h2>Medical Data</h2>
+            <button class="btn btn-primary" @onclick="GoToEditMedicalData">
+                Edit Medical Data
             </button>
         </div>
-        <div class="profile-card">
-            <h2>Subscription</h2>
-            <p><strong>Plan:</strong> Premium</p>
-            <p><strong>Renewal Date:</strong> 15th Dec 2024</p>
-            <button class="btn btn-secondary">Manage Subscription</button>
-        </div>
-        <div class="profile-card">
-            <h2>Account Settings</h2>
-            <button class="btn btn-danger">Deactivate Account</button>
-            <button class="btn btn-warning">Change Password</button>
-        </div>
     </div>
+
+        <!-- Modal -->
+        <div class="modal" @ref="modal">
+            <div class="modal-content">
+                <span class="close" @onclick="CloseModal">&times;</span>
+                <h2>Upload New Profile Picture</h2>
+                <div class="drag-drop-area"
+                     @ondragover="HandleDragOver"
+                     @ondragleave="HandleDragLeave"
+                     @ondrop="HandleDrop"
+                     @onclick="() => TriggerFileInputClick()">
+                    Drag and drop a file here or click to select a file
+                    <input type="file" @ref="fileInput" @onchange="HandleFileSelected" style="display:none" />
+                </div>
+                <button class="btn btn-primary" @onclick="UploadFile">Save changes</button>
+            </div>
+        </div>
+    }
 </div>
 
 @code {
+    private UserProfile userProfile = new UserProfile();
+    private string profilePictureUrl = string.Empty;
+    private bool isLoading = true;
+    private bool isUserLoggedIn = false;
+    private string errorMessage = string.Empty;
+    private IBrowserFile selectedFile;
+    private ElementReference fileInput;
+    private ElementReference modal;
 
-    public class UserProfile
+    protected override async Task OnInitializedAsync()
     {
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Bio { get; set; }
+        Console.WriteLine("OnInitializedAsync called");
+        isLoading = true; // Set isLoading to true at the beginning
+        await CheckAuthenticationState();
+        if (isUserLoggedIn)
+        {
+            await LoadUserProfile();
+        }
+        isLoading = false; // Set isLoading to false after loading is complete
+        Console.WriteLine("OnInitializedAsync completed");
     }
-    private UserProfile userProfile = new()
-    {
-        Name = "John Doe",
-        Email = "johndoe@example.com",
-        Phone = "123-456-7890",
-        Bio = "A passionate user of the Health App, here to track and improve my well-being!"
-    };
 
-    private void UploadPicture()
+    private async Task CheckAuthenticationState()
     {
-        Console.WriteLine("Upload picture clicked!");
+        Console.WriteLine("CheckAuthenticationState called");
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        isUserLoggedIn = user.Identity != null && user.Identity.IsAuthenticated;
+        Console.WriteLine($"isUserLoggedIn: {isUserLoggedIn}");
+    }
+
+    private async Task LoadUserProfile()
+    {
+        try
+        {
+            Console.WriteLine("LoadUserProfile called");
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity != null && user.Identity.IsAuthenticated)
+            {
+                var userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+                if (int.TryParse(userId, out int parsedUserId))
+                {
+                    var client = HttpClientFactory.CreateClient("HealthAppAPI");
+                    var response = await client.GetAsync($"user/profile/{parsedUserId}");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        userProfile = await response.Content.ReadFromJsonAsync<UserProfile>();
+                        await LoadProfilePicture(parsedUserId);
+                    }
+                    else
+                    {
+                        errorMessage = "Failed to load profile.";
+                        Console.WriteLine($"Error loading profile: {response.ReasonPhrase}");
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading profile: {ex.Message}";
+            Console.WriteLine($"Error loading profile: {ex.Message}");
+        }
+    }
+
+    private async Task LoadProfilePicture(int userId)
+    {
+        try
+        {
+            Console.WriteLine("LoadProfilePicture called");
+            var client = HttpClientFactory.CreateClient("HealthAppAPI");
+            var response = await client.GetAsync($"profilepicture/latest/{userId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var profilePicture = await response.Content.ReadFromJsonAsync<ProfilePicture>();
+                profilePictureUrl = profilePicture.Url; // Use the relative URL
+                StateHasChanged(); // Ensure the UI is updated
+                Console.WriteLine("Profile picture loaded successfully");
+            }
+            else
+            {
+                profilePictureUrl = "images/default-profile.png"; // Default profile picture
+                Console.WriteLine($"Error loading profile picture: {response.ReasonPhrase}");
+            }
+        }
+        catch (Exception ex)
+        {
+            profilePictureUrl = "images/default-profile.png"; // Default profile picture
+            Console.WriteLine($"Error loading profile picture: {ex.Message}");
+        }
+    }
+
+    private void HandleFileSelected(ChangeEventArgs e)
+    {
+        Console.WriteLine("HandleFileSelected called");
+        var files = (e.Value as IBrowserFile[]);
+        if (files != null && files.Length > 0)
+        {
+            selectedFile = files[0];
+            Console.WriteLine($"File selected: {selectedFile.Name}");
+        }
+    }
+
+    private void ResetFile()
+    {
+        Console.WriteLine("File reset!");
+        // Placeholder for reset logic
+    }
+
+    private async Task UploadFile()
+    {
+        Console.WriteLine("UploadFile called");
+        if (selectedFile != null)
+        {
+            var userId = userProfile.UserID; // Assuming UserID is part of UserProfile
+
+            var content = new MultipartFormDataContent();
+            content.Add(new StreamContent(selectedFile.OpenReadStream()), "file", selectedFile.Name);
+            content.Add(new StringContent(userId.ToString()), "userId");
+
+            var client = HttpClientFactory.CreateClient("HealthAppAPI");
+            var response = await client.PostAsync("profilepicture/upload", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await LoadProfilePicture(userId); // Reload the profile picture
+                CloseModal();
+                Console.WriteLine("File uploaded successfully");
+            }
+            else
+            {
+                errorMessage = "Failed to upload profile picture.";
+                Console.WriteLine($"Error uploading profile picture: {response.ReasonPhrase}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("No file selected for upload");
+        }
+    }
+
+    private void OpenModal()
+    {
+        Console.WriteLine("OpenModal called");
+        JSRuntime.InvokeVoidAsync("openModal");
+    }
+
+    private void CloseModal()
+    {
+        Console.WriteLine("CloseModal called");
+        JSRuntime.InvokeVoidAsync("closeModal");
+    }
+
+    private void HandleDragOver(DragEventArgs e)
+    {
+        Console.WriteLine("HandleDragOver called");
+        JSRuntime.InvokeVoidAsync("handleDragOver", e);
+    }
+
+    private void HandleDragLeave(DragEventArgs e)
+    {
+        Console.WriteLine("HandleDragLeave called");
+        JSRuntime.InvokeVoidAsync("handleDragLeave", e);
+    }
+
+    private void HandleDrop(DragEventArgs e)
+    {
+        Console.WriteLine("HandleDrop called");
+        JSRuntime.InvokeVoidAsync("handleDrop", e, DotNetObjectReference.Create(this));
+    }
+
+    private void TriggerFileInputClick()
+    {
+        Console.WriteLine("TriggerFileInputClick called");
+        JSRuntime.InvokeVoidAsync("triggerFileInputClick", fileInput);
     }
 
     private void EditPersonalInfo()
     {
-        Console.WriteLine("Edit personal info clicked!");
+        Console.WriteLine("EditPersonalInfo called");
         NavigationManager.NavigateTo("/edit-account");
+    }
+
+    private void LogProfilePictureUrl()
+    {
+        Console.WriteLine($"Profile Picture URL: {profilePictureUrl}");
+    }
+
+        private void GoToEditMedicalData()
+    {
+        Console.WriteLine("Edit medical data clicked!");
+        NavigationManager.NavigateTo("/edit-medical-data");
+}
+
+
+    private class UserProfile
+    {
+        public int UserID { get; set; } // Add this property
+        public string Name { get; set; } = string.Empty;
+        public string Bio { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Phone { get; set; } = string.Empty;
+        public string SubscriptionPlan { get; set; } = string.Empty;
+        public string SubscriptionRenewalDate { get; set; } = string.Empty;
+        public string ProfilePictureUrl { get; set; } = string.Empty; // Add this property
+    }
+
+    private class ProfilePicture
+    {
+        public string Url { get; set; } = string.Empty;
     }
 }

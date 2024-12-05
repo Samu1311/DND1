@@ -66,6 +66,10 @@ build_metadata.AdditionalFiles.CssScope = b-pui3qmsk44
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-cfr3pjxbop
 
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/AboutUs.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBYm91dFVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-yqsf0nv78b
+
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/Alerts.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBbGVydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-san0pqr48b
@@ -73,6 +77,14 @@ build_metadata.AdditionalFiles.CssScope = b-san0pqr48b
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/EditAccount.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFZGl0QWNjb3VudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-2djacql6ok
+
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/EditMedicalData.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFZGl0TWVkaWNhbERhdGEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-qx1dibn07a
+
+[C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/FAQ.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xGQVEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-6f1o9nv13d
 
 [C:/Users/Samuele Biondi/Desktop/DND1/Course Project/DND1/WebApp/Components/Pages/HealthOverview.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIZWFsdGhPdmVydmlldy5yYXpvcg==

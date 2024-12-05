@@ -179,3 +179,179 @@
 .btn-warning:hover {
     background-color: #d39e00;
 }
+
+/* Styles for the error message */
+.error-message {
+    color: #ff4d4d; /* Red color for error */
+    background-color: #ffe6e6; /* Light red background */
+    border: 1px solid #ff4d4d; /* Red border */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+    font-family: 'Arial', sans-serif;
+}
+
+.error-message a {
+    color: #ff4d4d; /* Red color for links */
+    text-decoration: none; 
+}
+
+.error-message :hover{
+    color: #b40000; /* Red color for links */
+    text-decoration: underline; 
+}
+
+/* Styles for the not-logged-in message */
+.not-logged-in-message {
+    color: #333; /* Dark gray color */
+    background-color: #f0f0f0; /* Light gray background */
+    border: 1px solid #ccc; /* Gray border */
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+    font-family: 'Arial', sans-serif;
+}
+
+.not-logged-in-message h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.not-logged-in-message a {
+    color: inherit; /* Blue color for link */
+    text-decoration: none; /* Remove underline from link */
+}
+
+.not-logged-in-message a:hover {
+    text-decoration: underline; /* Underline on hover */
+    color: #005a70;
+}
+
+
+/* Modal styles */
+.modal {
+    display: flex; /* Flexbox for centering */
+    align-items: center; /* Vertically center */
+    justify-content: center; /* Horizontally center */
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Higher than other elements */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.6); /* Black overlay with opacity */
+    animation: fadeIn 0.5s ease; /* Smooth fade-in effect */
+}
+
+/* Modal Content Box */
+.modal-content {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: zoomIn 0.3s ease-out;
+    margin: auto;
+    margin-top: 20vh; /* Center vertically */
+}
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    color: #6c757d;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #dc3545;
+    text-decoration: none;
+}
+
+/* Header Style */
+.modal-content h2 {
+    font-size: 1.8rem;
+    color: #343a40;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Drag and drop area styles */
+.drag-drop-area {
+    border: 2px dashed #6c757d;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 1rem;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.drag-drop-area:hover {
+    background-color: #e9ecef;
+    border-color: #007bff;
+    color: #007bff;
+}
+
+.drag-drop-area.drag-over {
+    border-color: #007bff;
+    background-color: #e6f7ff;
+    color: #0056b3;
+}
+
+/* Primary Button */
+.btn-primary {
+    background-color: #219ebc;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #5ba5b8;
+    transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.9);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+

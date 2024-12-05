@@ -2,58 +2,84 @@
 @inject IJSRuntime JSRuntime
 @rendermode InteractiveServer
 
+<!-- Add Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
 <div class="health-overview-page">
-    <!-- Page Header -->
+    <!-- Header Section -->
     <header class="page-header">
-        <h1>Health Overview</h1>
-        <p>Track and monitor your essential health data</p>
+        <h1>Welcome to your Health Overview, Ana!</h1>
     </header>
 
-    <!-- Health Metrics Section -->
-    <section class="health-metrics">
-        <div class="metric-card heart-rate">
-            <h3>Heart Rate</h3>
-            <p class="metric-value">72 bpm</p>
-            <p class="metric-desc">Normal</p>
+    <!-- Personal Info Section -->
+    <section class="personal-info">
+        <div class="profile-picture">
+            <img src="/images/female.user.image.jpg" alt="Profile Picture" />
         </div>
-        <div class="metric-card blood-pressure">
-            <h3>Blood Pressure</h3>
-            <p class="metric-value">120/80</p>
-            <p class="metric-desc">Normal</p>
-        </div>
-        <div class="metric-card weight">
-            <h3>Weight</h3>
-            <p class="metric-value">70 kg</p>
-            <p class="metric-desc">Healthy</p>
-        </div>
-        <div class="metric-card blood-type">
-            <h3>Blood Type</h3>
-            <p class="metric-value">O+</p>
-            <p class="metric-desc">Universal Donor</p>
+        <div class="info-summary">
+            <h3>Personal Information</h3>
+            <p><strong>Age:</strong> 30</p>
+            <p><strong>Gender:</strong> Female</p>
+            <p><strong>Nationality:</strong> American</p>
         </div>
     </section>
 
-    <!-- Graphs Section -->
-    <section class="health-graphs">
-        <div class="graph-card">
-            <h3>Heart Rate Trend</h3>
-            <canvas id="heartRateChart"></canvas>
+    <!-- Collapsible Sections -->
+    <section class="collapsible-section">
+        <!-- Health Overview Section -->
+        <div>
+            <button class="collapse-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#healthOverview" aria-expanded="false" aria-controls="healthOverview">
+                Health Overview
+            </button>
+            <div class="collapse" id="healthOverview">
+                <div class="health-metrics">
+                    <div class="metric-card">
+                        <h3>Height</h3>
+                        <p class="metric-value">180 cm</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Weight</h3>
+                        <p class="metric-value">75 kg</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>BMI</h3>
+                        <p class="metric-value">23.1</p>
+                        <p class="metric-desc">Healthy</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Blood Type</h3>
+                        <p class="metric-value">O+</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="graph-card">
-            <h3>Weight Progress</h3>
-            <canvas id="weightChart"></canvas>
+
+        <!-- Your Habits Section -->
+        <div>
+            <button class="collapse-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#yourHabits" aria-expanded="false" aria-controls="yourHabits">
+                Your Habits
+            </button>
+            <div class="collapse" id="yourHabits">
+                <div class="lifestyle-metrics">
+                    <div class="metric-card">
+                        <h3>Smoking</h3>
+                        <p class="metric-value">No</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Alcohol Consumption</h3>
+                        <p class="metric-value">Occasionally</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Physical Activity</h3>
+                        <p class="metric-value">Medium</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </div>
 
-@code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // Call JavaScript methods to render the charts
-            await JSRuntime.InvokeVoidAsync("renderHeartRateChart", "heartRateChart");
-            await JSRuntime.InvokeVoidAsync("renderWeightChart", "weightChart");
-        }
-    }
-}
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; @DateTime.Now.Year Mobile Health App</p>
+    </footer>

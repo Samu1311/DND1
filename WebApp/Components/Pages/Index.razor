@@ -4,15 +4,18 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject CustomAuthenticationStateProvider AuthProvider
 @inject NavigationManager NavigationManager
+@inject IHttpClientFactory HttpClientFactory
 @using WebApp.Components
+@using Microsoft.AspNetCore.Components.Web
 
 <!-- Search Bar -->
 <div class="search-bar">
     <input 
-        @bind-value="SearchQuery" 
+        @bind-value="SearchQuery"
+        @bind-value:event="oninput"
         class="search-input" 
         placeholder="What are you looking for?" 
-        @oninput="PerformSearch"
+        @onkeydown="OnSearch"
     />
     <button 
         class="btn btn-primary" 
@@ -54,6 +57,7 @@ else if (!string.IsNullOrWhiteSpace(SearchQuery))
 {
     <div class="welcome-message">
         <h2>Welcome, @userFirstName!</h2>
+        @* <p>We’re glad to see you again. Let's make today productive!</p> *@
     </div>
 }
 
@@ -96,10 +100,24 @@ else if (!string.IsNullOrWhiteSpace(SearchQuery))
 
 <!-- Emergency Call Button -->
 <div class="emergency-call">
-    <a href="tel:112" class="btn btn-danger emergency-button">
-        Emergency Call <i class="fas fa-phone"></i>
-    </a>
+    @if (!string.IsNullOrWhiteSpace(EmergencyContact))
+    {
+        <a href="tel:@EmergencyContact" class="btn btn-danger emergency-button">
+            Emergency Call <i class="fas fa-phone"></i>
+        </a>
+    }
+    else
+    {
+        <p class="no-emergency-contact">
+            <i class="fas fa-exclamation-circle"></i> No emergency contact available. Please update your profile.
+        </p>
+    }
 </div>
+
+@* <!-- Debug Button -->
+<div class="debug-button">
+    <button @onclick="LogEmergencyContact" class="btn btn-secondary">Log Emergency Contact</button>
+</div> *@
 
 @if (isUpgradeModalVisible)
 {
@@ -122,6 +140,11 @@ else if (!string.IsNullOrWhiteSpace(SearchQuery))
     private bool isUserLoggedIn = false;
     private List<SearchableItem> searchableItems = new();
     private List<SearchableItem> searchResults = new();
+    private string EmergencyContact { get; set; } = string.Empty;
+    private class UserProfile
+    {
+        public string emergencyContact { get; set; } = string.Empty;
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -153,7 +176,7 @@ else if (!string.IsNullOrWhiteSpace(SearchQuery))
             userFirstName = string.Empty; // Clear user name
             userType = "Basic"; // Reset user type
         }
-
+        await FetchEmergencyContactAsync();
         StateHasChanged(); // Refresh UI
     }
 
@@ -178,43 +201,70 @@ else if (!string.IsNullOrWhiteSpace(SearchQuery))
     }
 
     private void PopulateSearchableItems()
-{
-    // Static items (Features, Knowledge Base)
-    searchableItems = new List<SearchableItem>
     {
-        new SearchableItem 
-        { 
-            Category = "Feature", 
-            Title = "Health Overview", 
-            Description = "Health overview including graphs, blood type, height, and weight.", 
-            NavigationPath = "/health-overview" 
-        },
-        new SearchableItem 
-        { 
-            Category = "Feature", 
-            Title = "Mole Tracking", 
-            Description = "Mole tracking with images, calendar, time-based tracking, upload functionality, and analysis of color, shape, and size.", 
-            NavigationPath = "/mole-tracking" 
-        },
-        new SearchableItem 
-        { 
-            Category = "Feature", 
-            Title = "Image Analysis", 
-            Description = "Image analysis for X-rays, MRIs, tumor detection, anomalies, scans, and highlighting specific zones.", 
-            NavigationPath = "/image-analysis" 
-        },
-        new SearchableItem 
-        { 
-            Category = "Feature", 
-            Title = "Alerts", 
-            Description = "Alerts, notifications, and reminders to keep you updated on your health activities.", 
-            NavigationPath = "/alerts" 
-        }
-    };
+        // Static items (Features, General App Sections)
+        searchableItems = new List<SearchableItem>
+        {
+            new SearchableItem 
+            { 
+                Category = "Feature", 
+                Title = "Health Overview", 
+                Description = "Health overview including graphs, blood type, height, weight, and health tracking.", 
+                NavigationPath = "/health-overview" 
+            },
+            new SearchableItem 
+            { 
+                Category = "Feature", 
+                Title = "Mole Tracking", 
+                Description = "Mole tracking with images, calendar, time-based tracking, upload functionality, and analysis of color, shape, and size.", 
+                NavigationPath = "/mole-tracking" 
+            },
+            new SearchableItem 
+            { 
+                Category = "Feature", 
+                Title = "Image Analysis", 
+                Description = "Image analysis for X-rays, MRIs, tumor detection, anomalies, scans, and highlighting specific zones.", 
+                NavigationPath = "/image-analysis" 
+            },
+            new SearchableItem 
+            { 
+                Category = "Feature", 
+                Title = "Alerts", 
+                Description = "Alerts, notifications, and reminders to keep you updated on your health activities.", 
+                NavigationPath = "/alerts" 
+            },
+            new SearchableItem 
+            { 
+                Category = "General", 
+                Title = "Profile", 
+                Description = "User profile management including account settings, personal information, bio, and preferences.", 
+                NavigationPath = "/profile" 
+            },
+            new SearchableItem 
+            { 
+                Category = "General", 
+                Title = "FAQ", 
+                Description = "Frequently asked questions about health tracking, app functionality, troubleshooting, and common issues.", 
+                NavigationPath = "/faq" 
+            },
+            new SearchableItem 
+            { 
+                Category = "General", 
+                Title = "Services", 
+                Description = "Explore our services, upgrade to premium, and unlock advanced features like medical image analysis.", 
+                NavigationPath = "/upgrade-process" 
+            },
+            new SearchableItem 
+            { 
+                Category = "General", 
+                Title = "About", 
+                Description = "Learn about our mission, team, and commitment to providing innovative health tracking solutions.", 
+                NavigationPath = "/about" 
+            }
+        };
 
-    // Optionally, add user-specific data here dynamically later (e.g., health records)
-}
-
+        // Optionally, add user-specific data here dynamically later (e.g., health records)
+    }
 
     // SearchableItem class for global search data structure
     public class SearchableItem
@@ -242,10 +292,9 @@ else if (!string.IsNullOrWhiteSpace(SearchQuery))
 
     private void OnSearch()
     {
-        PerformSearch();
+    Console.WriteLine($"Search Query: {SearchQuery}");
+    PerformSearch();
     }
-
-
     private void OnClear()
     {
         SearchQuery = string.Empty;
@@ -257,8 +306,46 @@ else if (!string.IsNullOrWhiteSpace(SearchQuery))
         NavigationManager.NavigateTo(path);
     }
 
+    private async Task FetchEmergencyContactAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity != null && user.Identity.IsAuthenticated)
+        {
+            var userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            if (int.TryParse(userId, out int parsedUserId))
+            {
+                try
+                {
+                    var client = HttpClientFactory.CreateClient("HealthAppAPI");
+                    var response = await client.GetAsync($"user/profile/{parsedUserId}");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var profileData = await response.Content.ReadFromJsonAsync<UserProfile>();
+                        EmergencyContact = profileData?.emergencyContact ?? string.Empty;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error fetching emergency contact: {ex.Message}");
+                }
+            }
+        }
+        else
+        {
+            EmergencyContact = string.Empty; // Clear emergency contact if user is not authenticated
+        }
+    }
     public void Dispose()
     {
         AuthenticationStateProvider.AuthenticationStateChanged -= OnAuthenticationStateChanged;
+    }
+
+        private void LogEmergencyContact()
+    {
+        Console.WriteLine($"Emergency Contact: {EmergencyContact}");
     }
 }

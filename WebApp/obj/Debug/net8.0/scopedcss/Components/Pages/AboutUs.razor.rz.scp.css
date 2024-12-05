@@ -1,0 +1,101 @@
+.about-us-container[b-yqsf0nv78b] {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    line-height: 1.8;
+}
+
+.page-title[b-yqsf0nv78b] {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    color: #1d3557;
+    margin-bottom: 40px;
+}
+
+section[b-yqsf0nv78b] {
+    margin-bottom: 50px;
+}
+
+section h2[b-yqsf0nv78b] {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #457b9d;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #1d3557;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.founders[b-yqsf0nv78b] {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Ensures all 4 fit in a row */
+    gap: 20px;
+    justify-content: center;
+}
+
+.founder-card[b-yqsf0nv78b] {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.founder-card:hover[b-yqsf0nv78b] {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(69, 123, 157, 0.3);
+}
+
+.founder-image[b-yqsf0nv78b] {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #457b9d;
+}
+
+.founder-name[b-yqsf0nv78b] {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1d3557;
+    margin-bottom: 10px;
+}
+
+.founder-title[b-yqsf0nv78b] {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #457b9d;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.founder-description[b-yqsf0nv78b] {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.fun-fact[b-yqsf0nv78b] {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #e9f5fc;
+    border-left: 5px solid #219ebc;
+    border-radius: 8px;
+    text-align: left;
+    animation: fade-in-b-yqsf0nv78b 1s;
+}
+
+@keyframes fade-in-b-yqsf0nv78b {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

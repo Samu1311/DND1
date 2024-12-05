@@ -90,13 +90,37 @@ namespace WebServiceAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Alcohol")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("BloodType")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("DairyAllergy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("GlutenAllergy")
+                        .HasColumnType("INTEGER");
 
                     b.Property<float?>("Height")
                         .HasColumnType("REAL");
 
-                    b.Property<int>("UserID")
+                    b.Property<string>("OtherAllergies")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PeanutsAllergy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("PollenAllergy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("ShellfishAllergy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Smoking")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.Property<float?>("Weight")
@@ -104,7 +128,7 @@ namespace WebServiceAPI.Migrations
 
                     b.HasKey("MedicalDataID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("MedicalData");
                 });
@@ -153,7 +177,15 @@ namespace WebServiceAPI.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ThumbnailUrl")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UserID")
@@ -172,6 +204,10 @@ namespace WebServiceAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Bio")
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("TEXT");
 
@@ -179,24 +215,37 @@ namespace WebServiceAPI.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("EmergencyContact")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Gender")
+                        .HasMaxLength(10)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProfilePictureUrl")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UserType")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT")
                         .HasDefaultValue("Basic");
 
@@ -279,7 +328,7 @@ namespace WebServiceAPI.Migrations
                 {
                     b.HasOne("DND1.Models.User", "User")
                         .WithMany("MedicalData")
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -1,106 +1,143 @@
-/* General Styling */
+/* Center the entire Personal Info Card */
 .health-overview-page {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 20px;
-    background-color: #f7f9fc;
-    min-height: calc(100vh - 80px);
-    max-width: 1200px;
-    margin: auto;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    padding: 2%;
+    background: linear-gradient(135deg, #e3f2fd, #ede7f6);
+    min-height: 100vh;
 }
 
-/* Header Styling Fix */
+/* Header Section with New Font */
 .page-header {
     text-align: center;
-    margin-bottom: 30px;
-    padding: 0; /* Ensure no padding creates an extra box */
-    background: none; /* Remove any background color */
-    border: none; /* Remove any borders */
-    box-shadow: none; /* Remove any shadows */
+    margin-bottom: 2%;
+    color: #000; /* Black text */
+    background: none;
+    padding: 1rem;
 }
 
 .page-header h1 {
-    font-size: 2.5rem;
-    color: #004085;
-    margin-bottom: 10px;
+    font-size: 300%; /* Larger size for emphasis */
     font-weight: bold;
+    font-family: 'Poppins', sans-serif; /* Modern and elegant font */
 }
 
-.page-header p {
-    font-size: 1.2rem;
-    color: #555;
-    margin: 0;
+/* Personal Info Section */
+.personal-info {
+    display: flex;
+    align-items: center; /* Align content vertically */
+    justify-content: center; /* Center horizontally */
+    gap: 2rem;
+    width: 40%; 
+    margin-bottom: 2%;
+    background: white;
+    padding: 2%;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Health Metrics Section */
-.health-metrics {
+.profile-picture img {
+    border-radius: 50%; /* Circular image */
+    width: 250px; /* Smaller width */
+    height: auto; /* Match height for consistency */
+    border: 3px solid #90caf9; /* Light blue border */
+}
+
+.info-summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center text vertically */
+    text-align: left; /* Align text to the left */
+}
+
+.info-summary h3 {
+    font-size: 1.5rem; /* Adjust font size */
+    color: #1565c0;
+    margin-bottom: 0.5rem;
+}
+
+.info-summary p {
+    font-size: 1.1rem; /* Adjust font for details */
+    color: #424242;
+}
+
+
+
+
+
+
+
+/* Collapsible Section Buttons */
+.collapsible-section {
+    width: 90%; /* Adjust the width of collapsible sections */
+    margin-bottom: 2%;
+}
+.collapse-toggle {
+    width: 100%;
+    padding: 1%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    background: #1565c0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 1%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+}
+.collapse-toggle:hover {
+    background: #0d47a1;
+}
+
+/* Collapsible Content */
+.collapse {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2%;
+    margin-bottom: 2%;
+    width: 100%; /* Ensure the collapse content takes full width */
+}
+
+/* Health and Lifestyle Metrics Sections */
+.health-metrics, .lifestyle-metrics {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    width: 100%;
-    margin-bottom: 40px;
+    gap: 2%;
+    width: 100%; /* Full width for cards within the collapsible sections */
 }
-
 .metric-card {
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 5%;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
-.metric-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
 .metric-card h3 {
-    font-size: 1.2rem;
-    color: #333;
+    font-size: 1.3rem;
+    color: #1565c0;
 }
-
-.metric-card .metric-value {
+.metric-value {
     font-size: 1.8rem;
-    color: #219ebc;
     font-weight: bold;
+    color: #2e7d32;
+}
+.metric-desc {
+    font-size: 1rem;
+    color: #424242;
 }
 
-.metric-card .metric-desc {
-    font-size: 0.9rem;
-    color: #555;
-}
 
-/* Graphs Section */
-.health-graphs {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    width: 100%;
-}
 
-.graph-card {
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
+/* Footer */
+.footer {
+    margin-top: auto;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.graph-card canvas {
+    color: #6c757d;
+    font-size: 0.9rem;
     width: 100%;
-    max-height: 300px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .health-metrics {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-
-    .health-graphs {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
 }

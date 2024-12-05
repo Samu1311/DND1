@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -28,7 +27,7 @@ namespace DND1.Controllers
 
         // Register a new user
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserRegistrationModel model)
+        public async Task<IActionResult> Register(User model)
         {
             if (await _context.Users.AnyAsync(u => u.Email == model.Email))
             {
@@ -40,10 +39,12 @@ namespace DND1.Controllers
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
-                PasswordHash = HashPassword(model.Password),
+                PasswordHash = HashPassword(model.PasswordHash), // Use the provided password to generate a hash
                 DateOfBirth = model.DateOfBirth,
                 Gender = model.Gender,
-                UserType = model.UserType ?? "Basic" // Default to "Basic"
+                UserType = model.UserType ?? "Basic", // Default to "Basic"
+                EmergencyContact = model.EmergencyContact,
+                PhoneNumber = model.PhoneNumber // Ensure this field is set
             };
 
             _context.Users.Add(user);
@@ -52,13 +53,13 @@ namespace DND1.Controllers
             return Ok(new { user.UserID, user.Email });
         }
 
+
         // Get all users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
             return await _context.Users.ToListAsync();
         }
-
 
         // Get user by ID
         [HttpGet("{id}")]
@@ -68,7 +69,7 @@ namespace DND1.Controllers
             var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
-                return NotFound("User not found.");
+                return NotFound(new { Message = "User not found." });
             }
 
             return Ok(user);
@@ -77,7 +78,7 @@ namespace DND1.Controllers
         // Update user
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserUpdateModel model)
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] User model)
         {
             if (id != model.UserID)
             {
@@ -93,17 +94,19 @@ namespace DND1.Controllers
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Email = model.Email;
-            if (!string.IsNullOrEmpty(model.Password))
+            if (!string.IsNullOrEmpty(model.PasswordHash))
             {
-                user.PasswordHash = HashPassword(model.Password);
+                user.PasswordHash = HashPassword(model.PasswordHash);
             }
             user.DateOfBirth = model.DateOfBirth;
             user.Gender = model.Gender;
+            user.EmergencyContact = model.EmergencyContact;
 
             await _context.SaveChangesAsync();
 
             return Ok(new { Message = "User updated successfully", User = user });
         }
+
 
         // Delete user
         [HttpDelete("{id}")]
@@ -113,7 +116,7 @@ namespace DND1.Controllers
             var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
-                return NotFound("User not found.");
+                return NotFound(new { Message = "User not found." });
             }
 
             _context.Users.Remove(user);
@@ -122,12 +125,15 @@ namespace DND1.Controllers
             return Ok(new { Message = "User deleted successfully" });
         }
 
-        //Update UserType
+        // Update UserType
         [HttpPost("upgrade")]
         public async Task<IActionResult> UpgradeUser([FromBody] UpgradeUserRequest request)
         {
             var user = await _context.Users.FindAsync(request.UserID);
-            if (user == null) return NotFound("User not found");
+            if (user == null)
+            {
+                return NotFound(new { Message = "User not found." });
+            }
 
             user.UserType = request.UserType;
             await _context.SaveChangesAsync();
@@ -160,11 +166,39 @@ namespace DND1.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-            public class UpgradeUserRequest
+        // GET: api/user/profile/{userId}
+        [HttpGet("profile/{userId}")]
+        public async Task<IActionResult> GetUserProfile(int userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
             {
-                public int UserID { get; set; } // Add this property
-                public string UserType { get; set; } // Ensure this matches the incoming request structure
+                return NotFound(new { Message = "User not found." });
             }
+
+            var userProfile = new UserProfileResponse
+            {
+                Name = $"{user.FirstName} {user.LastName}",
+                Email = user.Email,
+                Phone = user.PhoneNumber,
+                Bio = user.Bio ?? "No bio available.",
+                SubscriptionPlan = user.UserType == "Premium" ? "Premium" : "Basic",
+                SubscriptionRenewalDate = user.UserType == "Premium"
+                    ? DateTime.UtcNow.AddMonths(1).ToString("d MMM yyyy")
+                    : "N/A",
+                ProfilePictureUrl = string.IsNullOrEmpty(user.ProfilePictureUrl)
+                    ? "images/profile-placeholder.png"
+                    : user.ProfilePictureUrl,
+                EmergencyContact = user.EmergencyContact, // Include emergency contact
+                DateOfBirth = user.DateOfBirth, // Include date of birth
+                Gender = user.Gender // Include gender
+            };
+
+            return Ok(userProfile);
+        }
+
+        //GET: api/user/emergency-contact/{userId}
 
         private string HashPassword(string password)
         {
@@ -174,39 +208,26 @@ namespace DND1.Controllers
                 return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
             }
         }
-    }
 
-        public class UserRegistrationModel
-    {
-        [Required]
-        public string FirstName { get; set; } = string.Empty;
-    
-        [Required]
-        public string LastName { get; set; } = string.Empty;
-    
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; } = string.Empty;
-    
-        [Required]
-        [MinLength(6)]
-        public string Password { get; set; } = string.Empty;
-    
-        public DateTime? DateOfBirth { get; set; }
-    
-        public string? Gender { get; set; }
-        public string UserType { get; set; } = "Basic"; // Default to "Basic"
-    }
+        // Models
+        public class UpgradeUserRequest
+        {
+            public int UserID { get; set; }
+            public string UserType { get; set; }
+        }
 
-    public class UserUpdateModel
-    {
-        public int UserID { get; set; }
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string? Password { get; set; }
-        public DateTime? DateOfBirth { get; set; }
-        public string? Gender { get; set; }
-        public string? UserType { get; set; }
+        public class UserProfileResponse
+        {
+            public string Name { get; set; }
+            public string Email { get; set; }
+            public string Phone { get; set; }
+            public string Bio { get; set; }
+            public string SubscriptionPlan { get; set; }
+            public string SubscriptionRenewalDate { get; set; }
+            public string ProfilePictureUrl { get; set; }
+            public string EmergencyContact { get; set; } // New field for emergency contact
+            public DateTime? DateOfBirth { get; set; } // New field for date of birth
+            public string Gender { get; set; } // New field for gender
+        }
     }
 }

@@ -1,0 +1,91 @@
+@page "/faq"
+@inject IHttpClientFactory HttpClientFactory
+@inject NavigationManager NavigationManager
+
+<div class="faq-container">
+    <h1 class="page-title">Frequently Asked Questions</h1>
+    <p class="intro-text">
+        Have questions? We've got answers! Explore some of the most common questions about <strong>HealthTrack+</strong> and learn how it can support your health journey.
+    </p>
+
+    <div class="faq-section">
+        @foreach (var faq in faqs)
+        {
+            <div class="faq-item">
+                <button class="faq-question" @onclick="() => ToggleFAQ(faq)">
+                    @faq.Question
+                    <span>@(faq.IsOpen ? "-" : "+")</span>
+                </button>
+                <div class="faq-answer-container" style="@(faq.IsOpen ? "max-height: 500px;" : "max-height: 0;")">
+                    <div class="faq-answer">@faq.Answer</div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    public class FAQItem
+    {
+        public string Question { get; set; }
+        public string Answer { get; set; }
+        public bool IsOpen { get; set; }
+    }
+
+    private List<FAQItem> faqs = new()
+    {
+        new FAQItem
+        {
+            Question = "What is HealthTrack+?",
+            Answer = "HealthTrack+ is an innovative health monitoring application designed to help users track changes in moles, manage medical images like X-rays and MRIs, and stay proactive with health alerts.",
+            IsOpen = false
+        },
+        new FAQItem
+        {
+            Question = "What are the key features of HealthTrack+?",
+            Answer = "Key features include mole tracking with image analysis, X-ray and MRI uploads with anomaly detection, health alerts for critical updates, secure profile management, and emergency contact functionality.",
+            IsOpen = false
+        },
+        new FAQItem
+        {
+            Question = "How does the mole tracking feature work?",
+            Answer = "You can upload photos of your moles over time, and HealthTrack+'s AI-powered algorithms analyze them for changes in shape, size, and color, helping you detect potential skin issues early.",
+            IsOpen = false
+        },
+        new FAQItem
+        {
+            Question = "Is my data secure with HealthTrack+?",
+            Answer = "Yes, your data is encrypted and securely stored. HealthTrack+ complies with privacy standards, ensuring your health information remains confidential and protected.",
+            IsOpen = false
+        },
+        new FAQItem
+        {
+            Question = "Do I need a subscription to use HealthTrack+?",
+            Answer = "You can use basic features for free. Premium features, such as advanced medical image analysis and priority support, are available with a subscription.",
+            IsOpen = false
+        },
+        new FAQItem
+        {
+            Question = "What technologies power HealthTrack+?",
+            Answer = "HealthTrack+ leverages Blazor Server for its front-end, ASP.NET Core API for backend services, SQLite for database management, and Azure for image processing and scalability.",
+            IsOpen = false
+        },
+        new FAQItem
+        {
+            Question = "Can I share my health data with a doctor?",
+            Answer = "Yes, HealthTrack+ allows you to export health reports or share specific medical images with your doctor, enabling collaborative health management.",
+            IsOpen = false
+        },
+        new FAQItem
+        {
+            Question = "How accurate is the AI analysis in HealthTrack+?",
+            Answer = "HealthTrack+ utilizes cutting-edge AI technology with a 95% accuracy rate in mole tracking and anomaly detection. However, it’s always advised to consult a healthcare professional for a definitive diagnosis.",
+            IsOpen = false
+        }
+    };
+
+    private void ToggleFAQ(FAQItem faq)
+    {
+        faq.IsOpen = !faq.IsOpen;
+    }
+}

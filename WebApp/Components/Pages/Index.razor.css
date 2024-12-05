@@ -172,22 +172,48 @@ button {
     margin: 20px 0;
 }
 
-.emergency-button {
-    background-color: #dc3545;
-    color: #fff;
-    padding: 14px 20px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 12px;
-    display: flex;
+/* Emergency Call Button Styling */
+.emergency-call .btn {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    gap: 8px; /* Space between text and icon */
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #e63946; /* Vibrant red */
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
-.emergency-button i {
-    margin-left: 2%;
+.emergency-call .btn i {
+    transition: transform 0.3s ease; /* Smooth icon transition */
+}
+
+/* Hover Interaction */
+.emergency-call .btn:hover {
+    background-color: #d62839; /* Slightly darker red */
+    box-shadow: 0 6px 15px rgba(230, 57, 70, 0.5); /* Enhanced shadow */
+    transform: translateY(-3px); /* Slight lift on hover */
+}
+
+.emergency-call .btn:hover i {
+    transform: rotate(-20deg); /* Icon tilts slightly */
+}
+
+
+.no-emergency-contact {
+    color: #005a70;
+    font-size: 1rem;
+    text-align: center;
+    padding: 10px;
+    background-color: #e0f7fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Grayed-out Items */
@@ -246,65 +272,6 @@ button {
     }
 }
 
-
-/* Testing Buttons Container */
-.test-login {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 60%; /* Slightly wider for spacing */
-    margin: 20px auto;
-    gap: 10px; /* Add spacing between buttons */
-}
-
-/* Base Button Styling */
-.test-button {
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    cursor: pointer;
-    border: none;
-    transition: transform 0.2s, background-color 0.3s ease;
-}
-
-/* Hover Effect */
-.test-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Modifier Classes for Button Colors */
-.basic-user-button {
-    background-color: #92acc0;
-}
-
-.basic-user-button:hover {
-    background-color: #7390a8;
-}
-
-.premium-user-button {
-    background-color: #f9c74f;
-}
-
-.premium-user-button:hover {
-    background-color: #d9a840;
-}
-
-.go-to-testing-page-button {
-    background-color: #6a994e;
-}
-
-.go-to-testing-page-button:hover {
-    background-color: #5b8142;
-}
-
-
 /* Footer */	
 .footer {
     background-color: #f8f9fa; /* Light background */
@@ -334,52 +301,87 @@ button {
     justify-content: center;
     align-items: center;
     margin: 20px auto;
-    padding: 15px 30px;
-    max-width: 600px;
-    background: linear-gradient(90deg, #219ebc, #023047);
+    padding: 15px 40px; /* Reduced padding for a shorter height */
+    max-width: 800px; /* Increased width for a wider box */
+    background: linear-gradient(145deg, #e0e4e8, #f8f9fc); /* Subtle gradient with soft contrast */
+    border: 1px solid #cdd1d6; /* Defined but soft border */
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    color: #ffffff;
-    animation: slideInFromLeft 1s ease-out, glowPulse 3s infinite;
-    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Subtle depth */
+    color: #1a1a1a; /* Deep gray for readability */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 1s ease-out;
 }
 
 /* Typography for the Welcome Text */
 .welcome-message h2 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    font-family: 'Poppins', sans-serif; /* Modern, professional font */
+    font-size: 2.2rem; /* Slightly larger for impact */
+    font-weight: 600; /* Bold but not overbearing */
+    color: #2c3e50; /* Rich color for strong contrast */
     margin: 0;
+    text-align: center;
+    letter-spacing: 0.8px; /* Slightly spaced letters for balance */
 }
 
-/* Animations */
-@keyframes slideInFromLeft {
+/* Optional Subtext for Additional Information */
+.welcome-message p {
+    font-family: 'Roboto', sans-serif; /* Clean font for secondary text */
+    font-size: 1rem;
+    color: #636e72; /* Muted gray for subtle contrast */
+    margin-top: 8px;
+    text-align: center;
+}
+
+/* Subtle Animation for Entry */
+@keyframes fadeIn {
     0% {
-        transform: translateX(-100%);
         opacity: 0;
+        transform: translateY(20px);
     }
     100% {
-        transform: translateX(0);
         opacity: 1;
+        transform: translateY(0);
     }
 }
 
-@keyframes glowPulse {
-    0%, 100% {
-        box-shadow: 0 4px 15px rgba(33, 158, 188, 0.5);
-    }
-    50% {
-        box-shadow: 0 4px 25px rgba(33, 158, 188, 0.8);
-    }
-}
-
-/* Hover Interaction for Fun */
+/* Hover Interaction */
 .welcome-message:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 20px rgba(33, 158, 188, 0.8);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transform: translateY(-4px); /* Slight hover lift */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Slightly deeper shadow on hover */
+    background: linear-gradient(145deg, #ffffff, #eaeef2); /* Refined hover background gradient */
 }
+
+/* Fine-tuned Details */
+.welcome-message h2 {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+
+/* Subtle Animation for Entry */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover Interaction */
+.welcome-message:hover {
+    transform: translateY(-4px); /* Slight hover lift */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Slightly deeper shadow on hover */
+    background: linear-gradient(145deg, #ffffff, #eaeef2); /* Refined hover background gradient */
+}
+
+/* Fine-tuned Details */
+.welcome-message h2 {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+
 
 @media (max-width: 768px) {
     /* Adjust search bar for smaller screens */
