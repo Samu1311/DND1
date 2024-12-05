@@ -1,6 +1,10 @@
 @page "/health-overview"
 @inject IJSRuntime JSRuntime
-@rendermode InteractiveServer
+@inject IHttpClientFactory HttpClientFactory
+@inject NavigationManager NavigationManager
+@inject CustomAuthenticationStateProvider AuthenticationStateProvider
+@inject IJSRuntime JSRuntime
+@using System.Security.Claims
 
 <!-- Add Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -8,19 +12,18 @@
 <div class="health-overview-page">
     <!-- Header Section -->
     <header class="page-header">
-        <h1>Welcome to your Health Overview, Ana!</h1>
+        <h1>Welcome to your Health Overview, @userProfile.Name!</h1>
     </header>
 
     <!-- Personal Info Section -->
     <section class="personal-info">
         <div class="profile-picture">
-            <img src="/images/female.user.image.jpg" alt="Profile Picture" />
+            <img src="@profilePictureUrl" alt="Profile Picture" class="profile-pic" />
         </div>
-        <div class="info-summary">
+        <div class="info-summary"> 
             <h3>Personal Information</h3>
-            <p><strong>Age:</strong> 30</p>
-            <p><strong>Gender:</strong> Female</p>
-            <p><strong>Nationality:</strong> American</p>
+            <p><strong>Name:</strong> @userProfile.Name</p>
+            <p><strong>Age:</strong> @Age</p>
         </div>
     </section>
 
@@ -28,27 +31,26 @@
     <section class="collapsible-section">
         <!-- Health Overview Section -->
         <div>
-            <button class="collapse-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#healthOverview" aria-expanded="false" aria-controls="healthOverview">
+            <button id="healthOverviewButton" class="collapse-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#healthOverview" aria-expanded="false" aria-controls="healthOverview">
                 Health Overview
             </button>
             <div class="collapse" id="healthOverview">
                 <div class="health-metrics">
                     <div class="metric-card">
-                        <h3>Height</h3>
-                        <p class="metric-value">180 cm</p>
-                    </div>
-                    <div class="metric-card">
                         <h3>Weight</h3>
-                        <p class="metric-value">75 kg</p>
+                        <p> @medicalDataModel?.Weight</p>
                     </div>
                     <div class="metric-card">
-                        <h3>BMI</h3>
-                        <p class="metric-value">23.1</p>
-                        <p class="metric-desc">Healthy</p>
+                        <h3>Height</h3>
+                        <p> @medicalDataModel?.Height</p>
                     </div>
                     <div class="metric-card">
                         <h3>Blood Type</h3>
-                        <p class="metric-value">O+</p>
+                        <p> @medicalDataModel?.BloodType</p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>BMI</h3>
+                        <p>@BMI</p>
                     </div>
                 </div>
             </div>
@@ -56,22 +58,39 @@
 
         <!-- Your Habits Section -->
         <div>
-            <button class="collapse-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#yourHabits" aria-expanded="false" aria-controls="yourHabits">
+            <button id="habitsButton" class="collapse-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#yourHabits" aria-expanded="false" aria-controls="yourHabits">
                 Your Habits
             </button>
             <div class="collapse" id="yourHabits">
                 <div class="lifestyle-metrics">
                     <div class="metric-card">
                         <h3>Smoking</h3>
-                        <p class="metric-value">No</p>
+                        <p> @(medicalDataModel?.Smoking == true ? "Yes" : "No")</p>
                     </div>
                     <div class="metric-card">
                         <h3>Alcohol Consumption</h3>
-                        <p class="metric-value">Occasionally</p>
+                        <p> @medicalDataModel?.Alcohol.ToString() </p>
                     </div>
+                </div>
+            </div>
+        </div>
+            <!-- Your Allergies Section -->
+        <div>
+            <button id="allergiesButton" class="collapse-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#yourHabits" aria-expanded="false" aria-controls="yourHabits">
+                Your Allergies
+            </button>
+            <div class="collapse" id="yourHabits">
+                <div class="lifestyle-metrics">
                     <div class="metric-card">
-                        <h3>Physical Activity</h3>
-                        <p class="metric-value">Medium</p>
+                        <h3>Allergies</h3>
+                        <p>
+                    @(medicalDataModel?.PeanutsAllergy == true ? "Peanuts " : "") 
+                    @(medicalDataModel?.ShellfishAllergy == true ? "Shellfish " : "") 
+                    @(medicalDataModel?.DairyAllergy == true ? "Dairy " : "") 
+                    @(medicalDataModel?.GlutenAllergy == true ? "Gluten " : "") 
+                    @(medicalDataModel?.PollenAllergy == true ? "Pollen " : "") 
+                    @medicalDataModel?.OtherAllergies
+                </p>
                     </div>
                 </div>
             </div>
@@ -83,3 +102,239 @@
     <footer class="footer">
         <p>&copy; @DateTime.Now.Year Mobile Health App</p>
     </footer>
+
+@code {
+
+
+
+    private UserProfile userProfile = new UserProfile();
+    private string profilePictureUrl = string.Empty;
+    private bool isLoading = true;
+    private bool isUserLoggedIn = false;
+    private string errorMessage = string.Empty;
+    private IBrowserFile selectedFile;
+    private ElementReference fileInput;
+    private ElementReference modal;
+// ANAAA
+    private MedicalData? medicalDataModel = null;
+// ANAAA
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("OnInitializedAsync called");
+        isLoading = true; // Set isLoading to true at the beginning
+        await CheckAuthenticationState();
+        if (isUserLoggedIn)
+        {
+            await LoadUserProfile();
+        }
+        isLoading = false; // Set isLoading to false after loading is complete
+        Console.WriteLine("OnInitializedAsync completed");
+    }
+
+    private async Task CheckAuthenticationState()
+    {
+        Console.WriteLine("CheckAuthenticationState called");
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        isUserLoggedIn = user.Identity != null && user.Identity.IsAuthenticated;
+        Console.WriteLine($"isUserLoggedIn: {isUserLoggedIn}");
+    }
+
+
+// ANA CAMBIO ESTO
+    private async Task LoadUserProfile()
+    {
+        try
+        {
+            Console.WriteLine("LoadUserProfile called");
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity != null && user.Identity.IsAuthenticated)
+            {
+                var userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+                if (int.TryParse(userId, out int parsedUserId))
+                {
+                    var client = HttpClientFactory.CreateClient("HealthAppAPI");
+                    var response = await client.GetAsync($"user/profile/{parsedUserId}");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        userProfile = await response.Content.ReadFromJsonAsync<UserProfile>();
+                        await LoadProfilePicture(parsedUserId);
+                        await LoadMedicalData(parsedUserId);
+                        
+                    }
+                    else
+                    {
+                        errorMessage = "Failed to load profile.";
+                        Console.WriteLine($"Error loading profile: {response.ReasonPhrase}");
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading profile: {ex.Message}";
+            Console.WriteLine($"Error loading profile: {ex.Message}");
+        }
+    }
+// find del de ana
+
+// MAS ANAAA
+
+    private async Task LoadMedicalData(int userId)
+    {
+        try
+        {
+            Console.WriteLine("LoadMedicalData called");
+
+            var client = HttpClientFactory.CreateClient("HealthAppAPI");
+            var response = await client.GetAsync($"MedicalData/getbyuser/{userId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Deserialize response into medicalDataModel
+                medicalDataModel = await response.Content.ReadFromJsonAsync<MedicalData>();
+
+                StateHasChanged(); // Ensure the UI is updated
+                Console.WriteLine("Medical data loaded successfully");
+            }
+            else
+            {
+                Console.WriteLine($"Error loading medical data: {response.ReasonPhrase}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading medical data: {ex.Message}");
+        }
+    }
+
+
+// FIN DEL ANA
+    private async Task LoadProfilePicture(int userId)
+    {
+        try
+        {
+            Console.WriteLine("LoadProfilePicture called");
+            var client = HttpClientFactory.CreateClient("HealthAppAPI");
+            var response = await client.GetAsync($"profilepicture/latest/{userId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var profilePicture = await response.Content.ReadFromJsonAsync<ProfilePicture>();
+                profilePictureUrl = profilePicture.Url; // Use the relative URL
+                StateHasChanged(); // Ensure the UI is updated
+                Console.WriteLine("Profile picture loaded successfully");
+            }
+            else
+            {
+                profilePictureUrl = "images/default-profile.png"; // Default profile picture
+                Console.WriteLine($"Error loading profile picture: {response.ReasonPhrase}");
+            }
+        }
+        catch (Exception ex)
+        {
+            profilePictureUrl = "images/default-profile.png"; // Default profile picture
+            Console.WriteLine($"Error loading profile picture: {ex.Message}");
+        }
+    }
+
+
+
+    private void LogProfilePictureUrl()
+    {
+        Console.WriteLine($"Profile Picture URL: {profilePictureUrl}");
+    }
+
+
+
+
+    private class UserProfile
+    {
+        public int UserID { get; set; } // Add this property
+        public string Name { get; set; } = string.Empty;
+        public string Bio { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Phone { get; set; } = string.Empty;
+
+        //ANA
+        public DateTime? DateOfBirth { get; set; }
+        // ANA
+        public string SubscriptionPlan { get; set; } = string.Empty;
+        public string SubscriptionRenewalDate { get; set; } = string.Empty;
+        public string ProfilePictureUrl { get; set; } = string.Empty; // Add this property
+    }
+
+    private class ProfilePicture
+    {
+        public string Url { get; set; } = string.Empty;
+    }
+
+
+
+
+    // ANAAAA
+   
+    private class MedicalData
+        {
+            public int MedicalDataID { get; set; } // Primary Key
+            public int UserId { get; set; } // Foreign Key
+            public float? Weight { get; set; }
+            public float? Height { get; set; }
+            public string? BloodType { get; set; }
+            public bool Smoking { get; set; }
+            public AlcoholConsumption Alcohol { get; set; }
+            public bool PeanutsAllergy { get; set; }
+            public bool ShellfishAllergy { get; set; }
+            public bool DairyAllergy { get; set; }
+            public bool GlutenAllergy { get; set; }
+            public bool PollenAllergy { get; set; }
+            public string? OtherAllergies { get; set; }
+        }
+
+        private enum AlcoholConsumption
+        {
+            Never,
+            Occasionally,
+            Frequently
+        }
+
+    private string BMI
+        {
+            get
+            {
+                if (medicalDataModel?.Weight != null && medicalDataModel?.Height != null && medicalDataModel.Height > 0)
+                {
+                    var heightInMeters = medicalDataModel.Height / 100; // Convert cm to meters
+                    var bmi = medicalDataModel.Weight / (heightInMeters * heightInMeters);
+                    return bmi?.ToString("0.00") ?? "N/A";
+                }
+                return "N/A";
+            }
+        }
+
+        private int? Age
+    {
+        get
+        {
+            if (userProfile?.DateOfBirth != null)
+            {
+                var today = DateTime.Today;
+                var birthDate = userProfile.DateOfBirth.Value;
+                var age = today.Year - birthDate.Year;
+
+                // Adjust age if the birthdate hasn't occurred yet this year
+                if (birthDate.Date > today.AddYears(-age)) age--;
+
+                return age;
+            }
+            return null;
+        }
+    }
+
+}

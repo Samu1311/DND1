@@ -1,0 +1,213 @@
+@page "/services"
+@inject CustomAuthenticationStateProvider AuthenticationStateProvider
+@inject IHttpClientFactory HttpClientFactory
+@inject NavigationManager NavigationManager
+@using System.Security.Claims
+@using System.Text.Json
+
+<div class="upgrade-container">
+    @if (isLoading)
+    {
+        <p>Loading...</p>
+    }
+    else if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p class="error-message">
+            <a href="https://www.google.com/search?q=@Uri.EscapeDataString(errorMessage)" target="_blank">
+                @errorMessage
+            </a>
+        </p>
+    }
+    else if (!isUserLoggedIn)
+    {
+        <div class="not-logged-in-message">
+            <h2>Please <a href="/login">log into your account</a> to access the services page.</h2>
+        </div>
+    }
+    else
+    {
+        <div class="upgrade-card">
+            <h1>Upgrade to Premium</h1>
+            <p>Enjoy full access to all features, including Medical Image Analysis and more.</p>
+            
+            <!-- Plan Options -->
+            <div class="plan-options">
+                <div class="plan @(selectedPlan == "Basic" ? "selected" : "")" @onclick='() => SelectPlan("Basic")'>
+                    <h2>Basic Plan</h2>
+                    <p><strong>$5</strong>/month</p>
+                    <button class="btn btn-secondary">Choose Plan</button>
+                </div>
+                <div class="plan popular @(selectedPlan == "Premium" ? "selected" : "")" @onclick='() => SelectPlan("Premium")'>
+                    <h2>Premium Plan</h2>
+                    <p><strong>$10</strong>/month</p>
+                    <div class="ribbon">Best Value</div>
+                    <button class="btn btn-primary">Choose Plan</button>
+                </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="payment-method">
+                <h3>Payment Method</h3>
+                <p>Choose your preferred payment method to proceed.</p>
+                <div class="payment-icons">
+                    <img src="images/visa.png" alt="Visa" @onclick='() => SelectPaymentMethod("Visa")' class="@(selectedPaymentMethod == "Visa" ? "active" : "")">
+                    <img src="images/mastercard.png" alt="MasterCard" @onclick='() => SelectPaymentMethod("Mastercard")' class="@(selectedPaymentMethod == "Mastercard" ? "active" : "")">
+                    <img src="images/paypal.png" alt="PayPal" @onclick='() => SelectPaymentMethod("PayPal")' class="@(selectedPaymentMethod == "PayPal" ? "active" : "")">
+                </div>
+            </div>
+
+            <button class="btn btn-success proceed-btn @(string.IsNullOrEmpty(selectedPlan) ? "disabled" : "")" 
+                    @onclick="ProceedToPayment"
+                    disabled="@string.IsNullOrEmpty(selectedPlan)">
+                Proceed to Payment
+            </button>
+        </div>
+    }
+</div>
+
+@code {
+    private bool isLoading = true;
+    private bool isUserLoggedIn = false;
+    private string selectedPlan = "";
+    private string selectedPaymentMethod = "";
+    private int currentUserId = 0;
+    private string errorMessage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("OnInitializedAsync called");
+        isLoading = true;
+        try
+        {
+            await CheckAuthenticationState();
+            if (isUserLoggedIn)
+            {
+                await SetDefaultSelectedPlan();
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error during initialization: {ex.Message}";
+            Console.WriteLine(errorMessage);
+        }
+        isLoading = false;
+    }
+
+    private async Task CheckAuthenticationState()
+    {
+        try
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            isUserLoggedIn = user.Identity != null && user.Identity.IsAuthenticated;
+            Console.WriteLine($"User logged in: {isUserLoggedIn}");
+
+            if (isUserLoggedIn)
+            {
+                var userIdClaim = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                if (int.TryParse(userIdClaim, out int userId))
+                {
+                    currentUserId = userId;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error checking authentication state: {ex.Message}";
+            Console.WriteLine(errorMessage);
+        }
+    }
+
+    private async Task SetDefaultSelectedPlan()
+    {
+        try
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity != null && user.Identity.IsAuthenticated)
+            {
+                var userType = user.FindFirst(c => c.Type == "UserType")?.Value;
+                Console.WriteLine($"User type: {userType}");
+
+                if (userType == "Premium")
+                {
+                    selectedPlan = "Premium";
+                }
+                else
+                {
+                    selectedPlan = "Basic";
+                }
+                Console.WriteLine($"Default selected plan: {selectedPlan}");
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error setting default selected plan: {ex.Message}";
+            Console.WriteLine(errorMessage);
+        }
+    }
+
+    private void SelectPlan(string plan)
+    {
+        selectedPlan = plan;
+        Console.WriteLine($"Selected Plan: {selectedPlan}");
+    }
+
+    private void SelectPaymentMethod(string method)
+    {
+        selectedPaymentMethod = method;
+        Console.WriteLine($"Selected Payment Method: {selectedPaymentMethod}");
+    }
+
+    private async Task ProceedToPayment()
+    {
+        if (string.IsNullOrEmpty(selectedPlan))
+        {
+            Console.WriteLine("Please select a plan first.");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(selectedPaymentMethod))
+        {
+            Console.WriteLine("Please select a payment method first.");
+            return;
+        }
+
+        var userType = selectedPlan == "Basic" ? "Basic" : "Premium";
+
+        var requestBody = new
+        {
+            UserID = currentUserId, // Pass the logged-in user's ID
+            UserType = userType
+        };
+
+        try
+        {
+            var client = HttpClientFactory.CreateClient("HealthAppAPI");
+            var response = await client.PostAsJsonAsync("user/upgrade", requestBody);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var result = JsonSerializer.Deserialize<JsonElement>(json);
+                var token = result.GetProperty("token").GetString(); // Ensure "Token" matches the server's response key
+                await AuthenticationStateProvider.SetTokenAsync(token);
+
+                Console.WriteLine($"User type updated to {userType} successfully.");
+                NavigationManager.NavigateTo("/");
+            }
+            else
+            {
+                errorMessage = $"Error during payment process: {response.ReasonPhrase}";
+                Console.WriteLine(errorMessage);
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error during payment process: {ex.Message}";
+            Console.WriteLine(errorMessage);
+        }
+    }
+}

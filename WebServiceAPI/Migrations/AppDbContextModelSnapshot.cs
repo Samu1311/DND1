@@ -144,17 +144,25 @@ namespace WebServiceAPI.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("AnalysisResults")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FileName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<byte[]>("ImageData")
+                    b.Property<string>("FilePath")
                         .IsRequired()
-                        .HasColumnType("BLOB");
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ThumbnailUrl")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UserID")

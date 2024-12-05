@@ -53,6 +53,22 @@ public class MedicalDataController : ControllerBase
         return Ok(medicalData);
     }
 
+    // GET: MEDICAL DATA BY USERID
+    // GET: api/MedicalData/getbyuser/{userId}
+  [HttpGet("getbyuser/{userId}")]
+    public async Task<IActionResult> GetMedicalDataByUser(int userId)
+    {
+        var medicalData = await _context.MedicalData.FirstOrDefaultAsync(md => md.UserId == userId);
+
+        if (medicalData == null)
+        {
+            return NotFound(new { Message = "Medical data not found" });
+        }
+
+        return Ok(medicalData);
+    }
+
+
     // PUT: api/MedicalData/update/{id}
     [HttpPut("update/{id}")]
     public async Task<IActionResult> UpdateMedicalData(int id, [FromBody] MedicalData medicalDataModel)
@@ -123,6 +139,6 @@ public class MedicalDataController : ControllerBase
         catch (Exception ex)
         {
             return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
-    }
+       }
+    }
 }

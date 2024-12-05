@@ -1,143 +1,153 @@
-/* Center the entire Personal Info Card */
+/* Main Page Styling */
 .health-overview-page[b-p8minxtp4l] {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
+    align-items: center;
     padding: 2%;
-    background: linear-gradient(135deg, #e3f2fd, #ede7f6);
+    background: linear-gradient(135deg, #f0f4ff, #e3f2fd);
     min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Header Section with New Font */
+/* Header Section */
 .page-header[b-p8minxtp4l] {
     text-align: center;
-    margin-bottom: 2%;
-    color: #000; /* Black text */
-    background: none;
-    padding: 1rem;
+    margin-bottom: 2rem;
+    color: #003366;
+    background-color: #f0f4ff;
 }
 
 .page-header h1[b-p8minxtp4l] {
-    font-size: 300%; /* Larger size for emphasis */
+    font-size: 2.5rem;
     font-weight: bold;
-    font-family: 'Poppins', sans-serif; /* Modern and elegant font */
 }
 
 /* Personal Info Section */
 .personal-info[b-p8minxtp4l] {
     display: flex;
-    align-items: center; /* Align content vertically */
-    justify-content: center; /* Center horizontally */
-    gap: 2rem;
-    width: 40%; 
-    margin-bottom: 2%;
-    background: white;
-    padding: 2%;
+    align-items: center;
+    gap: 1.5rem;
+    background: #ffffff;
+    padding: 1.5rem;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    width: 90%;
+    max-width: 800px;
+    text-align: left;
 }
 
 .profile-picture img[b-p8minxtp4l] {
-    border-radius: 50%; /* Circular image */
-    width: 250px; /* Smaller width */
-    height: auto; /* Match height for consistency */
-    border: 3px solid #90caf9; /* Light blue border */
-}
-
-.info-summary[b-p8minxtp4l] {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Center text vertically */
-    text-align: left; /* Align text to the left */
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 3px solid #1565c0;
 }
 
 .info-summary h3[b-p8minxtp4l] {
-    font-size: 1.5rem; /* Adjust font size */
+    font-size: 1.5rem;
     color: #1565c0;
     margin-bottom: 0.5rem;
+    font-weight: bold;
 }
 
 .info-summary p[b-p8minxtp4l] {
-    font-size: 1.1rem; /* Adjust font for details */
+    font-size: 1.1rem;
     color: #424242;
+    margin: 0.2rem 0;
 }
 
-
-
-
-
-
-
-/* Collapsible Section Buttons */
+/* Collapsible Section */
 .collapsible-section[b-p8minxtp4l] {
-    width: 90%; /* Adjust the width of collapsible sections */
-    margin-bottom: 2%;
+    width: 90%;
+    max-width: 800px;
+    margin-bottom: 2rem;
 }
+
 .collapse-toggle[b-p8minxtp4l] {
     width: 100%;
-    padding: 1%;
-    font-size: 1.5rem;
+    padding: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
     background: #1565c0;
     color: white;
     border: none;
     border-radius: 8px;
-    margin-bottom: 1%;
+    margin-bottom: 1rem;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.2s;
 }
+
 .collapse-toggle:hover[b-p8minxtp4l] {
     background: #0d47a1;
+    transform: translateY(-2px);
 }
 
-/* Collapsible Content */
 .collapse[b-p8minxtp4l] {
     background: white;
+    padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 2%;
-    margin-bottom: 2%;
-    width: 100%; /* Ensure the collapse content takes full width */
+    margin-bottom: 1rem;
 }
 
-/* Health and Lifestyle Metrics Sections */
+/* Metric Cards */
 .health-metrics[b-p8minxtp4l], .lifestyle-metrics[b-p8minxtp4l] {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2%;
-    width: 100%; /* Full width for cards within the collapsible sections */
+    gap: 1rem;
+    width: 100%;
 }
+
 .metric-card[b-p8minxtp4l] {
     background: #ffffff;
-    border-radius: 12px;
-    padding: 5%;
+    border-radius: 8px;
+    padding: 1rem;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
+
+.metric-card:hover[b-p8minxtp4l] {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 .metric-card h3[b-p8minxtp4l] {
     font-size: 1.3rem;
     color: #1565c0;
-}
-.metric-value[b-p8minxtp4l] {
-    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
     font-weight: bold;
-    color: #2e7d32;
 }
-.metric-desc[b-p8minxtp4l] {
-    font-size: 1rem;
+
+.metric-card p[b-p8minxtp4l] {
+    font-size: 1.1rem;
     color: #424242;
 }
 
-
-
 /* Footer */
 .footer[b-p8minxtp4l] {
-    margin-top: auto;
     text-align: center;
     color: #6c757d;
     font-size: 0.9rem;
+    padding: 1rem;
     width: 100%;
+    margin-top: 2rem;
+    background: #f7f9fc;
+    border-top: 1px solid #e0e0e0;
+}
+
+#healthOverviewButton[b-p8minxtp4l] {
+    background-color:#1565c0
+}
+
+#habitsButton[b-p8minxtp4l] {
+    background-color:#ffb703
+}
+
+#allergiesButton[b-p8minxtp4l] {
+    background-color:#219ebc
 }

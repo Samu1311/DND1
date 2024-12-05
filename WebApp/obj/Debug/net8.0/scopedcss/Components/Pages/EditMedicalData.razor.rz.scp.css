@@ -1,185 +1,110 @@
-/* General Reset */
-*[b-qx1dibn07a] {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
-
-/* Profile Page */
-.profile-page[b-qx1dibn07a] {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: #f7f9fc;
+.edit-medical-data-container[b-qx1dibn07a] {
+    max-width: 800px; /* Align width with EditAccount */
+    margin: 0 auto; /* Center the container */
     padding: 20px;
-    min-height: 100vh;
+    text-align: left;
+    background-color: #f7f9fc; /* Light background */
+    border-radius: 8px; /* Consistent rounded corners */
 }
 
-/* Profile Header Section */
-.profile-header[b-qx1dibn07a] {
-    width: 100%;
-    max-width: 800px;
+.page-title[b-qx1dibn07a] {
     text-align: center;
-    margin-bottom: 20px;
-    position: relative;
-}
-
-/* Background Gradient */
-.profile-header-bg[b-qx1dibn07a] {
-    background: linear-gradient(90deg, #219ebc, #005a70);
-    border-radius: 8px 8px 0 0;
-    height: 150px;
-    position: relative;
-}
-
-/* Profile Picture Container */
-.profile-pic-container[b-qx1dibn07a] {
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid white;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #f7f9fc;
-}
-
-/* Profile Picture Image */
-.profile-pic[b-qx1dibn07a] {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-/* Edit Button inside Profile Picture */
-.edit-pic-btn[b-qx1dibn07a] {
-    position: absolute;
-    bottom: 10px;
-    right: 50%;
-    transform: translate(50%, 0);
-    background-color: #219ebc;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
-    font-size: 1.2rem;
-}
-
-.edit-pic-btn:hover[b-qx1dibn07a] {
-    background-color: #005a70;
-}
-
-/* Profile Name and Bio */
-.profile-name[b-qx1dibn07a] {
-    margin-top: 50px;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: bold;
-    color: #004085;
+    margin-bottom: 30px;
+    color: #004085; /* Blue color for consistency */
 }
 
-.profile-bio[b-qx1dibn07a] {
-    font-size: 1rem;
-    color: #6c757d;
-    margin-top: 5px;
-}
-
-/* Card Section */
-.profile-cards[b-qx1dibn07a] {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 800px;
-    margin-top: 20px;
-}
-
-.profile-card[b-qx1dibn07a] {
-    background-color: white;
+.info-box-medical-box[b-qx1dibn07a] {
     padding: 20px;
+    margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    background-color: #ffffff; /* White box background */
+    border: 1px solid #219ebc; /* Blue border for styling */
 }
 
-.profile-card h2[b-qx1dibn07a] {
-    font-size: 1.4rem;
+.section-title[b-qx1dibn07a] {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #219ebc; /* Blue underline for sections */
     color: #004085;
+}
+
+.form-group[b-qx1dibn07a] {
     margin-bottom: 15px;
 }
 
-.profile-card p[b-qx1dibn07a] {
-    font-size: 0.9rem;
-    color: #6c757d;
-    margin: 5px 0;
-}
-
-.profile-card .btn[b-qx1dibn07a] {
-    margin-top: 15px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 0.9rem;
+label[b-qx1dibn07a] {
     font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #004085;
 }
 
-.btn-primary[b-qx1dibn07a] {
-    background-color: #219ebc;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-primary:hover[b-qx1dibn07a] {
-    background-color: #005a70;
-}
-
-.btn-secondary[b-qx1dibn07a] {
-    background-color: #ffb703;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-secondary:hover[b-qx1dibn07a] {
-    background-color: #8b6401;
-}
-
-.btn-danger[b-qx1dibn07a] {
-    background-color: #dc3545;
-    color: white;
-}
-
-.btn-danger:hover[b-qx1dibn07a] {
-    background-color: #a71d2d;
-}
-
-.btn-warning[b-qx1dibn07a] {
-    background-color: #ffc107;
-    color: white;
-}
-
-.btn-warning:hover[b-qx1dibn07a] {
-    background-color: #d39e00;
-}
-
-/* Last Card - Wider and Centered */
-.profile-card:last-child[b-qx1dibn07a] {
-    grid-column: span 2;
-    justify-self: center;
+.form-control[b-qx1dibn07a] {
     width: 100%;
-    max-width: 600px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-control:focus[b-qx1dibn07a] {
+    border-color: #219ebc;
+    outline: none;
+    box-shadow: 0 0 5px rgba(33, 158, 188, 0.25);
+}
+
+.form-check[b-qx1dibn07a] {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-check-input[b-qx1dibn07a] {
+    margin-right: 10px;
+}
+
+.form-check-label[b-qx1dibn07a] {
+    font-size: 1rem;
+    color: #004085;
+}
+
+.save-btn[b-qx1dibn07a] {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #219ebc; /* Primary blue button */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.save-btn:hover[b-qx1dibn07a] {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px);
+}
+
+.save-btn:active[b-qx1dibn07a] {
+    background-color: #003366; /* Darker blue on active click */
+    transform: translateY(0);
+}
+
+hr[b-qx1dibn07a] {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.form-check-label[b-qx1dibn07a] {
+    margin-left: 10px ;
 }

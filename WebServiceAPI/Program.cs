@@ -57,8 +57,24 @@ builder.Services.Configure<FormOptions>(options =>
 });
 
 
-// Register ImageProcessor as a singleton
-builder.Services.AddSingleton<ImageProcessor>();
+// Register ImageProcessor as a singleton with the necessary parameters
+builder.Services.AddSingleton<ImageProcessor>(provider =>
+{
+    var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+    var resultDirectory = Path.Combine(Directory.GetCurrentDirectory(), "MoleImageResults");
+
+    // Ensure directories exist
+    if (!Directory.Exists(uploadDirectory))
+    {
+        Directory.CreateDirectory(uploadDirectory);
+    }
+    if (!Directory.Exists(resultDirectory))
+    {
+        Directory.CreateDirectory(resultDirectory);
+    }
+
+    return new ImageProcessor(uploadDirectory, resultDirectory);
+});
 
 // Enable Swagger for API documentation
 builder.Services.AddEndpointsApiExplorer();

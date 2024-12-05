@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "L8t05FCOAZrxqy6Tb1rtD2L2yYIUFe5MfrPD8+0TWxs=",
+  "Hash": "BmcxrQPxPeryk6pLMInrDwQFWzO0xUc6e3PGUQIFypA=",
   "Source": "WebServiceAPI",
   "BasePath": "_content/WebServiceAPI",
   "Mode": "Default",
@@ -15,44 +15,5 @@
       "Pattern": "**"
     }
   ],
-  "Assets": [
-    {
-      "Identity": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\wwwroot\\uploads\\images\\_101694835_lunar2_NoticiaAmpliada.jpg",
-      "SourceId": "WebServiceAPI",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\wwwroot\\",
-      "BasePath": "_content/WebServiceAPI",
-      "RelativePath": "uploads/images/_101694835_lunar2_NoticiaAmpliada.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\images\\_101694835_lunar2_NoticiaAmpliada.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\wwwroot\\uploads\\images\\_101694835_lunar2_NoticiaAmpliada.json",
-      "SourceId": "WebServiceAPI",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebServiceAPI\\wwwroot\\",
-      "BasePath": "_content/WebServiceAPI",
-      "RelativePath": "uploads/images/_101694835_lunar2_NoticiaAmpliada.json",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\images\\_101694835_lunar2_NoticiaAmpliada.json"
-    }
-  ]
+  "Assets": []
 }

@@ -8,74 +8,75 @@
 <div class="edit-medical-data-container">
     <h1 class="page-title">Edit Medical Data</h1>
     <div class="info-box-medical-box">
-        <EditForm Model="@medicalDataModel" OnValidSubmit="@SaveMedicalData">
-            <DataAnnotationsValidator />
-            <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
-
-            <h2 class="section-title">Personal Information</h2>
-            <div class="form-group">
-                <label for="Weight">Weight</label>
-                <InputNumber id="weight" class="form-control" @bind-Value="medicalDataModel.Weight" />
-            </div>
-            <div class="form-group">
-                <label for="Height">Height</label>
-                <InputNumber id="height" class="form-control" @bind-Value="medicalDataModel.Height" />
-            </div>
-            <div class="form-group">
-                <label for="BloodType">Blood Type</label>
-                <InputText id="bloodType" class="form-control" @bind-Value="medicalDataModel.BloodType" />
-            </div>
-
-            <hr />
-
-            <h2 class="section-title">Habits</h2>
-            <div class="form-group">
-                <label for="Smoking">Smoking</label>
-                <InputCheckbox id="smoking" class="form-check-input" @bind-Value="medicalDataModel.Smoking" />
-            </div>
-            <div class="form-group">
-                <label for="Alcohol">Alcohol Consumption</label>
-                <InputSelect id="alcohol" class="form-control" @bind-Value="medicalDataModel.Alcohol">
-                    @foreach (var option in Enum.GetValues<AlcoholConsumption>())
-                    {
-                        <option value="@option">@option</option>
-                    }
-                </InputSelect>
-            </div>
-
-            <hr />
-
-            <h2 class="section-title">Allergies</h2>
-            <div class="form-group">
-                <label>Common Allergies</label>
-                <div class="form-check">
-                    <InputCheckbox class="form-check-input" @bind-Value="medicalDataModel.PeanutsAllergy" />
-                    <label class="form-check-label">Peanuts</label>
+        <div class="profile-card">
+            <EditForm Model="@medicalDataModel" OnValidSubmit="@SaveMedicalData">
+                <DataAnnotationsValidator />
+                <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
+                <h2 class="section-title">Personal Information</h2>
+                <div class="form-group">
+                    <label for="Weight">Weight</label>
+                    <InputNumber id="weight" class="form-control" @bind-Value="medicalDataModel.Weight" />
                 </div>
-                <div class="form-check">
-                    <InputCheckbox class="form-check-input" @bind-Value="medicalDataModel.ShellfishAllergy" />
-                    <label class="form-check-label">Shellfish</label>
+                <div class="form-group">
+                    <label for="Height">Height</label>
+                    <InputNumber id="height" class="form-control" @bind-Value="medicalDataModel.Height" />
                 </div>
-                <div class="form-check">
-                    <InputCheckbox class="form-check-input" @bind-Value="medicalDataModel.DairyAllergy" />
-                    <label class="form-check-label">Dairy</label>
+                <div class="form-group">
+                    <label for="BloodType">Blood Type</label>
+                    <InputText id="bloodType" class="form-control" @bind-Value="medicalDataModel.BloodType" />
                 </div>
-                <div class="form-check">
-                    <InputCheckbox class="form-check-input" @bind-Value="medicalDataModel.GlutenAllergy" />
-                    <label class="form-check-label">Gluten</label>
-                </div>
-                <div class="form-check">
-                    <InputCheckbox class="form-check-input" @bind-Value="medicalDataModel.PollenAllergy" />
-                    <label class="form-check-label">Pollen</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="OtherAllergies">Other Allergies</label>
-                <InputText id="OtherAllergies" class="form-control" @bind-Value="medicalDataModel.OtherAllergies" placeholder="Specify other allergies" />
-            </div>
 
-            <button type="submit" class="btn btn-primary save-btn">Save Changes</button>
-        </EditForm>
+                <hr />
+
+                <h2 class="section-title">Habits</h2>
+                <div class="form-group">
+                    <label for="Smoking">Smoking</label>
+                    <InputCheckbox id="smoking" class="form-check-input" @bind-Value="medicalDataModel.Smoking" />
+                </div>
+                <div class="form-group">
+                    <label for="Alcohol">Alcohol Consumption</label>
+                    <InputSelect id="alcohol" class="form-control" @bind-Value="medicalDataModel.Alcohol">
+                        @foreach (var option in Enum.GetValues<AlcoholConsumption>())
+                        {
+                            <option value="@option">@option</option>
+                        }
+                    </InputSelect>
+                </div>
+
+                <hr />
+
+                <h2 class="section-title">Allergies</h2>
+                <div class="form-group">
+                    <label>Common Allergies</label>
+                    <div class="form-check">
+                        <InputCheckbox class="form-check-input" @bind-Value="medicalDataModel.PeanutsAllergy" />
+                        <label class="form-check-label">Peanuts</label>
+                    </div>
+                    <div class="form-check">
+                        <InputCheckbox class="form-check-input" @bind-Value="medicalDataModel.ShellfishAllergy" />
+                        <label class="form-check-label">Shellfish</label>
+                    </div>
+                    <div class="form-check">
+                        <InputCheckbox class="form-check-input" @bind-Value="medicalDataModel.DairyAllergy" />
+                        <label class="form-check-label">Dairy</label>
+                    </div>
+                    <div class="form-check">
+                        <InputCheckbox class="form-check-input" @bind-Value="medicalDataModel.GlutenAllergy" />
+                        <label class="form-check-label">Gluten</label>
+                    </div>
+                    <div class="form-check">
+                        <InputCheckbox class="form-check-input" @bind-Value="medicalDataModel.PollenAllergy" />
+                        <label class="form-check-label">Pollen</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="OtherAllergies">Other Allergies</label>
+                    <InputText id="OtherAllergies" class="form-control" @bind-Value="medicalDataModel.OtherAllergies" placeholder="Specify other allergies" />
+                </div>
+
+                <button type="submit" class="btn btn-primary save-btn">Save Changes</button>
+            </EditForm>
+        </div>
     </div>
 </div>
 
@@ -152,5 +153,5 @@
         Never,
         Occasionally,
         Frequently
-    }
+    }
 }

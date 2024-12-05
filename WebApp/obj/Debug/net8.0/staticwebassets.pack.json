@@ -21,6 +21,14 @@
       "PackagePath": "staticwebassets\\Js\\profile-updates.js"
     },
     {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\MoleImages\\6c58d4af-63de-43a5-ba82-5a9c7f1cd337_lunar-testeo.jpg",
+      "PackagePath": "staticwebassets\\MoleImages\\6c58d4af-63de-43a5-ba82-5a9c7f1cd337_lunar-testeo.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\MoleImages\\MoleImageResults\\processed_6c58d4af-63de-43a5-ba82-5a9c7f1cd337_lunar-testeo.jpg",
+      "PackagePath": "staticwebassets\\MoleImages\\MoleImageResults\\processed_6c58d4af-63de-43a5-ba82-5a9c7f1cd337_lunar-testeo.jpg"
+    },
+    {
       "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\ProfilePictures\\41827b64-fc3d-4e99-9d39-db7685ff1158_thumb_lunar-maligno.png",
       "PackagePath": "staticwebassets\\ProfilePictures\\41827b64-fc3d-4e99-9d39-db7685ff1158_thumb_lunar-maligno.png"
     },
@@ -61,8 +69,20 @@
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\ana-founder-image.jpg",
+      "PackagePath": "staticwebassets\\images\\ana-founder-image.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\eliza-founder-image.jpg",
+      "PackagePath": "staticwebassets\\images\\eliza-founder-image.jpg"
+    },
+    {
       "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\emergency-call-icon.png",
       "PackagePath": "staticwebassets\\images\\emergency-call-icon.png"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\eric-founder-image.jpg",
+      "PackagePath": "staticwebassets\\images\\eric-founder-image.jpg"
     },
     {
       "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\favicon.png",
@@ -95,6 +115,10 @@
     {
       "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\profile-placeholder.png",
       "PackagePath": "staticwebassets\\images\\profile-placeholder.png"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\samuele-founder-image.jpg",
+      "PackagePath": "staticwebassets\\images\\samuele-founder-image.jpg"
     },
     {
       "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\images\\visa.png",

@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using RestSharp;
-using System;
-using System.IO;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using DND1.Data;
 using DND1.Models;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DND1.Controllers
 {
@@ -12,96 +13,89 @@ namespace DND1.Controllers
     [Route("api/[controller]")]
     public class MoleImageController : ControllerBase
     {
+        private readonly ImageProcessor _imageProcessor;
         private readonly AppDbContext _context;
+        private readonly string _sharedImagePath;
+        private readonly string _resultImagePath;
 
-        public MoleImageController(AppDbContext context)
+        public MoleImageController(AppDbContext context, ImageProcessor imageProcessor)
         {
             _context = context;
+            _imageProcessor = imageProcessor;
+            _sharedImagePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "WebApp", "wwwroot", "MoleImages");
+            _resultImagePath = Path.Combine(_sharedImagePath, "MoleImageResults");
+
+            if (!Directory.Exists(_sharedImagePath))
+            {
+                Directory.CreateDirectory(_sharedImagePath);
+            }
+            if (!Directory.Exists(_resultImagePath))
+            {
+                Directory.CreateDirectory(_resultImagePath);
+            }
         }
 
-        // POST: api/moleimage/upload
-        [HttpPost("upload")]
-        public async Task<IActionResult> UploadMoleImage([FromForm] IFormFile file)
+        // POST: api/moleimage/analyze
+        [HttpPost("analyze")]
+        public async Task<IActionResult> AnalyzeMoleImage(IFormFile file, int userId)
         {
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            // Hardcode userId as 1 for testing
-            int userId = 1;
-
             try
             {
-                using var memoryStream = new MemoryStream();
-                await file.CopyToAsync(memoryStream);
+                var fileName = $"{Guid.NewGuid()}_{file.FileName}";
+                var filePath = Path.Combine(_sharedImagePath, fileName);
+                var url = $"/MoleImages/{fileName}";
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                // Process the image
+                var (resultFilePath, averageColor, contourCount) = _imageProcessor.AnalyzeAndTraceMole(fileName, System.IO.File.ReadAllBytes(filePath));
+
+                // Move the processed image to the shared path
+                var processedFileName = Path.GetFileName(resultFilePath);
+                var processedFilePath = Path.Combine(_resultImagePath, processedFileName);
+                System.IO.File.Move(resultFilePath, processedFilePath);
+
+                var processedUrl = $"/MoleImages/MoleImageResults/{processedFileName}";
 
                 var moleImage = new MoleImage
                 {
                     UserID = userId,
-                    FileName = file.FileName,
-                    ImageData = memoryStream.ToArray(),
+                    FileName = fileName,
+                    FilePath = url,
+                    Url = url,
+                    AnalysisResults = $"Average Color: {averageColor}, Contour Count: {contourCount}",
                     UploadedAt = DateTime.UtcNow
                 };
 
                 _context.MoleImages.Add(moleImage);
                 await _context.SaveChangesAsync();
 
-                return Ok(new { Message = "Image uploaded successfully", MoleImage = moleImage });
+                return Ok(new { moleImage.MoleImageID, moleImage.FilePath, moleImage.AnalysisResults, ProcessedImageUrl = processedUrl });
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error uploading image: {ex.Message}");
-                return StatusCode(500, "An error occurred while uploading the image.");
+                Console.WriteLine($"Error analyzing mole image: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                return StatusCode(500, $"An error occurred while uploading the mole image: {ex.Message}");
             }
         }
 
-        // POST: api/moleimage/analyze/{id}
-        [HttpPost("analyze/{id}")]
-        public async Task<IActionResult> AnalyzeMoleImage(int id)
+        // GET: api/moleimage/user/{userId}
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetMoleImagesByUser(int userId)
         {
-            var moleImage = await _context.MoleImages.FindAsync(id);
+            var moleImages = await _context.MoleImages.Where(m => m.UserID == userId).ToListAsync();
 
-            if (moleImage == null)
-                return NotFound("Image not found.");
+            if (!moleImages.Any())
+                return NotFound("No mole images found for this user.");
 
-            try
-            {
-                // Send the image to an external API using RestSharp
-                var externalAnalysisResult = await AnalyzeWithExternalAPI(moleImage);
-
-                // Save the results in the database
-                moleImage.AnalysisResults = externalAnalysisResult;
-                await _context.SaveChangesAsync();
-
-                return Ok(new { Message = "Image analyzed successfully", AnalysisResults = externalAnalysisResult });
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error analyzing image: {ex.Message}");
-                return StatusCode(500, "An error occurred while analyzing the image.");
-            }
-        }
-
-        private async Task<string> AnalyzeWithExternalAPI(MoleImage moleImage)
-        {
-            // Initialize the RestClient with the endpoint URL
-            var client = new RestClient("https://your-image-analysis-api-endpoint");
-
-            // Initialize the RestRequest and specify the HTTP method
-            var request = new RestRequest("endpoint-path", Method.Post); // Replace "endpoint-path" with the actual API path
-
-            // Add the image data as a file to the request
-            request.AddFile("file", moleImage.ImageData, moleImage.FileName, "image/png");
-
-            // Execute the request asynchronously
-            var response = await client.ExecuteAsync(request);
-
-            if (!response.IsSuccessful)
-            {
-                throw new Exception($"External API error: {response.ErrorMessage}");
-            }
-
-            // Return the response content as the analysis result
-            return response.Content ?? "Analysis results not available.";
+            return Ok(moleImages);
         }
 
         // GET: api/moleimage/{id}
@@ -110,20 +104,91 @@ namespace DND1.Controllers
         {
             var moleImage = await _context.MoleImages.FindAsync(id);
             if (moleImage == null)
-                return NotFound("Image not found.");
+            {
+                return NotFound();
+            }
 
-            return File(moleImage.ImageData, "image/png", moleImage.FileName);
+            return Ok(moleImage);
         }
 
-        // GET: api/moleimage/metadata/{id}
-        [HttpGet("metadata/{id}")]
-        public async Task<IActionResult> GetMoleImageMetadata(int id)
+        // GET: api/moleimage
+        [HttpGet]
+        public async Task<IActionResult> GetAllMoleImages()
+        {
+            var moleImages = await _context.MoleImages.ToListAsync();
+            return Ok(moleImages);
+        }
+
+        // PUT: api/moleimage/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateMoleImage(int id, MoleImage updatedMoleImage)
+        {
+            if (id != updatedMoleImage.MoleImageID)
+            {
+                return BadRequest("MoleImage ID mismatch.");
+            }
+
+            var moleImage = await _context.MoleImages.FindAsync(id);
+            if (moleImage == null)
+            {
+                return NotFound();
+            }
+
+            moleImage.FileName = updatedMoleImage.FileName;
+            moleImage.FilePath = updatedMoleImage.FilePath;
+            moleImage.Url = updatedMoleImage.Url;
+            moleImage.ThumbnailUrl = updatedMoleImage.ThumbnailUrl;
+            moleImage.AnalysisResults = updatedMoleImage.AnalysisResults;
+            moleImage.UploadedAt = updatedMoleImage.UploadedAt;
+
+            _context.MoleImages.Update(moleImage);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: api/moleimage/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMoleImage(int id)
         {
             var moleImage = await _context.MoleImages.FindAsync(id);
             if (moleImage == null)
-                return NotFound("Metadata not found for this image.");
+            {
+                return NotFound();
+            }
 
-            return Ok(moleImage);
+            _context.MoleImages.Remove(moleImage);
+            await _context.SaveChangesAsync();
+
+            if (System.IO.File.Exists(moleImage.FilePath))
+            {
+                System.IO.File.Delete(moleImage.FilePath);
+            }
+
+            return NoContent();
+        }
+
+        // DELETE: api/moleimage
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAllMoleImages()
+        {
+            var moleImages = _context.MoleImages.ToList();
+
+            if (!moleImages.Any())
+                return NotFound("No mole images to delete.");
+
+            _context.MoleImages.RemoveRange(moleImages);
+            await _context.SaveChangesAsync();
+
+            foreach (var moleImage in moleImages)
+            {
+                if (System.IO.File.Exists(moleImage.FilePath))
+                {
+                    System.IO.File.Delete(moleImage.FilePath);
+                }
+            }
+
+            return Ok("All mole images have been deleted.");
         }
     }
 }

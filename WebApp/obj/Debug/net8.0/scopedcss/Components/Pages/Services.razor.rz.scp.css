@@ -1,4 +1,4 @@
-.upgrade-container[b-h1vju6sv5k] {
+.upgrade-container[b-ji6fynkn3w] {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,7 @@
     margin-top: 3%;
 }
 
-.upgrade-card[b-h1vju6sv5k] {
+.upgrade-card[b-ji6fynkn3w] {
     background-color: white;
     border-radius: 12px;
     padding: 30px;
@@ -17,28 +17,28 @@
     text-align: center;
 }
 
-.upgrade-card h1[b-h1vju6sv5k] {
+.upgrade-card h1[b-ji6fynkn3w] {
     font-size: 2rem;
     color: #004085;
     margin-bottom: 10px;
     font-weight: bolder;
 }
 
-.upgrade-card p[b-h1vju6sv5k] {
+.upgrade-card p[b-ji6fynkn3w] {
     font-size: 1rem;
     color: #555;
     margin-bottom: 20px;
     font-weight: bold;
 }
 
-.plan-options[b-h1vju6sv5k] {
+.plan-options[b-ji6fynkn3w] {
     display: flex;
     justify-content: space-between;
     gap: 20px;
     margin-bottom: 30px;
 }
 
-.plan[b-h1vju6sv5k] {
+.plan[b-ji6fynkn3w] {
     background-color: #f2f2f2;
     border-radius: 8px;
     padding: 20px;
@@ -48,35 +48,35 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.plan:hover[b-h1vju6sv5k] {
+.plan:hover[b-ji6fynkn3w] {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.plan h2[b-h1vju6sv5k] {
+.plan h2[b-ji6fynkn3w] {
     font-size: 1.5rem;
     color: #004085;
     margin-bottom: 10px;
 }
 
-.plan p[b-h1vju6sv5k] {
+.plan p[b-ji6fynkn3w] {
     font-size: 1.2rem;
     color: #555;
     margin-bottom: 20px;
 }
 
-.plan .btn[b-h1vju6sv5k] {
+.plan .btn[b-ji6fynkn3w] {
     width: 100%;
     padding: 10px 0;
     border-radius: 6px;
 }
 
-.popular[b-h1vju6sv5k] {
+.popular[b-ji6fynkn3w] {
     background-color: #fff5dd;
     border: 2px solid #ffb703;
 }
 
-.ribbon[b-h1vju6sv5k] {
+.ribbon[b-ji6fynkn3w] {
     position: absolute;
     border-radius: 5px;
     top: 0;
@@ -89,41 +89,41 @@
     border-bottom-left-radius: 8px;
 }
 
-.payment-method[b-h1vju6sv5k] {
+.payment-method[b-ji6fynkn3w] {
     margin-bottom: 20px;
 }
 
-.payment-method h3[b-h1vju6sv5k] {
+.payment-method h3[b-ji6fynkn3w] {
     font-size: 1.2rem;
     color: #004085;
     margin-bottom: 10px;
     font-weight: bolder;
 }
 
-.payment-method p[b-h1vju6sv5k] {
+.payment-method p[b-ji6fynkn3w] {
     font-size: 1rem;
     color: #555;
     margin-bottom: 20px;
 }
 
-.payment-method .payment-icons[b-h1vju6sv5k] {
+.payment-method .payment-icons[b-ji6fynkn3w] {
     display: flex;
     justify-content: center;
     gap: 20px;
 }
 
-.payment-method .payment-icons img[b-h1vju6sv5k] {
+.payment-method .payment-icons img[b-ji6fynkn3w] {
     width: 50px;
     height: auto;
     filter: grayscale(100%);
     transition: filter 0.3s ease;
 }
 
-.payment-method .payment-icons img:hover[b-h1vju6sv5k] {
+.payment-method .payment-icons img:hover[b-ji6fynkn3w] {
     filter: none;
 }
 
-.proceed-btn[b-h1vju6sv5k] {
+.proceed-btn[b-ji6fynkn3w] {
     width: 100%;
     padding: 15px;
     font-size: 1rem;
@@ -132,7 +132,7 @@
 }
 
 /* Highlight Selected Plan */
-.plan.selected[b-h1vju6sv5k] {
+.plan.selected[b-ji6fynkn3w] {
     border: 3px solid #4caf50; /* Green border for selection */
     transform: translateY(-5px) scale(1.05); /* Slight lift and scaling effect */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
@@ -140,41 +140,93 @@
 }
 
 /* Hover Effect (Unselected Plans Only) */
-.plan:hover:not(.selected)[b-h1vju6sv5k] {
+.plan:hover:not(.selected)[b-ji6fynkn3w] {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Proceed Button */
-.proceed-btn.disabled[b-h1vju6sv5k] {
+.proceed-btn.disabled[b-ji6fynkn3w] {
     background-color: #dcdcdc; /* Light gray for disabled state */
     color: #888; /* Muted text color */
     cursor: not-allowed; /* Indicate disabled state */
     pointer-events: none; /* Prevent interaction */
 }
 
-.proceed-btn:not(.disabled)[b-h1vju6sv5k] {
+.proceed-btn:not(.disabled)[b-ji6fynkn3w] {
     background-color: #28a745; /* Active green */
     color: #fff;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.proceed-btn:not(.disabled):hover[b-h1vju6sv5k] {
+.proceed-btn:not(.disabled):hover[b-ji6fynkn3w] {
     background-color: #218838; /* Darker green on hover */
     transform: scale(1.02); /* Slight scale effect */
 }
 
 /* Payment Method Icons */
-.payment-icons img[b-h1vju6sv5k] {
+.payment-icons img[b-ji6fynkn3w] {
     opacity: 0.5; /* Default state */
     cursor: pointer;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.payment-icons img.active[b-h1vju6sv5k] {
+.payment-icons img.active[b-ji6fynkn3w] {
     opacity: 1; /* Fully visible */
     transform: scale(1.1); /* Slight scale effect for active icon */
     filter: none; /* Remove grayscale */
+}
+
+/* Styles for the error message */
+.error-message[b-ji6fynkn3w] {
+    color: #ff4d4d; /* Red color for error */
+    background-color: #ffe6e6; /* Light red background */
+    border: 1px solid #ff4d4d; /* Red border */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+    font-family: 'Arial', sans-serif;
+}
+
+.error-message a[b-ji6fynkn3w] {
+    color: #ff4d4d; /* Red color for links */
+    text-decoration: none; 
+}
+
+.error-message :hover[b-ji6fynkn3w]{
+    color: #b40000; /* Red color for links */
+    text-decoration: underline; 
+}
+
+/* Styles for the not-logged-in message */
+.not-logged-in-message[b-ji6fynkn3w] {
+    color: #333; /* Dark gray color */
+    background-color: #f0f0f0; /* Light gray background */
+    border: 1px solid #ccc; /* Gray border */
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+    font-family: 'Arial', sans-serif;
+}
+
+.not-logged-in-message h2[b-ji6fynkn3w] {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.not-logged-in-message a[b-ji6fynkn3w] {
+    color: inherit; /* Blue color for link */
+    text-decoration: none; /* Remove underline from link */
+}
+
+.not-logged-in-message a:hover[b-ji6fynkn3w] {
+    text-decoration: underline; /* Underline on hover */
+    color: #005a70;
 }
 
 

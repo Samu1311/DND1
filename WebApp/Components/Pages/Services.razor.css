@@ -177,4 +177,56 @@
     filter: none; /* Remove grayscale */
 }
 
+/* Styles for the error message */
+.error-message {
+    color: #ff4d4d; /* Red color for error */
+    background-color: #ffe6e6; /* Light red background */
+    border: 1px solid #ff4d4d; /* Red border */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+    font-family: 'Arial', sans-serif;
+}
+
+.error-message a {
+    color: #ff4d4d; /* Red color for links */
+    text-decoration: none; 
+}
+
+.error-message :hover{
+    color: #b40000; /* Red color for links */
+    text-decoration: underline; 
+}
+
+/* Styles for the not-logged-in message */
+.not-logged-in-message {
+    color: #333; /* Dark gray color */
+    background-color: #f0f0f0; /* Light gray background */
+    border: 1px solid #ccc; /* Gray border */
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+    font-family: 'Arial', sans-serif;
+}
+
+.not-logged-in-message h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.not-logged-in-message a {
+    color: inherit; /* Blue color for link */
+    text-decoration: none; /* Remove underline from link */
+}
+
+.not-logged-in-message a:hover {
+    text-decoration: underline; /* Underline on hover */
+    color: #005a70;
+}
+
 
