@@ -11,3 +11,5 @@ VIA University College - DND1 Course Project
 - [Project Formulation & Requirements](./HandIns/Project_Formulation_and_Requirements.md)
 - [Web Service API - Initial development](./HandIns/Web_Service.md)
 - [Web App - Initial GUI Development](./HandIns/WebApplication_GUI.md)
+- [Database Implementation - Based on EF Core](./HandIns/DatabaseImplementation.md)
+- [Final Post - Project Closure & Conclusions](./HandIns/FinalPost.md)
