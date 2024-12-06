@@ -2,52 +2,83 @@
 
 ## Project Formulation
 
-### Mobile Health App for Skin and Medical Image Analysis
+### HealthTrack+: A Comprehensive Health Monitoring Solution
 
-This mobile app will be developed to help patients track changes in their skin's appearance, particularly in monitoring moles, lesions, or other skin conditions, as well as enabling the user to analyze medical images such as MRI or CT scans.
-
-The goal is to empower users with tools that can track potential skin-related health issues over time and help with preliminary analysis of medical scans, enabling early detection and more informed doctor visits.
+HealthTrack+ is a sophisticated application developed to empower individuals in monitoring their health through innovative tools such as mole tracking, medical image analysis, and health alerts. Initially conceptualized as a mobile health app, it has evolved into a robust platform leveraging web technologies to provide seamless, secure, and user-friendly access across devices.
 
 ### Core Features:
+
 1. **Mole and Lesion Tracking**:
-   - Allow users to take pictures of their moles or lesions regularly.
-   - Track changes in size, shape, and color over time.
-   - Store previous images for comparison.
+   - Enable users to capture and save pictures of moles or lesions regularly.
+   - Track changes in size, shape, and color over time using AI-driven analysis.
+   - Store previous images for visual comparison and trend monitoring.
 
 2. **Medical Image Analysis**:
-   - Allow users to upload or take a picture of MRI or CT scans.
-   - Use image processing to identify and highlight areas of interest.
+   - Allow users to upload or capture MRI, X-ray, or CT scans.
+   - Perform advanced image processing using machine learning to highlight areas of potential concern.
+   - Provide visual feedback, such as highlighting regions of interest in scans.
 
 3. **Health Alerts**:
-   - Send alerts if significant changes in skin or medical images are detected.
-   - Provide reminders to regularly check or update mole tracking images.
+   - Notify users about significant changes detected in mole tracking or medical scans.
+   - Issue reminders for regular health checks and updates.
+   - Include actionable educational alerts on skin health and medical imaging.
 
 4. **Data Privacy and Security**:
-   - Ensure all images and personal health data are encrypted and stored securely.
-   - Allow users to share their analysis results directly with healthcare providers securely.
+   - Encrypt and securely store all health-related data, including images and reports.
+   - Allow users to share analysis results securely with healthcare providers.
+
+5. **Emergency Contact Integration**:
+   - Include a quick-access emergency contact feature for urgent situations.
+   - Enable users to store and manage emergency contact details.
+
+---
 
 ## Requirements
 
-### User Requirements (Non-Technical):
+### Technical and Functional Requirements
+
+#### User Requirements (Non-Technical):
+
 1. **User Interface and Usability**:
-   - Clear visual feedback: Display results and recommendations in a clear, non-technical format (e.g., green for no issues, yellow for changes detected, red for concerning changes).
-   - Registration: Users should be able to register with basic details (name, email, password).
-   - Accessibility: Users should be able to edit their profile and medical history information.
+   - Intuitive design with a focus on accessibility and clarity.
+   - Clear visual feedback: Provide analysis results in user-friendly formats (e.g., color-coded alerts: green for normal, yellow for changes, red for significant concerns).
+   - Profile management: Allow users to edit personal information, emergency contacts, and health details.
 
 2. **Image Capture and Storage**:
-   - Capture and save skin images: Users should be able to take a picture of a mole or lesion and save it for future analysis.
-   - Store image history: The app should maintain a history of captured images, enabling users to see how their mole or lesion has changed over time for comparison and tracking progression.
+   - Enable seamless image capture and upload for mole tracking and medical scans.
+   - Organize image history by date and category, ensuring easy comparison and tracking progression.
+   - Implement efficient local storage of images with metadata such as URL and thumbnails for privacy and optimization.
 
 3. **Medical Image Upload and Analysis**:
-   - Simple image upload: Users should be able to upload MRI or CT scan images directly from their phone or import them from other sources (e.g., emails, cloud storage).
-   - Automated analysis: The app should analyze MRI or CT images to detect potential areas of interest or abnormalities, marking them visually (e.g., circles or highlights on areas).
-   - Non-expert feedback: Provide results in a format that is understandable by non-experts, along with a recommendation to consult a doctor if needed.
+   - Simplify the upload process for MRI, X-ray, and CT scans.
+   - Integrate machine learning models to analyze medical images and detect abnormalities.
+   - Provide visual and textual feedback in an understandable format, alongside recommendations to consult healthcare professionals.
 
 4. **Health Alerts and Notifications**:
-   - Reminders for mole tracking: The app should notify users at regular intervals (e.g., every month) to retake images of their skin moles for consistent tracking.
-   - Alerts for significant changes: If the app detects a significant change in a mole’s size, shape, or color, or an anomaly in a medical image, it should alert the user immediately.
-   - Educational alerts: Send educational notifications about skin health, such as early signs of melanoma or tips on how to self-check for skin issues.
+   - Automatic reminders: Notify users to retake mole tracking images regularly (e.g., monthly intervals).
+   - Real-time alerts: Immediately notify users about significant changes detected by the app.
+   - Educational notifications: Share tips on skin self-checks, common imaging findings, and general health advice.
 
-5. **Data Privacy and Security**:
-   - Secure storage: Ensure all data, including images, are encrypted and stored securely.
-   - Controlled sharing: Provide users with options to securely share their results with healthcare professionals.
+5. **Emergency Features**:
+   - Provide a quick-access emergency button to contact the user’s pre-configured emergency contact.
+   - Display emergency contact details prominently within the app for easy access during crises.
+
+6. **Data Privacy and Security**:
+   - Enforce secure data encryption during storage and transmission.
+   - Ensure users have control over their data sharing preferences, including the ability to export or share results securely with healthcare providers.
+
+---
+
+### Technical Implementation Details
+
+#### Technologies Used:
+- **Blazor Server**: For a dynamic and interactive user interface on the web.
+- **ASP.NET Core Web API**: For handling backend logic, user management, and image processing tasks.
+- **EF Core with SQLite**: For efficient and secure data management, enabling seamless integration of user and health data.
+- **Machine Learning**: Leveraging libraries like OpenCV or Azure Cognitive Services for image analysis.
+- **Responsive Design Frameworks**: Utilizing Blazorise and Bootstrap for an optimized user experience across devices.
+
+#### Key Objectives:
+- Deliver a robust and scalable platform that can handle large datasets securely.
+- Ensure seamless user interactions through real-time feedback and notifications.
+- Continuously refine AI-driven analysis for accurate and reliable results.
