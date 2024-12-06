@@ -79,9 +79,6 @@ While all team members contributed to the project, most of the code appears as "
 3. **Security Is Non-Negotiable**:
    - Implementing best practices like password hashing and token-based authentication safeguarded user data.
 
-4. **Collaboration Is Key**:
-   - Clear role distribution among team members (CTO, CFO, CMO/COO, and Medicine Expert) ensured steady progress and a diverse skillset.
-
 ---
 
 ## Final Thoughts and Future Outlook
