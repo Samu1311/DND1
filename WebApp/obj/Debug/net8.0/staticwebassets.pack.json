@@ -61,6 +61,14 @@
       "PackagePath": "staticwebassets\\ProfilePictures\\82622ea2-9a61-4074-a82f-5911db89df23_thumb_doctor-facilier-profile.jpg"
     },
     {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\UploadedImages\\lunar-testeo.jpg",
+      "PackagePath": "staticwebassets\\UploadedImages\\lunar-testeo.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\UploadedImages\\lunar-testeo3.png",
+      "PackagePath": "staticwebassets\\UploadedImages\\lunar-testeo3.png"
+    },
+    {
       "Id": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
     },

@@ -1,58 +1,71 @@
 @page "/image-analysis"
 @inject IJSRuntime JSRuntime
 @inject IHttpClientFactory HttpClientFactory
-@using System.Text.Json
-@implements IDisposable
 
 <div class="image-analysis-container">
     <h1 class="page-title">Medical Image Analysis</h1>
     <p class="instructions">Upload your MRI or CT scans to preview and later send them for analysis.</p>
 
     <div class="upload-section">
-        <!-- Drag-and-drop area -->
         <div class="file-drop-box drag-drop-area">
             <p class="drop-text">Drag and drop your image here or click to select a file</p>
+            <InputFile id="fileInput" class="file-input" style="display: none;" OnChange="HandleFileChange" />
         </div>
 
         <div class="button-group">
-            <!-- Hidden InputFile for file selection -->
-            <InputFile id="fileInput" class="file-input" style="display: none;" OnChange="HandleFileChange" />
-            <button class="btn btn-reset" @onclick="Reset">Reset</button>
-            <button class="btn btn-upload" @onclick="UploadFile" disabled="@(!canUpload)">Upload</button>
+            <button class="btn btn-reset" type="button" @onclick="Reset">Reset</button>
+            <button class="btn btn-upload" type="button" @onclick="UploadFile" disabled="@(!canUpload)">Upload</button>
         </div>
     </div>
 
-    @if (isLoading)
-    {
-        <div>
-            <p>Uploading and analyzing image...</p>
-            <div class="spinner"></div>
-        </div>
-    }
-
+    <!-- Preview Section -->
     @if (!string.IsNullOrEmpty(previewImagePath))
     {
         <div>
             <h3>Preview:</h3>
-            <img src="@previewImagePath" alt="Uploaded scan preview" class="preview-image" />
+            <img src="@previewImagePath" alt="Preview of the selected image" class="preview-image" />
         </div>
     }
 
-    @if (!string.IsNullOrEmpty(uploadedImagePath))
+    <!-- Pop-Up Notification -->
+    @if (isPopUpVisible)
     {
-        <div>
-            <h3>Analyzed Image:</h3>
-            <img src="@uploadedImagePath" alt="Uploaded scan preview" class="preview-image" />
+        <div class="popup">
+            @if (popUpStage == "upload-success")
+            {
+                <p>Upload Successful!</p>
+            }
+            else if (popUpStage == "analyzing")
+            {
+                <p>Analyzing...</p>
+                <div class="spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- Analyzing Result -->
+    @if (showAnalyzedImage)
+    {
+        <div class="analyzing-result">
+            <h3>Analysis Successful</h3>
+            <img src="@analyzedImagePath" alt="Analyzed Image" class="preview-image" />
         </div>
     }
 </div>
 
 @code {
     private IBrowserFile? selectedFile;
-    private string? previewImagePath; // Path for previewing the image
-    private string? uploadedImagePath; // Path of the uploaded image
-    private bool isLoading = false;
-    private bool canUpload = false; // Indicates if the Upload button is enabled
+    private string? previewImagePath;
+    private string? analyzedImagePath;
+    private bool canUpload = false;
+
+    private bool isPopUpVisible = false;
+    private string popUpStage = "upload-success";
+    private bool showAnalyzedImage = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -64,84 +77,70 @@
 
     private async Task HandleFileChange(InputFileChangeEventArgs e)
     {
-        selectedFile = e.File; // Capture the selected file
-        Console.WriteLine($"File selected: {selectedFile.Name}");
+        selectedFile = e.File;
 
-        // Generate a preview for the uploaded image
-        using var stream = selectedFile.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024); // 10 MB limit
+        using var stream = selectedFile.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
         using var memoryStream = new MemoryStream();
         await stream.CopyToAsync(memoryStream);
-        previewImagePath = $"data:{selectedFile.ContentType};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
 
-        canUpload = true; // Enable the Upload button
-        StateHasChanged(); // Trigger UI update
+        previewImagePath = $"data:{selectedFile.ContentType};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
+        analyzedImagePath = previewImagePath; // Simulating analyzed image
+        canUpload = true;
+
+        Console.WriteLine("Preview image set successfully.");
+        StateHasChanged();
     }
 
     private async Task UploadFile()
-{
-    if (selectedFile == null)
     {
-        Console.WriteLine("No file selected for upload.");
-        return;
-    }
-
-    isLoading = true;
-
-    try
-    {
-        using var content = new MultipartFormDataContent();
-        var fileStream = selectedFile.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024); // 10 MB limit
-        content.Add(new StreamContent(fileStream), "file", selectedFile.Name);
-
-        using var httpClient = new HttpClient
+        if (selectedFile == null)
         {
-            BaseAddress = new Uri("http://localhost:5146/api/")
-        };
-
-        var response = await httpClient.PostAsync("ImageAnalysis/upload", content);
-
-        if (response.IsSuccessStatusCode)
-        {
-            var result = await response.Content.ReadFromJsonAsync<UploadResult>();
-            uploadedImagePath = result?.FilePath;
-            Console.WriteLine($"File uploaded successfully: {uploadedImagePath}");
+            Console.WriteLine("No file selected for upload.");
+            return;
         }
-        else
+
+        try
         {
-            Console.WriteLine($"File upload failed: {response.StatusCode}");
+            Console.WriteLine("Starting file upload...");
+
+            // Simulate file saving
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedImages", selectedFile.Name);
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+
+            using var fileStream = new FileStream(filePath, FileMode.Create);
+            await selectedFile.OpenReadStream().CopyToAsync(fileStream);
+
+            Console.WriteLine($"File saved locally at {filePath}");
+
+            // Display Pop-Up
+            isPopUpVisible = true;
+            popUpStage = "upload-success";
+            StateHasChanged();
+            await Task.Delay(500); // Wait 0.5 seconds
+
+            popUpStage = "analyzing";
+            StateHasChanged();
+            await Task.Delay(3000); // Wait 2 seconds
+
+            // Hide pop-up and show analyzed image
+            isPopUpVisible = false;
+            showAnalyzedImage = true;
+            previewImagePath = null;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error during file upload: {ex.Message}");
         }
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error during upload: {ex.Message}");
-    }
-    finally
-    {
-        isLoading = false;
-        StateHasChanged();
-    }
-}
-
 
     private void Reset()
     {
         selectedFile = null;
         previewImagePath = null;
-        uploadedImagePath = null;
+        analyzedImagePath = null;
         canUpload = false;
-        isLoading = false;
-
-        Console.WriteLine("Reset complete.");
-        StateHasChanged(); // Trigger UI update
-    }
-
-    public void Dispose()
-    {
-        // Cleanup if needed
-    }
-
-    private class UploadResult
-    {
-        public string? FilePath { get; set; }
+        isPopUpVisible = false;
+        showAnalyzedImage = false;
     }
 }
