@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SwT7Q1GDJALCq7NX1ebRqq4C5lsDDg+JQPsNG2Do8DY=",
+  "Hash": "zd91B5UsXevfbUj+H5u/vfPBbtD3SG3CE/NvLN1UT0s=",
   "Source": "WebApp",
   "BasePath": "_content/WebApp",
   "Mode": "Default",
@@ -2257,6 +2257,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\ProfilePictures\\82622ea2-9a61-4074-a82f-5911db89df23_thumb_doctor-facilier-profile.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\UploadedImages\\lunar-maligno (1).png",
+      "SourceId": "WebApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\",
+      "BasePath": "_content/WebApp",
+      "RelativePath": "UploadedImages/lunar-maligno (1).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadedImages\\lunar-maligno (1).png"
     },
     {
       "Identity": "C:\\Users\\Samuele Biondi\\Desktop\\DND1\\Course Project\\DND1\\WebApp\\wwwroot\\UploadedImages\\lunar-testeo.jpg",
