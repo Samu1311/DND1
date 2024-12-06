@@ -16,3 +16,20 @@ VIA University College - DND1 Course Project
 
 ## Video Demonstration of the APP
 - [Google Drive Hosted Video](https://drive.google.com/file/d/1QrVerWzoW3Q_Os3RLgQTbBcnD10RqFCk/view?usp=drive_link)
+
+## Testing Credentials:
+- ### Jakob Profile
+- *Email:* testing@gmail.com
+- *Password:* test123
+- ### Samuele Profile
+- *Email:* samuele@gmail.com
+- *Password:* samuele
+- ### Ana Profile
+- *Email:* ana@gmail.com
+- *Password:* anasofia
+- ### Eliza Profile
+- *Email:* eliza@gmail.com
+- *Password:* elizasmela
+- ### Eric Profile
+- *Email:* eric@gmail.com
+- *Password:* ericpinto
