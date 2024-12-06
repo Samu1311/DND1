@@ -13,3 +13,6 @@ VIA University College - DND1 Course Project
 - [Web App - Initial GUI Development](./HandIns/WebApplication_GUI.md)
 - [Database Implementation - Based on EF Core](./HandIns/DatabaseImplementation.md)
 - [Final Post - Project Closure & Conclusions](./HandIns/FinalPost.md)
+
+## Video Demonstration of the APP
+- [Google Drive Hosted Video](https://drive.google.com/file/d/1QrVerWzoW3Q_Os3RLgQTbBcnD10RqFCk/view?usp=drive_link)
